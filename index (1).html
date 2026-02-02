@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+
+<title> Daily Math Quiz – Mental Math Practice App </title>
+
+<meta name="description" content="Daily Math Quiz app for students and learners. Practice mental math, improve calculation speed, and solve timed math quizzes every day.">
+<meta name="keywords" content="daily math quiz, math quiz app, mental math quiz, math practice app, brain math quiz, timed math quiz, basic math quiz, math quiz for students">         
+<meta name="author" content="Daily Math Quiz App">
+
+<meta itemprop="name" content="Daily Math Quiz – Mental Math">
+<meta itemprop="description" content="Solve daily math quizzes and improve your mental calculation speed with simple and timed challenges.">
+  
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- ================== STRUCTURED DATA (JSON-LD) ================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Daily Math Quiz",
+  "operatingSystem": "Android",
+  "applicationCategory": "EducationalApplication",
+  "description": "Daily math quiz app to practice mental math, improve speed and accuracy.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  }
+}
+  </script>
+<style>
+/* ================= THEME ================= */
+:root{
+  --bg:#f7f8fa ;
+  --card:#f9fafb;
+  --card2:#ffffff;
+  --text:#000000;
+  --muted:#6b7280;
+  --puzzle:#9b8cff;
+  --math:#ff9f1a;
+  --green:#9BFF7A;
+  --radius:18px;
+  --radius-sm:14px;
+  --border:#e3e6ea;
+  --invite: #f0f3ff ;
+  --sk-base: #e6e8eb;
+  --sk-mid:  #f2f3f5;
+  --sk-speed: 1.3s ;
+}
+@media (prefers-color-scheme: dark) {
+:root{
+  --bg:#0f1115;
+  --card:#171a20;
+  --card2:#1d2129;
+  --text:#ffffff;
+  --muted:#9a9a9a;
+  --puzzle:#9b8cff;
+  --math:#ff9f1a;
+  --green:#9BFF7A;
+  --radius:18px;
+  --radius-sm:14px;
+  --border:#2f3750;
+  --sk-base: #1f2430;
+  --sk-mid:  #2a3140;
+  --sk-speed: 1.3s ;
+  }
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+a{text-decoration:none;color:inherit}
+
+.app{max-width:660px;margin:auto}
+
+/* ================= HEADER ================= */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  background:var(--card2);
+  border-bottom:1px solid var(--border);
+}
+
+.header-left{display:flex;gap:12px;align-items:center}
+.menu-btn{font-size:22px;opacity:.85}
+
+.notify-btn{
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--card);
+  border-radius:50%;
+  border:1px solid var(--border);
+}
+
+/* ================= SECTION ================= */
+section{padding:16px}
+
+.section-title{
+  margin:14px 0 10px;
+  font-size:11px;
+  letter-spacing:2px;
+  color:var(--muted);
+}
+
+.section-title::after{
+  content:'';
+  width:36px;height:2px;
+  background:var(--border);
+  display:block;margin-top:6px;
+}
+
+/* ================= HORIZONTAL ================= */
+.h-scroll{
+  display:flex;gap:12px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+}
+.h-scroll::-webkit-scrollbar{display:none}
+
+/* ================= STATUS ================= */
+.status-box{
+  min-width:60px;height:60px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--card2);
+  border:1px solid var(--border);
+  scroll-snap-align:start;
+}
+.status-box i{font-size:22px}
+
+/* ================= CHALLENGE ================= */
+.challenge-card{
+  min-width:160px;
+  padding:16px 22px;
+  border-radius:var(--radius);
+  background:var(--card2);
+  display:flex;justify-content:space-between;align-items:center;
+  font-weight:700;
+  scroll-snap-align:start;
+}
+.challenge-card:active{transform:scale(.96)}
+.challenge-card.puzzle{color:var(--puzzle)}
+.challenge-card.math{color:var(--math)}
+.challenge-card.active{
+  background:linear-gradient(135deg,#222736,#1a1e2a);
+  border:1px solid var(--border);
+}
+
+/* ================= TOPIC ================= */
+.topic-card{
+  background:var(--card2);
+  border-radius:var(--radius);
+  padding:18px;
+  display:flex;gap:14px;
+  border:1px solid var(--border);
+}
+.topic-card:active{transform:scale(.97)}
+
+.topic-card img{
+  width:90px;
+  aspect-ratio:1/1;
+  padding: 18px;
+  object-fit:contain;
+  border-radius:14px; 
+  background:var(--card); 
+  border:1px solid var(--border);
+}
+
+.text-mute{font-size:12px;color:var(--muted)}
+
+/* ================= SKELETON ================= */
+.img-skeleton{
+  background: linear-gradient( 90deg, var(--sk-base) 25%, var(--sk-mid) 37%, var(--sk-base) 63% );
+  background-size: 400% 100%;
+  animation: skeleton-loading var(--sk-speed) ease-in-out infinite;
+}
+
+/* Animation */
+@keyframes skeleton-loading{
+  0%{
+    background-position: 100% 0;
+  }
+  100%{
+    background-position: 0 0;
+  }
+}
+
+.challenge-skeleton{height:60px}
+.topic-skeleton{height:130px}
+.status-skeleton{border-radius:50%}
+
+/* ================= SHARE ================= */
+.share-card{
+  background:var(--card2);
+  border-radius:var(--radius);
+  padding:18px;
+  margin:40px 16px;
+  border:1px solid var(--border);
+  position:relative;
+}
+
+.actions{display:flex;gap:12px;margin-top:20px}
+
+.invite-btn{
+  flex:1;
+  border:2px solid var(--green);
+  background: var(--invite) ;
+  border-radius:var(--radius-sm);
+  padding:14px;
+  font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;
+}
+
+.copy-btn{
+  width:56px;height:56px;
+  border-radius:var(--radius-sm);
+  background: var(--card) ;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+
+.copy-btn.copied{background:var(--green);color:#000}
+.copy-btn span{
+  position:absolute;
+  bottom:-20px;
+  font-size:11px;
+  color:var(--green);
+  display:none;
+}
+.copy-btn.copied span{display:block}
+</style>
+</head>
+
+<body>
+<main class="app">
+
+<header>
+  <div class="header-left">
+    <i class="bi bi-list menu-btn"></i>
+    <h1 class="fs-4 m-0">Brain Trainer</h1>
+  </div>
+
+  <a href="notifications.html" class="notify-btn" aria-label="Notifications">
+    <i class="bi bi-bell"></i>
+  </a>
+</header>
+
+<section>
+  <div id="statusSection"></div>
+</section>
+
+<section>
+  <div class="section-title">TODAY'S CHALLENGE</div>
+  <div class="h-scroll" id="challengeContainer"></div>
+</section>
+
+<section id="topicContent"></section>
+
+<section class="share-card">
+  <h4>SHARE THE CHALLENGE</h4>
+  <p class="text-mute">Play with friends & earn together</p>
+
+  <div class="actions">
+    <div class="invite-btn" onclick="shareWhatsApp()">
+      <i class="bi bi-whatsapp"></i> INVITE
+    </div>
+    <div class="copy-btn" id="copyBtn" onclick="copyLink()">
+      <i class="bi bi-clipboard"></i>
+      <span>Copied</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const statusSection=document.getElementById("statusSection");
+const challengeContainer=document.getElementById("challengeContainer");
+const topicContent=document.getElementById("topicContent");
+let sprintData={};
+
+/* ---------- SKELETON INIT ---------- */
+statusSection.innerHTML=`
+<div class="h-scroll">
+${Array(6).fill(0).map(()=>`<div class="status-box img-skeleton status-skeleton"></div>`).join('')}
+</div>`;
+
+challengeContainer.innerHTML=
+Array(3).fill(0).map(()=>`<div class="challenge-card img-skeleton challenge-skeleton"></div>`).join('');
+
+topicContent.innerHTML=
+Array(4).fill(0).map(()=>`<div class="topic-card img-skeleton topic-skeleton mb-3"></div>`).join('');
+
+/* ---------- STATUS ---------- */
+fetch('https://sparrow-tech06.github.io/Figgy/data/status.json')
+.then(r=>r.json())
+.then(d=>{
+  const row=document.createElement('div');
+  row.className='h-scroll';
+  d.forEach(s=>{
+    row.innerHTML+=`
+    <a href="${s.link}" class="status-box">
+      <i class="bi ${s.icon}"></i>
+    </a>`;
+  });
+  statusSection.innerHTML='';
+  statusSection.appendChild(row);
+})
+.catch(()=>statusSection.innerHTML='<p class="text-center text-muted">Failed to load</p>');
+
+/* ---------- SPRINT ---------- */
+fetch('https://sparrow-tech06.github.io/Figgy/data/sprint.json')
+.then(r=>r.json())
+.then(data=>{
+  sprintData=data;
+  challengeContainer.innerHTML='';
+  buildChallenges();
+})
+.catch(()=>{
+  topicContent.innerHTML='<p class="text-center text-muted py-5"> Something want wrong </p>';
+});
+
+function buildChallenges(){
+  Object.keys(sprintData).forEach((k,i)=>{
+    const c=sprintData[k];
+    const div=document.createElement('div');
+    div.className=`challenge-card ${c.color} ${i===0?'active':''}`;
+    div.innerHTML=`${k.toUpperCase()} <i class="bi bi-play-fill"></i>`;
+    div.onclick=()=>renderTopics(k);
+    challengeContainer.appendChild(div);
+    if(i===0) renderTopics(k);
+  });
+}
+
+function renderTopics(type){
+  topicContent.innerHTML='';
+  sprintData[type].topics.forEach(t=>{
+    topicContent.innerHTML+=`
+    <a href="${t.link}" class="topic-card mb-3">
+      <div class="flex-grow-1">
+        <small class="text-secondary">${t.label}</small>
+        <h5>${t.title}</h5>
+        <p class="text-mute">${t.desc}</p>
+      </div>
+      <img src="${t.image}" loading="lazy"
+       class="img-skeleton"
+       onload="this.classList.remove('img-skeleton')">
+    </a>`;
+  });
+}
+
+/* ---------- SHARE ---------- */
+const shareText="🔥 Join me on Brain Trainer 👉 https://example.com";
+
+function shareWhatsApp(){
+  window.open("https://wa.me/?text="+encodeURIComponent(shareText));
+}
+function copyLink(){
+  navigator.clipboard.writeText(shareText).then(()=>{
+    copyBtn.classList.add("copied");
+    setTimeout(()=>copyBtn.classList.remove("copied"),1500);
+  });
+}
+</script>
+</body>
+</html>

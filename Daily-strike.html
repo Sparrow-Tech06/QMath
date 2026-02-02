@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily Strike</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0f1115;
+  --card:#1a1d23;
+  --accent:#ff9f1c;
+  --coin:#4da3ff;
+  --text:#eaeaea;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:system-ui;
+}
+
+.card-ui{
+  width:100%;
+  max-width:380px;
+  background:var(--card);
+  border-radius:20px;
+  padding:40px 24px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,.5);
+}
+
+.streak-box{
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  background:radial-gradient(circle,#2a2f38,#12141a);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  margin:0 auto 30px;
+  box-shadow:0 0 30px rgba(255,159,28,.25);
+}
+
+.streak-number{
+  font-size:56px;
+  font-weight:800;
+}
+
+.streak-label{
+  font-size:13px;
+  letter-spacing:1px;
+  opacity:.7;
+}
+
+.btn-strike{
+  width:100%;
+  height:56px;
+  border-radius:14px;
+  font-size:17px;
+  font-weight:700;
+  background:var(--accent);
+  border:none;
+  color:#000;
+}
+
+.btn-strike:disabled{
+  background:#444;
+  color:#aaa;
+}
+
+.btn-coin{
+  width:100%;
+  height:52px;
+  border-radius:14px;
+  margin-top:14px;
+  background:transparent;
+  border:2px solid var(--coin);
+  color:var(--coin);
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card-ui">
+
+  <div class="streak-box">
+    <div class="streak-number" id="streak">1</div>
+    <div class="streak-label">DAYS STREAK</div>
+  </div>
+
+  <button class="btn-strike" id="strikeBtn">STRIKE</button>
+  <button class="btn-coin" onclick="getCoin(10)">GET COIN</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://sparrow-tech06.github.io/Figgy/coin/get-coin.js"></script>
+
+<script>
+const streakEl = document.getElementById("streak");
+const btn = document.getElementById("strikeBtn");
+
+const today = new Date().toDateString();
+const lastDate = localStorage.getItem("strikeDate");
+
+let streak = parseInt(localStorage.getItem("strikeCount")) || 1;
+streakEl.innerText = streak;
+
+if(lastDate === today){
+  btn.disabled = true;
+  btn.innerText = "Come back tomorrow";
+}
+
+btn.onclick = () => {
+  streak++;
+  localStorage.setItem("strikeCount", streak);
+  localStorage.setItem("strikeDate", today);
+
+  streakEl.innerText = streak;
+  btn.disabled = true;
+  btn.innerText = "Come back tomorrow";
+
+  confetti({
+    particleCount:160,
+    spread:90,
+    origin:{ y:0.6 }
+  });
+
+  // reward callback
+  getCoin(10, "Daily Strike");
+};
+</script>
+
+</body>
+</html>
