@@ -316,7 +316,7 @@ topicContent.innerHTML=
 Array(4).fill(0).map(()=>`<div class="topic-card img-skeleton topic-skeleton mb-3"></div>`).join('');
 
 /* ---------- STATUS ---------- */
-fetch('https://sparrow-tech06.github.io/Figgy/data/status.json')
+fetch('https://sparrow-tech06.github.io/QMath/data/status.json')
 .then(r=>r.json())
 .then(d=>{
   const row=document.createElement('div');
@@ -333,7 +333,7 @@ fetch('https://sparrow-tech06.github.io/Figgy/data/status.json')
 .catch(()=>statusSection.innerHTML='<p class="text-center text-muted">Failed to load</p>');
 
 /* ---------- SPRINT ---------- */
-fetch('https://sparrow-tech06.github.io/Figgy/data/sprint.json')
+fetch('https://sparrow-tech06.github.io/QMath/data/sprint.json')
 .then(r=>r.json())
 .then(data=>{
   sprintData=data;
