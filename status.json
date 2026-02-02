@@ -1,0 +1,5 @@
+[
+  { "title":"Coins", "icon":"bi-coin", "link":"coin/my-coin.html" },
+  { "title":"Level", "icon":"bi-bar-chart", "link":"level.html" },
+  { "title":"Streak", "icon":"bi-fire", "link":"status/Daily-strike.html" }
+]

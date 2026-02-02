@@ -1,0 +1,82 @@
+{
+  "puzzle": {
+    "color": "puzzle",
+    "topics": [
+      {
+        "label": "PUZZLE",
+        "title": "SPRINT DUELS",
+        "desc": "Classic puzzle sprint – 1 minute",
+        "image": "https://cdn-icons-png.flaticon.com/512/2103/2103652.png",
+        "link": "games/sprint.html?game=sprint&title=Sprint Challenge&subtitle=Speed Matters"
+      },
+      {
+        "label": "PUZZLE",
+        "title": "PATTERN RUSH",
+        "desc": "Find patterns quickly",
+        "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
+        "link": "puzzle/pattern.html"
+      },
+      {
+        "label": "PUZZLE",
+        "title": "BLOCK MATCH",
+        "desc": "Match blocks under pressure",
+        "image": "https://cdn-icons-png.flaticon.com/512/1048/1048953.png",
+        "link": "menu.html?game=puzzle"
+      }
+    ]
+  },
+
+  "math": {
+    "color": "math",
+    "topics": [
+      {
+        "label": "MATH",
+        "title": "SPRINT DUELS",
+        "desc": "Fast math in 60 seconds",
+        "image": "https://cdn-icons-png.flaticon.com/512/2896/2896418.png",
+        "link": "math-sprint.html"
+      },
+      {
+        "label": "MATH",
+        "title": "TABLE SPEED",
+        "desc": "Multiplication speed test",
+        "image": "https://cdn-icons-png.flaticon.com/512/942/942748.png",
+        "link": "math-table.html"
+      },
+      {
+        "label": "MATH",
+        "title": "CALC DASH",
+        "desc": "Quick calculations",
+        "image": "https://cdn-icons-png.flaticon.com/512/3022/3022251.png",
+        "link": "math-calc.html"
+      },
+      {
+        "label": "MATH",
+        "title": "NUMBER RACE",
+        "desc": "Race with numbers",
+        "image": "https://cdn-icons-png.flaticon.com/512/3898/3898150.png",
+        "link": "math-race.html"
+      }
+    ]
+  },
+
+  "logic": {
+    "color": "puzzle",
+    "topics": [
+      {
+        "label": "LOGIC",
+        "title": "LOGIC SPRINT",
+        "desc": "Logical reasoning test",
+        "image": "https://cdn-icons-png.flaticon.com/512/1686/1686815.png",
+        "link": "logic-sprint.html"
+      },
+      {
+        "label": "LOGIC",
+        "title": "BRAIN WIRES",
+        "desc": "Connect logic paths",
+        "image": "https://cdn-icons-png.flaticon.com/512/4712/4712109.png",
+        "link": "logic-brain.html"
+      }
+    ]
+  }
+}
