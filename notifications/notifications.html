@@ -21,6 +21,7 @@ body{font-family:'Nunito',sans-serif;background:var(--body-bg)}
 --text-color:#000;
 --card:#fff;
 --header:#fff;
+--border:#e3e6ea;
 }
 @media (prefers-color-scheme: dark){
 :root{
@@ -28,6 +29,7 @@ body{font-family:'Nunito',sans-serif;background:var(--body-bg)}
 --text-color:#fff;
 --card:#1d2129;
 --header:#1d2129;
+--border:#2f3750;
 }
 }
 
@@ -47,11 +49,11 @@ border-radius:50%;
 
 /* Notification */
 .notification-card{
-border:none;
 border-radius:10px;
 transition:.2s;
 background:var(--card);
 cursor:pointer;
+border: 1px solid var(--border) ;
 }
 .notification-card:hover{
 transform:scale(.98);
