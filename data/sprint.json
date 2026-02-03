@@ -31,11 +31,18 @@
     "topics": [
       {
         "label": "MATH",
-        "title": "SPRINT DUELS",
+        "title": "SUM SPRINT",
         "desc": "Fast math in 60 seconds",
         "image": "https://cdn-icons-png.flaticon.com/512/2896/2896418.png",
         "link": "math-sprint.html"
       },
+      {
+        "label": "MATH",
+        "title": "DIFF DASH",
+        "desc": "Race with numbers",
+        "image": "https://cdn-icons-png.flaticon.com/512/3898/3898150.png",
+        "link": "math-race.html"
+      }
       {
         "label": "MATH",
         "title": "TABLE SPEED",
@@ -49,13 +56,6 @@
         "desc": "Quick calculations",
         "image": "https://cdn-icons-png.flaticon.com/512/3022/3022251.png",
         "link": "math-calc.html"
-      },
-      {
-        "label": "MATH",
-        "title": "NUMBER RACE",
-        "desc": "Race with numbers",
-        "image": "https://cdn-icons-png.flaticon.com/512/3898/3898150.png",
-        "link": "math-race.html"
       }
     ]
   },
