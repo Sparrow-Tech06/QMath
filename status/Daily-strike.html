@@ -9,7 +9,7 @@
 
 <style>
 :root{
-  --bg:#ffffff;
+  --bg:#f6f8fb;
   --card:#ffffff;
   --accent:#ff9f1c;
   --accent-soft:#fff1dc;
@@ -25,7 +25,6 @@ body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto;
 }
 
-/* Full screen app */
 .app{
   min-height:100vh;
   display:flex;
@@ -34,7 +33,6 @@ body{
   padding:20px;
 }
 
-/* Main surface */
 .surface{
   width:100%;
   max-width:420px;
@@ -42,12 +40,9 @@ body{
   border-radius:28px;
   padding:42px 26px;
   text-align:center;
- /* box-shadow:
-    0 10px 30px rgba(0,0,0,.06),
-    0 2px 8px rgba(0,0,0,.04);  */
+  box-shadow:0 12px 32px rgba(0,0,0,.06);
 }
 
-/* Streak circle */
 .streak-box{
   width:190px;
   height:190px;
@@ -73,7 +68,6 @@ body{
   color:var(--muted);
 }
 
-/* Strike button */
 .btn-strike{
   width:100%;
   height:60px;
@@ -83,17 +77,28 @@ body{
   background:var(--accent);
   border:none;
   color:#000;
-  transition:.2s ease;
-}
-
-.btn-strike:hover{
-  transform:translateY(-1px);
 }
 
 .btn-strike:disabled{
   background:#e5e7eb;
   color:#9ca3af;
-  transform:none;
+}
+
+/* 🎉 Confetti */
+.confetti{
+  position:fixed;
+  top:-10px;
+  width:10px;
+  height:10px;
+  opacity:.9;
+  animation:fall 2.8s linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:0;
+  }
 }
 </style>
 </head>
@@ -108,14 +113,11 @@ body{
       <div class="streak-label">DAYS STREAK</div>
     </div>
 
-    <button class="btn-strike" id="strikeBtn">
-      STRIKE TODAY
-    </button>
+    <button class="btn-strike" id="strikeBtn">STRIKE TODAY</button>
 
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="https://sparrow-tech06.github.io/QMath/coin/get-coin.js"></script>
 
 <script>
@@ -133,6 +135,22 @@ if(lastDate === today){
   btn.innerText = "COME BACK TOMORROW";
 }
 
+/* 🎉 Custom confetti */
+function launchConfetti(){
+  const colors = ["#ff9f1c","#34d399","#60a5fa","#f472b6"];
+
+  for(let i=0;i<50;i++){
+    const conf = document.createElement("div");
+    conf.className = "confetti";
+    conf.style.left = Math.random() * 100 + "vw";
+    conf.style.background = colors[Math.floor(Math.random()*colors.length)];
+    conf.style.animationDuration = (2 + Math.random()) + "s";
+    document.body.appendChild(conf);
+
+    setTimeout(() => conf.remove(), 3000);
+  }
+}
+
 btn.onclick = () => {
   streak++;
   localStorage.setItem("strikeCount", streak);
@@ -142,15 +160,7 @@ btn.onclick = () => {
   btn.disabled = true;
   btn.innerText = "COME BACK TOMORROW";
 
-  // Confetti
-  confetti({
-    particleCount:160,
-    spread:90,
-    startVelocity:40,
-    origin:{ y:0.6 }
-  });
-
-  // Reward
+  launchConfetti();
   getCoin(10, "Daily Strike");
 };
 </script>
