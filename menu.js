@@ -17,12 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
         <h1>${title}</h1>
         <p>${subtitle}</p>
 
-        <div class="opt">
+        <div class="optn">
           <span>⏱ Enable Timer</span>
           <input type="checkbox" id="mTimer" checked>
         </div>
 
-        <div class="opt">
+        <div class="optn">
           <span>🔊 Sound</span>
           <input type="checkbox" id="mSound" checked>
         </div>
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
       margin:0;
     }
 
-    .opt{
+    .optn {
       display:flex;
       justify-content:space-between;
       align-items:center;
