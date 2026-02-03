@@ -9,102 +9,114 @@
 
 <style>
 :root{
-  --bg:#0f1115;
-  --card:#1a1d23;
+  --bg:#ffffff;
+  --card:#ffffff;
   --accent:#ff9f1c;
-  --coin:#4da3ff;
-  --text:#eaeaea;
+  --accent-soft:#fff1dc;
+  --text:#1f2937;
+  --muted:#6b7280;
 }
 
 body{
+  margin:0;
   background:var(--bg);
   color:var(--text);
+  min-height:100vh;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
+}
+
+/* Full screen app */
+.app{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-family:system-ui;
+  padding:20px;
 }
 
-.card-ui{
+/* Main surface */
+.surface{
   width:100%;
-  max-width:380px;
+  max-width:420px;
   background:var(--card);
-  border-radius:20px;
-  padding:40px 24px;
+  border-radius:28px;
+  padding:42px 26px;
   text-align:center;
-  box-shadow:0 20px 40px rgba(0,0,0,.5);
+ /* box-shadow:
+    0 10px 30px rgba(0,0,0,.06),
+    0 2px 8px rgba(0,0,0,.04);  */
 }
 
+/* Streak circle */
 .streak-box{
-  width:160px;
-  height:160px;
+  width:190px;
+  height:190px;
   border-radius:50%;
-  background:radial-gradient(circle,#2a2f38,#12141a);
+  background:var(--accent-soft);
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  flex-direction:column;
-  margin:0 auto 30px;
-  box-shadow:0 0 30px rgba(255,159,28,.25);
+  margin:0 auto 36px;
+  border:3px solid var(--accent);
 }
 
 .streak-number{
-  font-size:56px;
+  font-size:64px;
   font-weight:800;
+  color:var(--accent);
 }
 
 .streak-label{
   font-size:13px;
-  letter-spacing:1px;
-  opacity:.7;
+  letter-spacing:1.2px;
+  color:var(--muted);
 }
 
+/* Strike button */
 .btn-strike{
   width:100%;
-  height:56px;
-  border-radius:14px;
-  font-size:17px;
+  height:60px;
+  border-radius:18px;
+  font-size:18px;
   font-weight:700;
   background:var(--accent);
   border:none;
   color:#000;
+  transition:.2s ease;
+}
+
+.btn-strike:hover{
+  transform:translateY(-1px);
 }
 
 .btn-strike:disabled{
-  background:#444;
-  color:#aaa;
-}
-
-.btn-coin{
-  width:100%;
-  height:52px;
-  border-radius:14px;
-  margin-top:14px;
-  background:transparent;
-  border:2px solid var(--coin);
-  color:var(--coin);
-  font-weight:600;
+  background:#e5e7eb;
+  color:#9ca3af;
+  transform:none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="card-ui">
+<div class="app">
+  <div class="surface">
 
-  <div class="streak-box">
-    <div class="streak-number" id="streak">1</div>
-    <div class="streak-label">DAYS STREAK</div>
+    <div class="streak-box">
+      <div class="streak-number" id="streak">1</div>
+      <div class="streak-label">DAYS STREAK</div>
+    </div>
+
+    <button class="btn-strike" id="strikeBtn">
+      STRIKE TODAY
+    </button>
+
   </div>
-
-  <button class="btn-strike" id="strikeBtn">STRIKE</button>
-  <button class="btn-coin" onclick="getCoin(10)">GET COIN</button>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<script src="https://sparrow-tech06.github.io/Figgy/coin/get-coin.js"></script>
+<script src="https://sparrow-tech06.github.io/QMath/coin/get-coin.js"></script>
 
 <script>
 const streakEl = document.getElementById("streak");
@@ -118,7 +130,7 @@ streakEl.innerText = streak;
 
 if(lastDate === today){
   btn.disabled = true;
-  btn.innerText = "Come back tomorrow";
+  btn.innerText = "COME BACK TOMORROW";
 }
 
 btn.onclick = () => {
@@ -128,18 +140,21 @@ btn.onclick = () => {
 
   streakEl.innerText = streak;
   btn.disabled = true;
-  btn.innerText = "Come back tomorrow";
+  btn.innerText = "COME BACK TOMORROW";
 
+  // Confetti
   confetti({
     particleCount:160,
     spread:90,
+    startVelocity:40,
     origin:{ y:0.6 }
   });
 
-  // reward callback
+  // Reward
   getCoin(10, "Daily Strike");
 };
 </script>
 
 </body>
 </html>
+
