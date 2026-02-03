@@ -34,28 +34,28 @@
         "title": "SUM SPRINT",
         "desc": "Fast math in 60 seconds",
         "image": "https://cdn-icons-png.flaticon.com/512/2896/2896418.png",
-        "link": "math-sprint.html"
+        "link": "games/sum-sprint.html"
       },
       {
         "label": "MATH",
         "title": "DIFF DASH",
         "desc": "Race with numbers",
         "image": "https://cdn-icons-png.flaticon.com/512/3898/3898150.png",
-        "link": "math-race.html"
+        "link": "games/math-race.html"
       }, 
       {
         "label": "MATH",
         "title": "TABLE SPEED",
         "desc": "Multiplication speed test",
         "image": "https://cdn-icons-png.flaticon.com/512/942/942748.png",
-        "link": "math-table.html"
+        "link": "games/math-table.html"
       },
       {
         "label": "MATH",
         "title": "CALC DASH",
         "desc": "Quick calculations",
         "image": "https://cdn-icons-png.flaticon.com/512/3022/3022251.png",
-        "link": "math-calc.html"
+        "link": "games/math-calc.html"
       }
     ]
   },
