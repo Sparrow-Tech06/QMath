@@ -29,9 +29,14 @@ body{
   padding:20px;
 }
 .q{
-  font-size:22px;
+  font-size:24px;
   font-weight:700;
-  margin-bottom:18px;
+  margin-bottom:30px ;
+  background: #9b8cff;
+  text-align: center ;
+  padding: 30px ;
+  Border-radius: 10px ;
+  color: #fff ;
 }
 #options{
   display:flex;
