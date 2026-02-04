@@ -34,28 +34,28 @@
         "title": "SUM SPRINT",
         "desc": "Fast math in 60 seconds",
         "image": "https://cdn-icons-png.flaticon.com/512/2896/2896418.png",
-        "link": "games/sum-sprint.html"
+        "link": "games/sum-sprint.html?game=sprint&title=Sprint Challenge&subtitle=Speed Matters"
       },
       {
         "label": "MATH",
         "title": "DIFF DASH",
         "desc": "Race with numbers",
         "image": "https://cdn-icons-png.flaticon.com/512/3898/3898150.png",
-        "link": "games/diff-dash.html"
+        "link": "games/diff-dash.html?game=sprint&title=Sprint Challenge&subtitle=Speed Matters"
       }, 
       {
         "label": "MATH",
         "title": "TABLE SPEED",
         "desc": "Multiplication speed test",
         "image": "https://cdn-icons-png.flaticon.com/512/942/942748.png",
-        "link": "games/math-table.html"
+        "link": "games/math-table.html?game=sprint&title=Sprint Challenge&subtitle=Speed Matters"
       },
       {
         "label": "MATH",
         "title": "CALC DASH",
         "desc": "Quick calculations",
         "image": "https://cdn-icons-png.flaticon.com/512/3022/3022251.png",
-        "link": "games/math-calc.html"
+        "link": "games/math-calc.html?game=sprint&title=Sprint Challenge&subtitle=Speed Matters"
       }
     ]
   },
