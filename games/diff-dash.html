@@ -146,17 +146,26 @@ function nextQuestion(){
   index++;
   progress.innerText = `Played: ${index} / ${total}`;
 
-  const a = Math.floor(Math.random()*10);
-  const b = Math.floor(Math.random()*10);
-  const ans = a + b;
+  let a = Math.floor(Math.random()*10);
+  let b = Math.floor(Math.random()*10);
 
-  question.innerText = `${a} + ${b} = ?`;
+  // 🔒 ensure non-negative answer
+  if(b > a){
+    [a, b] = [b, a];
+  }
+
+  const ans = a - b;
+
+  question.innerText = `${a} − ${b} = ?`;
   options.innerHTML = '';
 
   const correctPos = Math.floor(Math.random()*4);
 
   for(let i=0;i<4;i++){
-    const val = i === correctPos ? ans : ans + Math.floor(Math.random()*5) + 1;
+    const val = i === correctPos
+      ? ans
+      : ans + (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random()*4) + 1);
+
     const div = document.createElement('div');
     div.className = 'opt';
     div.innerText = val;
