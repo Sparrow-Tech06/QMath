@@ -1,1 +1,55 @@
-
+:root{
+  --bg:#ffffff;
+  --card:#f7f8fa;
+  --border:#e3e6ea;
+}
+body{
+  margin:0;
+  background:var(--bg);
+  font-family:'Segoe UI',Roboto,system-ui;
+}
+.game{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  padding:16px;
+}
+.top{
+  display:flex;
+  justify-content:space-between;
+  font-weight:600;
+  margin-bottom:12px;
+}
+.card{
+  flex:1;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+}
+.q{
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:18px;
+}
+#options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.opt{
+  flex:1 1 calc(50% - 12px);
+  border: 1px solid var(--border) ;
+  text-align: center ;
+}
+.opt:hover{
+  background:#f1f3f6;
+}
+.submit{
+  margin-top:14px;
+}
+.progress-text{
+  font-size:14px;
+  color:#6c757d;
+}
