@@ -41,6 +41,11 @@ body{
   font-size:48px;
   font-weight:800;
 }
+ img {
+   height: 90px; border: 2px solid #f7f8fa ;
+   width:90px ; border-radius: 50% ;
+   box-shadow: 
+ }
 </style>
 </head>
 
@@ -48,9 +53,9 @@ body{
 
 <div class="wrapper">
   <div class="card">
+    <img src="assets/picture/Trophy.png" draggable="false" loading="lazy">
     <div id="gameName" class="text-muted"></div>
     <div class="score" id="score"></div>
-    <img src="assets/picture/Trophy.svg">
     <div id="percent" class="text-muted mb-4"></div>
 
     <button class="btn btn-primary w-100" onclick="goBack()">Back to Menu</button>
