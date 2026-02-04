@@ -11,7 +11,7 @@ body{
 .game{
   max-width:520px;
   margin:auto;
-  min-height:100vh;
+  min-height: auto;
   display:flex;
   flex-direction:column;
   padding:16px;
@@ -55,9 +55,9 @@ body{
   background:#f1f3f6;
 }
 .submit{
-  margin-top:14px;
+  margin-top:80px;
 }
 .progress-text{
   font-size:14px;
-  color:#6c757d;
+  color:#fff ;
 }
