@@ -32,9 +32,9 @@
       {
         "label": "MATH",
         "title": "SUM SPRINT",
-        "desc": "Fast math in 60 seconds",
+        "desc": "Fast math in 30 seconds",
         "image": "https://cdn-icons-png.flaticon.com/512/2896/2896418.png",
-        "link": "games/sum-sprint.html?game=sprint&title=Sprint Challenge&subtitle=Speed Matters"
+        "link": "games/sum-sprint.html?game=Math&title=Sum Sprint&subtitle=Fast math in 30 seconds"
       },
       {
         "label": "MATH",
