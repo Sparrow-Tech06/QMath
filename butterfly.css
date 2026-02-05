@@ -5,6 +5,7 @@
   --primary: #f4f3ff ;
   --accent:#6f63ff;
   --text-color: #000 ;
+  --submit:#ffd54f ;
 }
 body{
   margin:0;
