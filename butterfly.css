@@ -3,7 +3,7 @@
   --card:#f7f8fa;
   --border:#e3e6ea;
   --primary: #4f46e5 ;
-  --acent:#6f63ff;
+  --accent:#6f63ff;
 }
 body{
   margin:0;
@@ -25,9 +25,10 @@ body{
   margin-bottom:12px;
 }
 .top > span {
-   background: var(--primary) ;
+   background: var(--accent) ;
    padding: 6px 10px ;
    Border-radius: 10px ;
+  font-size: 12px ;
 }
 .card{
   flex:1;
