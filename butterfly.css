@@ -30,7 +30,11 @@ body{
    background: var(--accent) ;
    padding: 6px 10px ;
    Border-radius: 10px ;
-  font-size: 12px ;
+   font-size: 12px ;
+   color: #fff ;
+}
+#timerBox {
+  
 }
 .card{
   flex:1;
