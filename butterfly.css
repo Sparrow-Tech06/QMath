@@ -66,9 +66,10 @@ body{
   padding:14px;
   text-align:center;
   cursor:pointer;
-  transition-duration: 0.3s ;
+ /* transition-duration: 0.3s ; */
+  transition: all .3s ease;
 }
-.opt:hover{
+.opt:active{
   background:#f1f3f6;
   transform: scale(0.98) ;
 }
@@ -85,3 +86,24 @@ body{
   outline: none ;
   padding: 16px ;
 }
+
+.opt-correct {
+  background: #d1fae5 !important;
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+}
+
+.opt-wrong {
+  background: #fee2e2 !important;
+  border-color: #ef4444 !important;
+  color: #7f1d1d !important;
+}
+
+.opt-disabled {
+  pointer-events: none;
+  opacity: .85;
+}
+
+
+
+
