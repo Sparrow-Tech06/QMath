@@ -107,8 +107,13 @@ function nextQuestion(){
     div.className = 'opt';
     div.innerText = opt;
 
+    let inputLocked = false;
     div.onclick = ()=>{
-      if(gameEnded) return;
+      if(gameEnded || inputLocked) return;
+      inputLocked = true;
+      options.querySelectorAll('.opt').forEach(opt=>{
+        opt.style.pointerEvents = 'none';
+      });
       if(soundOn) click.play();
 
       if(opt === q.answer){
@@ -117,9 +122,12 @@ function nextQuestion(){
       }else{
         if(soundOn) wrong.play();
       }
-      nextQuestion();
-    };
-
+      // ⏱ Delay before next question
+      setTimeout(() => {
+        inputLocked = false;
+        nextQuestion();
+          }, 600); // 600ms delay
+      };
     optionsBox.appendChild(div);
   });
 }
