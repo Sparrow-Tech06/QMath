@@ -6,6 +6,7 @@
 <title>No Captcha Game</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +17,7 @@
 
 <style>
 body{
-  font-family: 'Inter', sans-serif;
+  font-family:'Inter',sans-serif;
 }
 .game{
   min-height:100vh;
@@ -39,7 +40,19 @@ body{
   text-align:center;
   letter-spacing:6px;
   font-weight:700;
-  margin-bottom:10px;
+  margin-bottom:12px;
+}
+.eye-btn{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:20px;
+  cursor:pointer;
+  color:#6c757d;
+}
+.eye-btn:active{
+  transform:translateY(-50%) scale(.9);
 }
 </style>
 </head>
@@ -53,26 +66,24 @@ body{
     <span id="progress">Played: 0 / 20</span>
   </div>
 
-  <div class="card">
+  <div class="card position-relative">
 
-    <!-- CAPTCHA DISPLAY -->
+    <!-- CAPTCHA -->
     <div class="q" id="captchaBox">******</div>
 
-    <!-- INPUT -->
-    <input
-      type="text"
-      id="captchaInput"
-      class="form-control text-center"
-      placeholder="Enter 6 digit captcha"
-      maxlength="6"
-      autocomplete="off"
-      inputmode="numeric"
-    >
-
-    <!-- SHOW CAPTCHA -->
-    <button id="showBtn" class="btn btn-outline-secondary w-100 mt-3">
-      Show Captcha
-    </button>
+    <!-- INPUT WITH EYE ICON -->
+    <div class="position-relative">
+      <input
+        type="text"
+        id="captchaInput"
+        class="form-control text-center"
+        placeholder="Enter 6 digit captcha"
+        maxlength="6"
+        autocomplete="off"
+        inputmode="numeric"
+      >
+      <i class="bi bi-eye-fill eye-btn" id="eyeBtn"></i>
+    </div>
 
     <!-- NO TIMER SUBMIT -->
     <button id="submitBtn"
@@ -115,7 +126,7 @@ const progress = document.getElementById('progress');
 const submitBtn = document.getElementById('submitBtn');
 const captchaBox = document.getElementById('captchaBox');
 const captchaInput = document.getElementById('captchaInput');
-const showBtn = document.getElementById('showBtn');
+const eyeBtn = document.getElementById('eyeBtn');
 
 /* ===== TIMER ===== */
 if(timerOn){
@@ -130,7 +141,7 @@ if(timerOn){
   submitBtn.style.display = 'block';
 }
 
-/* ===== CAPTCHA LOGIC ===== */
+/* ===== CAPTCHA ===== */
 function generateCaptcha(){
   captcha = Math.floor(100000 + Math.random() * 900000).toString();
 }
@@ -178,11 +189,11 @@ captchaInput.addEventListener('input',()=>{
     if(soundOn) wrong.play();
   }
 
-  setTimeout(nextCaptcha, 600);
+  setTimeout(nextCaptcha,600);
 });
 
-/* ===== SHOW BUTTON ===== */
-showBtn.onclick = ()=>{
+/* ===== EYE ICON ===== */
+eyeBtn.onclick = ()=>{
   if(soundOn) click.play();
   showCaptcha();
 };
@@ -193,16 +204,10 @@ function endGame(manualSubmit){
   gameEnded = true;
   clearInterval(timerRef);
 
-  let allowReward = false;
-
-  if(timerOn){
-    allowReward = true;
-  }else{
-    allowReward = index === total;
-  }
+  let allowReward = timerOn ? true : index === total;
 
   if(allowReward){
-    localStorage.setItem('rewardKey', Date.now().toString());
+    localStorage.setItem('rewardKey',Date.now().toString());
   }
 
   localStorage.setItem('lastGame','No Captcha');
@@ -219,3 +224,4 @@ nextCaptcha();
 
 </body>
 </html>
+
