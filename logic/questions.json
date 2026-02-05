@@ -1,0 +1,27 @@
+[
+  {
+    "q": "Which number comes next? 2, 4, 8, 16, ?",
+    "options": [18, 24, 32, 20],
+    "answer": 32
+  },
+  {
+    "q": "Find the odd one out",
+    "options": ["2", "3", "5", "9"],
+    "answer": "9"
+  },
+  {
+    "q": "If 5 + 5 = 20, 6 + 6 = 24 then 7 + 7 = ?",
+    "options": [26, 28, 24, 30],
+    "answer": 28
+  },
+  {
+    "q": "A man walks 10 km north, then 10 km south. How far from start?",
+    "options": [0, 10, 20, 5],
+    "answer": 0
+  },
+  {
+    "q": "Which is missing? 1, 4, 9, 16, ?",
+    "options": [20, 24, 25, 30],
+    "answer": 25
+  }
+]
