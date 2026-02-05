@@ -1,59 +1,81 @@
-/* =========================================
-   Answer Feedback Layer (No Core Change)
-   ========================================= */
+/* ======================================================
+   Answer Feedback Module
+   Works without modifying game logic
+   ====================================================== */
 
 (function () {
 
-  // inject minimal CSS (auto)
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .opt.correct {
-      background: #d1fae5 !important;
-      border-color: #10b981 !important;
-      color: #065f46;
-      pointer-events: none;
-    }
-    .opt.wrong {
-      background: #fee2e2 !important;
-      border-color: #ef4444 !important;
-      color: #7f1d1d;
-      pointer-events: none;
-    }
-    .opt.disabled {
-      pointer-events: none;
-      opacity: .8;
-    }
-  `;
-  document.head.appendChild(style);
+  const CORRECT_CLASS = 'opt-correct';
+  const WRONG_CLASS   = 'opt-wrong';
+  const DISABLED_CLASS = 'opt-disabled';
 
-  // capture clicks globally
+  // 🔹 Utility: clear old colors
+  function resetOptions(container) {
+    container.querySelectorAll('.opt').forEach(opt => {
+      opt.classList.remove(CORRECT_CLASS, WRONG_CLASS, DISABLED_CLASS);
+    });
+  }
+
+  // 🔹 Detect correct answer from question text
+  function getCorrectAnswer() {
+    const q = document.getElementById('question');
+    if (!q) return null;
+
+    const text = q.innerText;
+
+    // Supports + − × ÷
+    const match = text.match(/(\d+)\s*([+\-×÷])\s*(\d+)/);
+    if (!match) return null;
+
+    const a = Number(match[1]);
+    const op = match[2];
+    const b = Number(match[3]);
+
+    switch (op) {
+      case '+': return a + b;
+      case '-': return a - b;
+      case '×': return a * b;
+      case '÷': return a / b;
+      default: return null;
+    }
+  }
+
+  // 🔹 Event Delegation
   document.addEventListener('click', function (e) {
     const opt = e.target.closest('.opt');
     if (!opt) return;
 
-    // prevent double tap
-    if (opt.classList.contains('disabled')) return;
+    const optionsBox = opt.parentElement;
+    if (!optionsBox) return;
 
-    const selectedValue = Number(opt.innerText.trim());
+    // prevent double click
+    if (opt.classList.contains(DISABLED_CLASS)) return;
 
-    // ⚠️ relies on global `answer` variable
-    if (typeof window.answer === 'undefined') return;
+    const selected = Number(opt.innerText);
+    const correct = getCorrectAnswer();
 
-    const all = opt.parentElement.querySelectorAll('.opt');
-    all.forEach(o => o.classList.add('disabled'));
+    if (correct === null) return;
 
-    if (selectedValue === window.answer) {
-      opt.classList.add('correct');
+    // lock all options
+    optionsBox.querySelectorAll('.opt').forEach(o =>
+      o.classList.add(DISABLED_CLASS)
+    );
+
+    if (selected === correct) {
+      opt.classList.add(CORRECT_CLASS);
     } else {
-      opt.classList.add('wrong');
-      // also highlight correct one
-      all.forEach(o => {
-        if (Number(o.innerText.trim()) === window.answer) {
-          o.classList.add('correct');
+      opt.classList.add(WRONG_CLASS);
+
+      // highlight correct one
+      optionsBox.querySelectorAll('.opt').forEach(o => {
+        if (Number(o.innerText) === correct) {
+          o.classList.add(CORRECT_CLASS);
         }
       });
     }
 
-  }, true);
+    // auto clear on next render
+    setTimeout(() => resetOptions(optionsBox), 300);
+  });
 
 })();
