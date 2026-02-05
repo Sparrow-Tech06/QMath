@@ -18,6 +18,13 @@
       },
       {
         "label": "PUZZLE",
+        "title": "PATTERN RUSH",
+        "desc": "Find patterns quickly",
+        "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
+        "link": "puzzle/pattern.html"
+      },
+      {
+        "label": "PUZZLE",
         "title": "BLOCK MATCH",
         "desc": "Match blocks under pressure",
         "image": "https://cdn-icons-png.flaticon.com/512/1048/1048953.png",
