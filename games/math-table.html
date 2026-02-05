@@ -12,63 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-<style>
-:root{
-  --bg:#ffffff;
-  --card:#f7f8fa;
-  --border:#e3e6ea;
-}
-body{
-  margin:0;
-  background:var(--bg);
-  font-family:'Segoe UI',Roboto,system-ui;
-}
-.game{
-  max-width:520px;
-  margin:auto;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  padding:16px;
-}
-.top{
-  display:flex;
-  justify-content:space-between;
-  font-weight:600;
-  margin-bottom:12px;
-}
-.card{
-  flex:1;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:20px;
-}
-.q{
-  font-size:22px;
-  font-weight:700;
-  margin-bottom:18px;
-}
-#options{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
-.opt{
-  flex:1 1 calc(50% - 12px);
-  border: 1px solid var(--border) ;
-  text-align: center ;
-}
-.opt:hover{
-  background:#f1f3f6;
-}
-.submit{
-  margin-top:14px;
-}
-.progress-text{
-  font-size:14px;
-  color:#6c757d;
-}
-</style>
+
 </head>
 
 <body>
@@ -146,17 +90,31 @@ function nextQuestion(){
   index++;
   progress.innerText = `Played: ${index} / ${total}`;
 
-  const a = Math.floor(Math.random()*10);
-  const b = Math.floor(Math.random()*10);
-  const ans = a + b;
+  // ===== MULTIPLICATION LOGIC =====
+  const a = Math.floor(Math.random() * 12) + 1; // 1–12
+  const b = Math.floor(Math.random() * 12) + 1; // 1–12
+  const answer = a * b;
 
-  question.innerText = `${a} + ${b} = ?`;
+  question.innerText = `${a} × ${b} = ?`;
   options.innerHTML = '';
 
-  const correctPos = Math.floor(Math.random()*4);
+  const correctPos = Math.floor(Math.random() * 4);
+  const used = new Set();
 
-  for(let i=0;i<4;i++){
-    const val = i === correctPos ? ans : ans + Math.floor(Math.random()*5) + 1;
+  for(let i = 0; i < 4; i++){
+    let val;
+
+    if(i === correctPos){
+      val = answer;
+    }else{
+      do{
+        // Nearby wrong answers
+        val = answer + (Math.floor(Math.random() * 10) - 5);
+      }while(val <= 0 || used.has(val) || val === answer);
+    }
+
+    used.add(val);
+
     const div = document.createElement('div');
     div.className = 'opt';
     div.innerText = val;
@@ -165,14 +123,16 @@ function nextQuestion(){
       if(gameEnded) return;
       if(soundOn) click.play();
 
-      if(val === ans){
+      if(val === answer){
         score++;
         if(soundOn) correct.play();
       }else{
         if(soundOn) wrong.play();
       }
+
       nextQuestion();
     };
+
     options.appendChild(div);
   }
 }
