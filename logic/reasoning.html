@@ -8,30 +8,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-*{font-family:Inter,sans-serif}
-body{background:#f6f7fb}
-.game{max-width:420px;margin:auto;padding:15px}
-.top{display:flex;justify-content:space-between;margin-bottom:10px}
-.card{border-radius:14px;padding:20px}
-.q{font-size:18px;font-weight:600;margin-bottom:15px}
-.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.opt{
-  border:1px solid #dee2e6;
-  padding:12px;
-  text-align:center;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:500;
-  background:#fff;
-}
-.opt:hover{background:#f1f3f5}
-.submit{margin-top:15px}
-</style>
+<link rel="stylesheet" href="../butterfly.css">
 </head>
 
 <body>
@@ -40,10 +18,10 @@ body{background:#f6f7fb}
 
   <div class="top">
     <span id="timerBox"></span>
-    <span id="progress">Played: 0 / 10</span>
+    <span class="progress-text" id="progress">Played: 0 / 0</span>
   </div>
 
-  <div class="card shadow-sm">
+  <div class="card">
     <div class="q" id="question">Loading...</div>
     <div id="options" class="options-grid"></div>
 
@@ -57,6 +35,8 @@ body{background:#f6f7fb}
 
 </div>
 
+<script src="../menu.js"></script>
+
 <script>
 /* ===== SETTINGS ===== */
 const timerOn = localStorage.getItem('timerOn') === '1';
@@ -68,21 +48,20 @@ const correct = new Howl({ src:['../assets/sound/correct.mp3'], volume:.6 });
 const wrong   = new Howl({ src:['../assets/sound/wrong.mp3'], volume:.6 });
 
 /* ===== STATE ===== */
-let time = 30;
+let time = 40;
 let score = 0;
 let index = 0;
-const total = 10;
+let total = 0;
 let timerRef = null;
 let gameEnded = false;
-
 let questions = [];
-let currentQ = null;
 
+/* ===== DOM ===== */
 const timerBox = document.getElementById('timerBox');
 const progress = document.getElementById('progress');
 const submitBtn = document.getElementById('submitBtn');
-const question = document.getElementById('question');
-const options = document.getElementById('options');
+const questionBox = document.getElementById('question');
+const optionsBox = document.getElementById('options');
 
 /* ===== TIMER ===== */
 if(timerOn){
@@ -98,12 +77,16 @@ if(timerOn){
 }
 
 /* ===== LOAD QUESTIONS ===== */
-async function loadQuestions(){
-  const res = await fetch('./questions.json');
-  questions = await res.json();
-}
+fetch('./questions.json')
+  .then(res => res.json())
+  .then(data => {
+    questions = data.sort(() => Math.random() - 0.5);
+    total = questions.length;
+    progress.innerText = `Played: 0 / ${total}`;
+    nextQuestion();
+  });
 
-/* ===== NEXT QUESTION ===== */
+/* ===== GAME LOGIC ===== */
 function nextQuestion(){
   if(gameEnded) return;
 
@@ -112,16 +95,14 @@ function nextQuestion(){
     return;
   }
 
+  const q = questions[index];
   index++;
+
   progress.innerText = `Played: ${index} / ${total}`;
+  questionBox.innerText = q.q;
+  optionsBox.innerHTML = '';
 
-  const qIndex = Math.floor(Math.random() * questions.length);
-  currentQ = questions[qIndex];
-
-  question.innerText = currentQ.q;
-  options.innerHTML = '';
-
-  currentQ.options.forEach(opt=>{
+  q.options.forEach(opt => {
     const div = document.createElement('div');
     div.className = 'opt';
     div.innerText = opt;
@@ -130,29 +111,29 @@ function nextQuestion(){
       if(gameEnded) return;
       if(soundOn) click.play();
 
-      if(opt == currentQ.answer){
+      if(opt === q.answer){
         score++;
         if(soundOn) correct.play();
       }else{
         if(soundOn) wrong.play();
       }
-
       nextQuestion();
     };
 
-    options.appendChild(div);
+    optionsBox.appendChild(div);
   });
 }
 
 /* ===== END GAME ===== */
-function endGame(manual){
+function endGame(manualSubmit){
   if(gameEnded) return;
   gameEnded = true;
   clearInterval(timerRef);
 
   let allowReward = timerOn || index === total;
+
   if(allowReward){
-    localStorage.setItem('rewardKey',Date.now().toString());
+    localStorage.setItem('rewardKey', Date.now().toString());
   }
 
   localStorage.setItem('lastGame','Math Reasoning');
@@ -162,12 +143,8 @@ function endGame(manual){
 
   location.replace('../result.html');
 }
-
-/* ===== START ===== */
-loadQuestions().then(()=>{
-  nextQuestion();
-});
 </script>
 
 </body>
 </html>
+
