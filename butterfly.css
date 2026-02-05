@@ -53,6 +53,7 @@ body{
   Border-radius: 10px ;
   color: var(--text-color) ;
 }
+.reasoing { font-size: 14px; } /* only for logic page */
 #options{
   display:flex;
   flex-wrap:wrap;
