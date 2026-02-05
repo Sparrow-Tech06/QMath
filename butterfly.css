@@ -77,4 +77,6 @@ body{
 #submitBtn {
   background: var(--submit) ;
   color: var(--text-color) ;
+  outline: none ;
+  padding: 16px ;
 }
