@@ -115,8 +115,15 @@ function nextQuestion(){
     div.className = 'opt';
     div.innerText = val;
 
-    div.onclick = ()=>{
-      if(gameEnded) return;
+    let inputLocked = false;
+
+div.onclick = ()=>{
+  if(gameEnded || inputLocked) return;
+  inputLocked = true;
+
+  options.querySelectorAll('.opt').forEach(opt=>{
+    opt.style.pointerEvents = 'none';
+  });
       if(soundOn) click.play();
 
       if(val === ans){
@@ -125,8 +132,12 @@ function nextQuestion(){
       }else{
         if(soundOn) wrong.play();
       }
-      nextQuestion();
-    };
+      // ⏱ Delay before next question
+     setTimeout(() => {
+        inputLocked = false;
+        nextQuestion();
+          }, 600); // 600ms delay
+      };
     options.appendChild(div);
   }
 }
