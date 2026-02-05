@@ -74,3 +74,7 @@ body{
   font-size:12px;
   color:#fff ;
 }
+#submitBtn {
+  background: var(--submit) ;
+  color: var(--text-color) ;
+}
