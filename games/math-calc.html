@@ -146,17 +146,30 @@ function nextQuestion(){
   index++;
   progress.innerText = `Played: ${index} / ${total}`;
 
-  const a = Math.floor(Math.random()*10);
-  const b = Math.floor(Math.random()*10);
-  const ans = a + b;
+  // ===== DIVISION LOGIC =====
+  const divisor  = Math.floor(Math.random() * 9) + 1;   // 1–9
+  const answer   = Math.floor(Math.random() * 10) + 1;  // 1–10
+  const dividend = divisor * answer;
 
-  question.innerText = `${a} + ${b} = ?`;
+  question.innerText = `${dividend} ÷ ${divisor} = ?`;
   options.innerHTML = '';
 
   const correctPos = Math.floor(Math.random()*4);
+  const used = new Set();
 
   for(let i=0;i<4;i++){
-    const val = i === correctPos ? ans : ans + Math.floor(Math.random()*5) + 1;
+    let val;
+
+    if(i === correctPos){
+      val = answer;
+    }else{
+      do{
+        val = answer + (Math.floor(Math.random()*5) - 2);
+      }while(val <= 0 || used.has(val) || val === answer);
+    }
+
+    used.add(val);
+
     const div = document.createElement('div');
     div.className = 'opt';
     div.innerText = val;
@@ -165,7 +178,7 @@ function nextQuestion(){
       if(gameEnded) return;
       if(soundOn) click.play();
 
-      if(val === ans){
+      if(val === answer){
         score++;
         if(soundOn) correct.play();
       }else{
@@ -173,6 +186,7 @@ function nextQuestion(){
       }
       nextQuestion();
     };
+
     options.appendChild(div);
   }
 }
