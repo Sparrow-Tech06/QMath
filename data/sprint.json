@@ -4,28 +4,28 @@
     "topics": [
       {
         "label": "PUZZLE",
-        "title": "SPRINT DUELS",
-        "desc": "Classic puzzle sprint – 1 minute",
+        "title": "SUM MISSING",
+        "desc": "Find the missing value",
         "image": "https://cdn-icons-png.flaticon.com/512/2103/2103652.png",
         "link": "puzzle/minus.html?game=sprint&title=Sprint Challenge&subtitle=Speed Matters"
       },
       {
         "label": "PUZZLE",
-        "title": "PATTERN RUSH",
-        "desc": "Find patterns quickly",
+        "title": "HIDEEN DIFF",
+        "desc": "Complete the subtraction",
         "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
         "link": "puzzle/pattern.html"
       },
       {
         "label": "PUZZLE",
-        "title": "PATTERN RUSH",
-        "desc": "Find patterns quickly",
+        "title": "FACTOR HUNT",
+        "desc": "Find the missing factor",
         "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
         "link": "puzzle/pattern.html"
       },
       {
         "label": "PUZZLE",
-        "title": "BLOCK MATCH",
+        "title": "DIVIDE PATH",
         "desc": "Match blocks under pressure",
         "image": "https://cdn-icons-png.flaticon.com/512/1048/1048953.png",
         "link": "menu.html?game=puzzle"
