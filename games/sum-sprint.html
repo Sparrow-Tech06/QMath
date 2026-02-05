@@ -117,8 +117,11 @@ function nextQuestion(){
       }else{
         if(soundOn) wrong.play();
       }
-      nextQuestion();
-    };
+      // ⏱ Delay before next question
+     setTimeout(() => {
+       nextQuestion();
+        }, 6000); // 600ms delay
+      };
     options.appendChild(div);
   }
 }
