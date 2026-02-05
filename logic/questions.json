@@ -1,27 +1,27 @@
 [
   {
-    "q": "Which number comes next? 2, 4, 8, 16, ?",
-    "options": [18, 24, 32, 20],
-    "answer": 32
+    "q": "If 3 pens cost ₹15, what is the cost of 10 pens?",
+    "options": [40, 45, 50, 60],
+    "answer": 50
   },
   {
-    "q": "Find the odd one out",
-    "options": ["2", "3", "5", "9"],
-    "answer": "9"
+    "q": "What number comes next? 2, 6, 12, 20, ?",
+    "options": [28, 30, 32, 36],
+    "answer": 30
   },
   {
-    "q": "If 5 + 5 = 20, 6 + 6 = 24 then 7 + 7 = ?",
-    "options": [26, 28, 24, 30],
-    "answer": 28
+    "q": "A number is divisible by both 4 and 6. Which of these is possible?",
+    "options": [12, 18, 20, 22],
+    "answer": 12
   },
   {
-    "q": "A man walks 10 km north, then 10 km south. How far from start?",
-    "options": [0, 10, 20, 5],
-    "answer": 0
+    "q": "If today is Monday, what day will it be after 17 days?",
+    "options": ["Tuesday", "Wednesday", "Thursday", "Friday"],
+    "answer": "Thursday"
   },
   {
-    "q": "Which is missing? 1, 4, 9, 16, ?",
-    "options": [20, 24, 25, 30],
-    "answer": 25
+    "q": "Which number is missing? 5, 10, 20, ?, 80",
+    "options": [30, 35, 40, 45],
+    "answer": 40
   }
 ]
