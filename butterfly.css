@@ -2,63 +2,101 @@
   --bg:#ffffff;
   --card:#f7f8fa;
   --border:#e3e6ea;
-  --primary: #f4f3ff ;
+  --primary:#f4f3ff;
   --accent:#6f63ff;
-  --text-color: #000 ;
-  --submit:#ffd54f ;
+  --text-color:#000;
+  --submit:#ffd54f;
+
+  /* NEW */
+  --correct:#10b981;
+  --wrong:#ef4444;
 }
+
+/* ===== BASE ===== */
 body{
   margin:0;
   background:var(--bg);
   font-family:'Segoe UI',Roboto,system-ui;
 }
+
 .game{
   max-width:520px;
   margin:auto;
-  min-height: auto;
   display:flex;
   flex-direction:column;
   padding:16px;
+
+  /* game feel */
+  user-select:none;
+  -webkit-user-select:none;
 }
+
+/* ===== TOP BAR ===== */
 .top{
   display:flex;
   justify-content:space-between;
   font-weight:600;
   margin-bottom:12px;
 }
-.top > span {
-   background: var(--accent) ;
-   padding: 6px 10px ;
-   Border-radius: 10px ;
-   font-size: 12px ;
-   color: #fff ;
+
+.top > span{
+  background:var(--accent);
+  padding:6px 12px;
+  border-radius:10px;
+  font-size:12px;
+  color:#fff;
 }
-#timerBox {
-  
-}
+
+/* ===== CARD ===== */
 .card{
   flex:1;
   border:1px solid var(--border);
-  border-radius:16px;
+  border-radius:18px;
   padding:20px;
+  background:var(--card);
+
+  /* premium depth */
+  box-shadow:0 10px 28px rgba(0,0,0,.06);
 }
+
+/* ===== QUESTION ===== */
 .q{
   font-size:24px;
   font-weight:700;
-  margin-bottom:30px ;
+  margin-bottom:30px;
   background:var(--primary);
-  border: 2px solid var(--accent);
-  text-align: center ;
-  padding: 30px ;
-  Border-radius: 10px ;
-  color: var(--text-color) ;
+  border:2px solid var(--accent);
+  text-align:center;
+  padding:30px;
+  border-radius:12px;
+  color:var(--text-color);
+
+  /* animation */
+  animation:qFade .35s ease;
 }
-.reasoing { font-size: 14px; } /* only for logic page */
+
+@keyframes qFade{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.reasoing{
+  font-size:14px;
+}
+
+/* ===== OPTIONS ===== */
 #options{
   display:flex;
   flex-wrap:wrap;
   gap:12px;
 }
+
 .opt{
   flex:1 1 calc(50% - 12px);
   border:1px solid var(--accent);
@@ -66,44 +104,87 @@ body{
   padding:14px;
   text-align:center;
   cursor:pointer;
- /* transition-duration: 0.3s ; */
-  transition: all .3s ease;
+  background:#fff;
+
+  transition:
+    transform .08s ease,
+    box-shadow .12s ease,
+    background .2s ease;
 }
+
+/* hover polish */
+.opt:hover{
+  background:#f5f7ff;
+  box-shadow:0 4px 12px rgba(0,0,0,.06);
+}
+
+/* press feedback */
 .opt:active{
-  background:#f1f3f6;
-  transform: scale(0.98) ;
+  transform:scale(.96);
 }
+
+/* auto disabled look (JS already disables pointer events) */
+.opt[style*="pointer-events: none"]{
+  opacity:.65;
+}
+
+/* ===== CORRECT / WRONG (READY) ===== */
+.opt-correct,
+.opt.correct{
+  background:#d1fae5 !important;
+  border-color:var(--correct) !important;
+  color:#065f46 !important;
+}
+
+.opt-wrong,
+.opt.wrong{
+  background:#fee2e2 !important;
+  border-color:var(--wrong) !important;
+  color:#7f1d1d !important;
+}
+
+/* ===== SUBMIT ===== */
 .submit{
   margin-top:80px;
+  transition:all .2s ease;
 }
+
+#submitBtn{
+  background:var(--submit);
+  color:var(--text-color);
+  padding:16px;
+  border-radius:14px;
+  font-weight:600;
+}
+
+#submitBtn:hover{
+  background:#ffca28;
+}
+
+/* ===== PROGRESS TEXT ===== */
 .progress-text{
   font-size:12px;
-  color:#fff ;
-}
-#submitBtn {
-  background: var(--submit) ;
-  color: var(--text-color) ;
-  outline: none ;
-  padding: 16px ;
+  color:#fff;
 }
 
-.opt-correct {
-  background: #d1fae5 !important;
-  border-color: #10b981 !important;
-  color: #065f46 !important;
+/* ===== TIMER EFFECT (FUTURE READY) ===== */
+#timerBox{
+  font-weight:600;
 }
 
-.opt-wrong {
-  background: #fee2e2 !important;
-  border-color: #ef4444 !important;
-  color: #7f1d1d !important;
+.timer-danger{
+  color:#ffebee;
+  animation:pulse 1s infinite;
 }
 
-.opt-disabled {
-  pointer-events: none;
-  opacity: .85;
+@keyframes pulse{
+  50%{ opacity:.5; }
 }
 
+/* ===== ACCESSIBILITY ===== */
+button:focus,
+.opt:focus{
+  outline:none;
+}
 
-
-
+      
