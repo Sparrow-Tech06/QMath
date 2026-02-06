@@ -1,90 +1,84 @@
 /* ======================================================
-   UNIVERSAL ANSWER FEEDBACK ENGINE
-   Works with + − × ÷ and score-based games
-   ZERO HTML / GAME JS CHANGE REQUIRED
+   ANSWER FEEDBACK (STABLE & UNIVERSAL)
+   - Visual feedback only
+   - Does NOT judge answers
+   - Syncs safely with core game & enhancer
    ====================================================== */
 
 (function () {
 
-  const CORRECT  = 'opt-correct';
-  const WRONG    = 'opt-wrong';
+  const CORRECT = 'opt-correct';
+  const WRONG = 'opt-wrong';
   const DISABLED = 'opt-disabled';
 
-  function reset(container) {
-    container.querySelectorAll('.opt').forEach(o => {
+  let lastScore = null;
+  let activeOptionsBox = null;
+
+  function clear(box) {
+    if (!box) return;
+    box.querySelectorAll('.opt').forEach(o => {
       o.classList.remove(CORRECT, WRONG, DISABLED);
     });
   }
 
-  // 🔹 Try extracting correct answer from question text
-  function getAnswerFromQuestion() {
-    const q = document.getElementById('question');
-    if (!q) return null;
-
-    const text = q.innerText.trim();
-    const m = text.match(/(\d+)\s*([+\-×÷])\s*(\d+)/);
-    if (!m) return null;
-
-    const a = +m[1], b = +m[3];
-    switch (m[2]) {
-      case '+': return a + b;
-      case '-': return a - b;
-      case '×': return a * b;
-      case '÷': return b !== 0 ? a / b : null;
-      default: return null;
-    }
-  }
-
-  document.addEventListener('click', e => {
+  /* ===== CAPTURE CLICK (BEFORE GAME LOGIC) ===== */
+  document.addEventListener('click', function (e) {
 
     const opt = e.target.closest('.opt');
     if (!opt) return;
 
     const box = opt.parentElement;
-    if (!box || opt.classList.contains(DISABLED)) return;
+    if (!box) return;
 
-    // lock UI
+    // already processed
+    if (box.classList.contains('af-locked')) return;
+
+    box.classList.add('af-locked');
+    activeOptionsBox = box;
+
+    // snapshot score BEFORE core game handles click
+    lastScore = window.score;
+
+    // lock UI visually (core game may also lock, no conflict)
     box.querySelectorAll('.opt').forEach(o =>
       o.classList.add(DISABLED)
     );
 
-    const picked = Number(opt.innerText);
-    const expected = getAnswerFromQuestion();
-
-    // 🔹 CASE 1: Math based game (+ − × ÷)
-    if (expected !== null && !isNaN(picked)) {
-
-      if (picked === expected) {
-        opt.classList.add(CORRECT);
-      } else {
-        opt.classList.add(WRONG);
-        box.querySelectorAll('.opt').forEach(o => {
-          if (Number(o.innerText) === expected) {
-            o.classList.add(CORRECT);
-          }
-        });
-      }
-
-      setTimeout(() => reset(box), 350);
-      return;
-    }
-
-    // 🔹 CASE 2: Generic games (score-based)
-    const before = window.score;
-
+    /* ===== AFTER CORE GAME DECISION ===== */
     setTimeout(() => {
-      const after = window.score;
+      const now = window.score;
+      const isCorrect = now > lastScore;
 
-      if (after > before) {
+      if (isCorrect) {
         opt.classList.add(CORRECT);
       } else {
         opt.classList.add(WRONG);
       }
 
-      setTimeout(() => reset(box), 350);
-    }, 40);
+    }, 0);
 
-  });
+  }, true);
+
+  /* ===== CLEAR FEEDBACK ON NEXT QUESTION ===== */
+  const wait = setInterval(() => {
+    if (typeof window.nextQuestion === 'function') {
+      clearInterval(wait);
+
+      const originalNext = window.nextQuestion;
+      window.nextQuestion = function () {
+
+        // clear old feedback safely
+        clear(activeOptionsBox);
+        if (activeOptionsBox) {
+          activeOptionsBox.classList.remove('af-locked');
+        }
+
+        activeOptionsBox = null;
+        originalNext();
+      };
+    }
+  }, 50);
 
 })();
 
+        
