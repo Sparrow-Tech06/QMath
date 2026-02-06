@@ -1,38 +1,33 @@
 /* =================================================
-   GAME ENHANCER (UNIVERSAL)
-   Adds:
-   1. Streak system (score-delta based)
-   2. Time bonus
-   3. Pause / Resume
-   Works with all games without HTML changes
+   GAME ENHANCER (STABLE & UNIVERSAL)
+   - Pause / Resume (no duplicate timers)
+   - Streak system (question-based, not click-based)
+   - Time bonus
 ================================================= */
 
 (function () {
 
-  /* ===== WAIT FOR CORE GAME ===== */
-  const waitForGame = setInterval(() => {
+  const wait = setInterval(() => {
     if (
       typeof window.nextQuestion === 'function' &&
       typeof window.endGame === 'function'
     ) {
-      clearInterval(waitForGame);
-      initEnhancer();
+      clearInterval(wait);
+      init();
     }
   }, 50);
 
-  function initEnhancer() {
+  function init() {
 
-    /* ===== STATE ===== */
     let streak = 0;
     let maxStreak = Number(localStorage.getItem('maxStreak')) || 0;
     let paused = false;
-    let lastScore = null;
+    let lastScore = window.score;
 
-    /* ===== TOP BAR ===== */
+    /* ===== UI ===== */
     const topBar = document.querySelector('.top');
     if (!topBar) return;
 
-    /* ===== STREAK UI ===== */
     const streakBox = document.createElement('span');
     streakBox.innerHTML = `
       <i class="bi bi-lightning-charge-fill me-1"></i>
@@ -40,27 +35,17 @@
     `;
     Object.assign(streakBox.style, {
       background: '#fde68a',
-      color: '#000',
       padding: '6px 10px',
       borderRadius: '10px',
-      fontSize: '12px',
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '4px'
+      fontSize: '12px'
     });
 
-    topBar.appendChild(streakBox);
-
-    /* ===== PAUSE BUTTON ===== */
     const pauseBtn = document.createElement('span');
     pauseBtn.innerHTML = `<i class="bi bi-pause-circle"></i>`;
-    Object.assign(pauseBtn.style, {
-      cursor: 'pointer',
-      padding: '6px 10px',
-      fontSize: '18px'
-    });
+    pauseBtn.style.cursor = 'pointer';
+    pauseBtn.style.padding = '6px 10px';
 
-    topBar.appendChild(pauseBtn);
+    topBar.append(streakBox, pauseBtn);
 
     /* ===== PAUSE / RESUME ===== */
     pauseBtn.onclick = () => {
@@ -69,24 +54,24 @@
       if (paused) {
         clearInterval(window.timerRef);
         pauseBtn.innerHTML = `<i class="bi bi-play-circle"></i>`;
-        lockOptions(true);
+        toggleOptions(true);
       } else {
-        resumeTimer();
         pauseBtn.innerHTML = `<i class="bi bi-pause-circle"></i>`;
-        lockOptions(false);
+        restartTimer();
+        toggleOptions(false);
       }
     };
 
-    function lockOptions(lock) {
+    function toggleOptions(lock) {
       document.querySelectorAll('.opt').forEach(o => {
         o.style.pointerEvents = lock ? 'none' : '';
       });
     }
 
-    function resumeTimer() {
+    function restartTimer() {
       if (!window.timerOn) return;
-
       clearInterval(window.timerRef);
+
       window.timerRef = setInterval(() => {
         if (paused) return;
         window.time--;
@@ -95,32 +80,30 @@
       }, 1000);
     }
 
-    /* ===== OPTION CLICK HOOK (UNIVERSAL) ===== */
-    document.addEventListener('click', e => {
-      const opt = e.target.closest('.opt');
-      if (!opt || paused) return;
+    /* ===== OBSERVE QUESTION CHANGE ===== */
+    const originalNext = window.nextQuestion;
+    window.nextQuestion = function () {
 
-      // snapshot score BEFORE core game logic
-      lastScore = window.score;
+      const before = window.score;
+
+      originalNext();
 
       setTimeout(() => {
-        const currentScore = window.score;
-        const isCorrect = currentScore > lastScore;
+        const after = window.score;
 
-        /* ===== TIME BONUS ===== */
-        if (window.timerOn && isCorrect) {
-          const bonus =
-            window.time >= 20 ? 2 :
-            window.time >= 10 ? 1 : 0;
-
-          window.score += bonus;
-        }
-
-        /* ===== STREAK LOGIC ===== */
-        if (isCorrect) {
+        if (after > before) {
           streak++;
           maxStreak = Math.max(maxStreak, streak);
           streakBox.style.background = '#bbf7d0';
+
+          /* Time bonus */
+          if (window.timerOn) {
+            const bonus =
+              window.time >= 20 ? 2 :
+              window.time >= 10 ? 1 : 0;
+            window.score += bonus;
+          }
+
         } else {
           streak = 0;
           streakBox.style.background = '#fecaca';
@@ -129,18 +112,18 @@
         streakBox.querySelector('#streakCount').innerText = streak;
         localStorage.setItem('maxStreak', maxStreak);
 
-      }, 40); // wait for core logic
-
-    }, true);
+      }, 0);
+    };
 
     /* ===== END GAME WRAP ===== */
-    const originalEndGame = window.endGame;
-    window.endGame = function (manualSubmit) {
+    const originalEnd = window.endGame;
+    window.endGame = function (manual) {
       localStorage.setItem('lastStreak', streak);
       streak = 0;
-      originalEndGame(manualSubmit);
+      originalEnd(manual);
     };
 
   }
 
 })();
+
