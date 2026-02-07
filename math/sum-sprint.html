@@ -85,18 +85,14 @@ if(timerOn){
 /* ===== QUESTIONS ===== */
 function nextQuestion(){
   if(gameEnded) return;
-
-  if(index === total){
-    endGame(false);
-    return;
-  }
+  if(index === total){ endGame(false); return; }
 
   index++;
   progress.innerText = `Played: ${index} / ${total}`;
 
   const a = Math.floor(Math.random()*10);
   const b = Math.floor(Math.random()*10);
-  const ans = a + b;
+  const answer = a + b;
 
   question.innerText = `${a} + ${b} = ?`;
   options.innerHTML = '';
@@ -104,34 +100,28 @@ function nextQuestion(){
   const correctPos = Math.floor(Math.random()*4);
 
   for(let i=0;i<4;i++){
-    const val = i === correctPos ? ans : ans + Math.floor(Math.random()*5) + 1;
+    const val = i === correctPos ? answer : answer + Math.floor(Math.random()*5)+1;
+
     const div = document.createElement('div');
     div.className = 'opt';
     div.innerText = val;
 
-    let inputLocked = false;
+    div.onclick = ()=>{
+      if(gameEnded || div.classList.contains('opt-disabled')) return;
 
-div.onclick = ()=>{
-  if(gameEnded || inputLocked) return;
-  inputLocked = true;
-
-  options.querySelectorAll('.opt').forEach(opt=>{
-    opt.style.pointerEvents = 'none';
-  });
+      options.querySelectorAll('.opt').forEach(o=>o.classList.add('opt-disabled'));
       if(soundOn) click.play();
 
-      if(val === ans){
+      if(val === answer){
         score++;
         if(soundOn) correct.play();
       }else{
         if(soundOn) wrong.play();
       }
-      // ⏱ Delay before next question
-     setTimeout(() => {
-        inputLocked = false;
-        nextQuestion();
-          }, 600); // 600ms delay
-      };
+
+      setTimeout(nextQuestion,600);
+    };
+
     options.appendChild(div);
   }
 }
