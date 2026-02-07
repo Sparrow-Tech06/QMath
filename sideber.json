@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Dashboard",
+    "icon": "bi-speedometer2",
+    "link": "index.html"
+  },
+  {
+    "title": "Daily Challenges",
+    "icon": "bi-calendar-check",
+    "link": "challenges/daily.html"
+  },
+  {
+    "title": "Practice Mode",
+    "icon": "bi-arrow-repeat",
+    "link": "practice/index.html"
+  },
+  {
+    "title": "Leaderboard",
+    "icon": "bi-trophy",
+    "link": "leaderboard/global.html"
+  },
+  {
+    "title": "Statistics",
+    "icon": "bi-graph-up",
+    "link": "stats/overview.html"
+  },
+  {
+    "title": "Achievements",
+    "icon": "bi-award",
+    "link": "achievements/badges.html"
+  },
+  {
+    "title": "My Profile",
+    "icon": "bi-person-circle",
+    "link": "profile/index.html"
+  },
+  {
+    "title": "Settings",
+    "icon": "bi-gear",
+    "link": "settings/app.html"
+  },
+  {
+    "title": "Help & Support",
+    "icon": "bi-question-circle",
+    "link": "help/faq.html"
+  },
+  {
+    "title": "About App",
+    "icon": "bi-info-circle",
+    "link": "about/app.html"
+  },
+  {
+    "title": "Rate App",
+    "icon": "bi-star",
+    "link": "https://play.google.com/store/apps/details?id=com.dailymathquiz"
+  },
+  {
+    "title": "Share App",
+    "icon": "bi-share",
+    "link": "javascript:shareApp()"
+  }
+]
