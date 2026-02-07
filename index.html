@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+
+<title> Daily Math Quiz – Mental Math Practice App </title>
+
+<meta name="description" content="Daily Math Quiz app for students and learners. Practice mental math, improve calculation speed, and solve timed math quizzes every day.">
+<meta name="keywords" content="daily math quiz, math quiz app, mental math quiz, math practice app, brain math quiz, timed math quiz, basic math quiz, math quiz for students">         
+<meta name="author" content="Daily Math Quiz App">
+
+<meta itemprop="name" content="Daily Math Quiz – Mental Math">
+<meta itemprop="description" content="Solve daily math quizzes and improve your mental calculation speed with simple and timed challenges.">
+  
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- ================== STRUCTURED DATA (JSON-LD) ================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Daily Math Quiz",
+  "operatingSystem": "Android",
+  "applicationCategory": "EducationalApplication",
+  "description": "Daily math quiz app to practice mental math, improve speed and accuracy.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  }
+}
+  </script>
+<style>
+/* ================= THEME ================= */
+:root{
+  --bg:#f7f8fa ;
+  --card:#f9fafb;
+  --card2:#ffffff;
+  --text:#000000;
+  --muted:#6b7280;
+  --puzzle:#9b8cff;
+  --math:#ff9f1a;
+  --green:#9BFF7A;
+  --blue:#5d8cff;
+  --red:#ff6b6b;
+  --yellow:#ffd166;
+  --purple:#9b8cff;
+  --cyan:#06d6a0;
+  --radius:20px;
+  --radius-sm:14px;
+  --border:#e3e6ea;
+  --invite: #f0f3ff ;
+  --sk-base: #e6e8eb;
+  --sk-mid:  #f2f3f5;
+  --sk-speed: 1.3s ;
+  --shadow: 0 4px 12px rgba(0,0,0,0.05);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.08);
+}
+@media (prefers-color-scheme: dark) {
+:root{
+  --bg:#0f1115;
+  --card:#171a20;
+  --card2:#1d2129;
+  --text:#ffffff;
+  --muted:#9a9a9a;
+  --puzzle:#9b8cff;
+  --math:#ff9f1a;
+  --green:#9BFF7A;
+  --blue:#5d8cff;
+  --red:#ff6b6b;
+  --yellow:#ffd166;
+  --purple:#9b8cff;
+  --cyan:#06d6a0;
+  --radius:20px;
+  --radius-sm:14px;
+  --border:#2f3750;
+  --sk-base: #1f2430;
+  --sk-mid:  #2a3140;
+  --sk-speed: 1.3s ;
+  --shadow: 0 4px 12px rgba(0,0,0,0.15);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.25);
+  }
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: background 0.3s ease;
+}
+
+a{text-decoration:none;color:inherit}
+
+.app{max-width:660px;margin:auto;position:relative}
+
+/* ================= HEADER ================= */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 20px;
+  background:var(--card2);
+  border-bottom:1px solid var(--border);
+  box-shadow: var(--shadow);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.header-left{display:flex;gap:14px;align-items:center}
+.menu-btn{
+  font-size:24px;
+  opacity:.9;
+  cursor:pointer;
+  padding:6px;
+  border-radius:10px;
+  transition:all 0.2s ease;
+}
+.menu-btn:active{
+  background:var(--border);
+  transform:scale(0.95);
+}
+
+.notify-btn{
+  width:44px;height:44px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--card);
+  border-radius:14px;
+  border:1px solid var(--border);
+  transition:all 0.2s ease;
+}
+.notify-btn:active{
+  transform:scale(0.95);
+  background:var(--border);
+}
+
+/* ================= OFF-CANVAS MENU ================= */
+.offcanvas{
+  background:var(--card2) !important;
+  color:var(--text) !important;
+  border-right:1px solid var(--border);
+}
+.offcanvas-header{
+  border-bottom:1px solid var(--border);
+  padding:20px;
+}
+.offcanvas-body{
+  padding:0;
+}
+.menu-item{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:18px 24px;
+  border-bottom:1px solid var(--border);
+  transition:all 0.2s ease;
+}
+.menu-item:active{
+  background:var(--border);
+}
+.menu-item i{
+  font-size:20px;
+  width:24px;
+  text-align:center;
+}
+.menu-item.active{
+  background:var(--card);
+  border-left:4px solid var(--blue);
+}
+
+/* ================= SECTION ================= */
+section{padding:20px}
+
+.section-title{
+  margin:18px 0 16px;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+
+.section-title::after{
+  content:'';
+  width:40px;height:3px;
+  background:linear-gradient(to right, var(--blue), var(--cyan));
+  display:block;margin-top:8px;
+  border-radius:2px;
+}
+
+/* ================= HORIZONTAL ================= */
+.h-scroll{
+  display:flex;gap:16px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding:4px 0 16px;
+  margin:0 -20px;
+  padding-left:20px;
+  padding-right:20px;
+}
+.h-scroll::-webkit-scrollbar{display:none}
+
+/* ================= STATUS ================= */
+.status-box{
+  min-width:70px;height:70px;
+  border-radius:20px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:var(--card2);
+  border:2px solid var(--border);
+  scroll-snap-align:start;
+  transition:all 0.3s ease;
+  box-shadow: var(--shadow);
+}
+.status-box:active{
+  transform:scale(0.95);
+}
+.status-box i{
+  font-size:24px;
+  margin-bottom:4px;
+}
+.status-label{
+  font-size:10px;
+  font-weight:600;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+/* Status Colors */
+.status-fire{color:var(--red);border-color:var(--red);}
+.status-star{color:var(--yellow);border-color:var(--yellow);}
+.status-trophy{color:var(--purple);border-color:var(--purple);}
+.status-graph{color:var(--cyan);border-color:var(--cyan);}
+.status-clock{color:var(--blue);border-color:var(--blue);}
+.status-calendar{color:var(--green);border-color:var(--green);}
+
+/* ================= CHALLENGE ================= */
+.challenge-card{
+  min-width:180px;
+  padding:20px 24px;
+  border-radius:var(--radius);
+  background:var(--card2);
+  display:flex;justify-content:space-between;align-items:center;
+  font-weight:700;
+  font-size:16px;
+  scroll-snap-align:start;
+  border:2px solid var(--border);
+  transition:all 0.3s ease;
+  box-shadow: var(--shadow);
+}
+.challenge-card:active{
+  transform:scale(0.97);
+  box-shadow: var(--shadow-hover);
+}
+.challenge-card.puzzle{color:var(--puzzle)}
+.challenge-card.math{color:var(--math)}
+.challenge-card.active{
+  background:linear-gradient(135deg, var(--card), var(--card2));
+  border-color:var(--blue);
+  box-shadow: 0 8px 24px rgba(93, 140, 255, 0.2);
+}
+
+/* ================= TOPIC ================= */
+.topic-card{
+  background:var(--card2);
+  border-radius:var(--radius);
+  padding:20px;
+  display:flex;gap:16px;
+  align-items:center;
+  border:2px solid var(--border);
+  margin-bottom:16px;
+  transition:all 0.3s ease;
+  box-shadow: var(--shadow);
+}
+.topic-card:active{
+  transform:translateY(-2px) scale(0.98);
+  box-shadow: var(--shadow-hover);
+}
+
+.topic-info{
+  flex:1;
+  min-width:0;
+}
+
+.topic-card img{
+  width:80px;
+  height:80px;
+  padding:16px;
+  object-fit:contain;
+  border-radius:16px; 
+  background:var(--card); 
+  border:2px solid var(--border);
+  flex-shrink:0;
+}
+
+.text-mute{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.4;
+}
+
+.topic-title{
+  font-weight:600;
+  margin:6px 0 4px;
+  font-size:16px;
+}
+
+/* ================= SKELETON ================= */
+.img-skeleton{
+  background: linear-gradient( 90deg, var(--sk-base) 25%, var(--sk-mid) 37%, var(--sk-base) 63% );
+  background-size: 400% 100%;
+  animation: skeleton-loading var(--sk-speed) ease-in-out infinite;
+}
+
+.topic-skeleton-img{
+  width:80px !important;
+  height:80px !important;
+  border-radius:16px;
+}
+
+.topic-skeleton-text{
+  height:16px;
+  border-radius:8px;
+  margin-bottom:8px;
+}
+.topic-skeleton-text.short{
+  width:60%;
+}
+.topic-skeleton-text.medium{
+  width:80%;
+}
+
+/* Animation */
+@keyframes skeleton-loading{
+  0%{
+    background-position: 100% 0;
+  }
+  100%{
+    background-position: 0 0;
+  }
+}
+
+.challenge-skeleton{height:70px}
+.status-skeleton{border-radius:20px}
+.topic-skeleton{height:120px}
+
+/* ================= SHARE ================= */
+.share-card{
+  background:var(--card2);
+  border-radius:var(--radius);
+  padding:24px;
+  margin:40px 20px;
+  border:2px solid var(--border);
+  position:relative;
+  box-shadow: var(--shadow);
+}
+
+.actions{
+  display:flex;
+  gap:16px;
+  margin-top:24px;
+}
+
+.invite-btn{
+  flex:1;
+  border:2px solid var(--green);
+  background: var(--invite);
+  color:var(--text);
+  border-radius:var(--radius-sm);
+  padding:16px;
+  font-weight:700;
+  font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+  gap:10px;
+  transition:all 0.3s ease;
+}
+.invite-btn:active{
+  transform:scale(0.97);
+  background:var(--green);
+  color:#000;
+}
+
+.copy-btn{
+  width:60px;height:60px;
+  border-radius:var(--radius-sm);
+  background: var(--card);
+  border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  transition:all 0.3s ease;
+  font-size:20px;
+}
+.copy-btn:active{
+  transform:scale(0.95);
+}
+.copy-btn.copied{
+  background:var(--green);
+  color:#000;
+  border-color:var(--green);
+}
+.copy-btn span{
+  position:absolute;
+  bottom:-24px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--green);
+  display:none;
+  white-space:nowrap;
+}
+.copy-btn.copied span{display:block}
+</style>
+</head>
+
+<body>
+<main class="app">
+
+<!-- Off-Canvas Menu -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title" id="sideMenuLabel">Brain Trainer</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="menu-item active" aria-label="Home">
+      <i class="bi bi-house-door"></i>
+      <span>Home</span>
+    </div>
+    <div class="menu-item" aria-label="Statistics">
+      <i class="bi bi-graph-up"></i>
+      <span>Statistics</span>
+    </div>
+    <div class="menu-item" aria-label="Progress">
+      <i class="bi bi-bar-chart"></i>
+      <span>Progress</span>
+    </div>
+    <div class="menu-item" aria-label="Settings">
+      <i class="bi bi-gear"></i>
+      <span>Settings</span>
+    </div>
+    <div class="menu-item" aria-label="Help">
+      <i class="bi bi-question-circle"></i>
+      <span>Help & Support</span>
+    </div>
+    <div class="menu-item" aria-label="About">
+      <i class="bi bi-info-circle"></i>
+      <span>About App</span>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="header-left">
+    <button class="menu-btn" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-label="Open menu">
+      <i class="bi bi-list"></i>
+    </button>
+    <h1 class="fs-4 m-0" aria-label="Brain Trainer">Brain Trainer</h1>
+  </div>
+
+  <a href="notifications/notifications.html" class="notify-btn" aria-label="Notifications">
+    <i class="bi bi-bell"></i>
+  </a>
+</header>
+
+<section aria-labelledby="statusSectionTitle">
+  <div class="section-title" id="statusSectionTitle">STATUS</div>
+  <div id="statusSection"></div>
+</section>
+
+<section aria-labelledby="challengeSectionTitle">
+  <div class="section-title" id="challengeSectionTitle">TODAY'S CHALLENGE</div>
+  <div class="h-scroll" id="challengeContainer"></div>
+</section>
+
+<section id="topicContent" aria-label="Topics"></section>
+
+<section class="share-card" aria-label="Share section">
+  <h4>SHARE THE CHALLENGE</h4>
+  <p class="text-mute">Play with friends & earn together</p>
+
+  <div class="actions">
+    <button class="invite-btn" onclick="shareWhatsApp()" aria-label="Share via WhatsApp">
+      <i class="bi bi-whatsapp"></i> INVITE
+    </button>
+    <button class="copy-btn" id="copyBtn" onclick="copyLink()" aria-label="Copy link">
+      <i class="bi bi-clipboard"></i>
+      <span>Copied</span>
+    </button>
+  </div>
+</section>
+
+</main>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const statusSection=document.getElementById("statusSection");
+const challengeContainer=document.getElementById("challengeContainer");
+const topicContent=document.getElementById("topicContent");
+let sprintData={};
+
+// Status icon color mapping
+const statusColors = {
+  'bi-fire': 'status-fire',
+  'bi-star': 'status-star',
+  'bi-trophy': 'status-trophy',
+  'bi-graph-up': 'status-graph',
+  'bi-clock': 'status-clock',
+  'bi-calendar': 'status-calendar'
+};
+
+/* ---------- SKELETON INIT ---------- */
+statusSection.innerHTML=`
+<div class="h-scroll">
+${Array(6).fill(0).map(()=>`
+  <div class="status-box img-skeleton status-skeleton" aria-hidden="true"></div>
+`).join('')}
+</div>`;
+
+challengeContainer.innerHTML=
+Array(3).fill(0).map(()=>`
+  <div class="challenge-card img-skeleton challenge-skeleton" aria-hidden="true"></div>
+`).join('');
+
+topicContent.innerHTML=
+Array(4).fill(0).map(()=>`
+  <div class="topic-card img-skeleton topic-skeleton" aria-hidden="true">
+    <div class="topic-info">
+      <div class="topic-skeleton-text short img-skeleton"></div>
+      <div class="topic-skeleton-text medium img-skeleton"></div>
+      <div class="topic-skeleton-text img-skeleton"></div>
+    </div>
+    <div class="topic-skeleton-img img-skeleton"></div>
+  </div>
+`).join('');
+
+/* ---------- STATUS ---------- */
+fetch('https://sparrow-tech06.github.io/QMath/data/status.json')
+.then(r=>r.json())
+.then(d=>{
+  const row=document.createElement('div');
+  row.className='h-scroll';
+  d.forEach(s=>{
+    row.innerHTML+=`
+    <a href="${s.link}" class="status-box ${statusColors[s.icon] || ''}" 
+       aria-label="${s.label || 'Status item'}">
+      <i class="bi ${s.icon}"></i>
+      <span class="status-label">${s.label || ''}</span>
+    </a>`;
+  });
+  statusSection.innerHTML='';
+  statusSection.appendChild(row);
+})
+.catch(()=>{
+  statusSection.innerHTML='<p class="text-center text-muted py-3" role="alert">Failed to load status</p>';
+});
+
+/* ---------- SPRINT ---------- */
+fetch('https://sparrow-tech06.github.io/QMath/data/sprint.json')
+.then(r=>r.json())
+.then(data=>{
+  sprintData=data;
+  challengeContainer.innerHTML='';
+  buildChallenges();
+})
+.catch(()=>{
+  topicContent.innerHTML='<p class="text-center text-muted py-5" role="alert">Something went wrong. Please try again.</p>';
+});
+
+function buildChallenges(){
+  Object.keys(sprintData).forEach((k,i)=>{
+    const c=sprintData[k];
+    const div=document.createElement('button');
+    div.className=`challenge-card ${c.color} ${i===0?'active':''}`;
+    div.setAttribute('aria-label', `${k} challenge`);
+    div.innerHTML=`${k.toUpperCase()} <i class="bi bi-play-fill"></i>`;
+    div.onclick=()=>renderTopics(k);
+    challengeContainer.appendChild(div);
+    if(i===0) renderTopics(k);
+  });
+}
+
+function renderTopics(type){
+  topicContent.innerHTML='';
+  sprintData[type].topics.forEach(t=>{
+    const card=document.createElement('a');
+    card.href=t.link;
+    card.className='topic-card';
+    card.setAttribute('aria-label', `${t.title} - ${t.desc}`);
+    card.innerHTML=`
+      <div class="topic-info">
+        <small class="text-secondary">${t.label}</small>
+        <h5 class="topic-title">${t.title}</h5>
+        <p class="text-mute">${t.desc}</p>
+      </div>
+      <img src="${t.image}" 
+           alt="${t.title}"
+           loading="lazy"
+           class="img-skeleton"
+           onload="this.classList.remove('img-skeleton')"
+           onerror="this.onerror=null; this.src='https://via.placeholder.com/80?text=?';">`;
+    topicContent.appendChild(card);
+  });
+}
+
+/* ---------- SHARE ---------- */
+const shareText="🔥 Join me on Brain Trainer 👉 https://example.com";
+const copyBtn=document.getElementById("copyBtn");
+
+function shareWhatsApp(){
+  window.open("https://wa.me/?text="+encodeURIComponent(shareText), "_blank");
+}
+
+function copyLink(){
+  navigator.clipboard.writeText(shareText).then(()=>{
+    copyBtn.classList.add("copied");
+    copyBtn.setAttribute("aria-label", "Link copied");
+    setTimeout(()=>{
+      copyBtn.classList.remove("copied");
+      copyBtn.setAttribute("aria-label", "Copy link");
+    },1500);
+  }).catch(()=>{
+    alert("Failed to copy link. Please try again.");
+  });
+}
+
+// Add touch feedback for buttons
+document.addEventListener('touchstart', function(){}, {passive: true});
+</script>
+</body>
+</html>
+
