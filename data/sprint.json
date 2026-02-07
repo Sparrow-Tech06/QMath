@@ -41,28 +41,28 @@
         "title": "SUM SPRINT",
         "desc": "Fast math in 30 seconds",
         "image": "https://cdn-icons-png.flaticon.com/512/2896/2896418.png",
-        "link": "math/sum-sprint.html?game=Math&title=Sum Sprint&subtitle=Fast math in 30 seconds"
+        "link": "games/sum-sprint.html?game=Math&title=Sum Sprint&subtitle=Fast math in 30 seconds"
       },
       {
         "label": "MATH",
         "title": "DIFF DASH",
         "desc": "Race with numbers",
         "image": "https://cdn-icons-png.flaticon.com/512/3898/3898150.png",
-        "link": "math/diff-dash.html?game=Math&title=Diff Dash&subtitle=Race with number"
+        "link": "games/diff-dash.html?game=Math&title=Diff Dash&subtitle=Race with number"
       }, 
       {
         "label": "MATH",
         "title": "TABLE SPEED",
         "desc": "Multiplication speed test",
         "image": "https://cdn-icons-png.flaticon.com/512/942/942748.png",
-        "link": "math/math-table.html?game=Math&title=Table Speed&subtitle=Multiplication speed test"
+        "link": "games/math-table.html?game=Math&title=Table Speed&subtitle=Multiplication speed test"
       },
       {
         "label": "MATH",
         "title": "CALC DASH",
         "desc": "Quick calculations",
         "image": "https://cdn-icons-png.flaticon.com/512/3022/3022251.png",
-        "link": "math/math-calc.html?game=Math&title=Calc Dash&subtitle=Quick calculations"
+        "link": "games/math-calc.html?game=Math&title=Calc Dash&subtitle=Quick calculations"
       }
     ]
   },
