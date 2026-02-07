@@ -1,20 +1,16 @@
-/* ======================================================
-   Answer Feedback Module (NO GAME CODE CHANGE REQUIRED)
-   + − × ÷ / supported
-   ====================================================== */
+/* =====================================================
+   Universal Answer Feedback Engine
+   Works with ANY math game (+ − × ÷)
+   No game-code modification required
+   ===================================================== */
 
 (function(){
 
-  const CORRECT = 'opt-correct';
-  const WRONG   = 'opt-wrong';
-  const LOCKED  = 'opt-disabled';
+  const CLS_CORRECT = 'opt-correct';
+  const CLS_WRONG   = 'opt-wrong';
+  const CLS_LOCK    = 'opt-disabled';
 
-  function reset(box){
-    box.querySelectorAll('.opt').forEach(o=>{
-      o.classList.remove(CORRECT, WRONG, LOCKED);
-    });
-  }
-
+  // 🔹 Extract correct answer from question text
   function getCorrectAnswer(){
     const q = document.getElementById('question');
     if(!q) return null;
@@ -24,64 +20,69 @@
       .replace('?', '')
       .trim();
 
-    // supports + - − × ÷ /
-    const m = text.match(/(\d+)\s*([+\-−×÷\/])\s*(\d+)/);
-    if(!m) return null;
+    // supports: + - − × ÷ /
+    const match = text.match(/(\d+)\s*([+\-−×÷\/])\s*(\d+)/);
+    if(!match) return null;
 
-    const a = Number(m[1]);
-    const b = Number(m[3]);
-    const op = m[2];
+    const a  = Number(match[1]);
+    const b  = Number(match[3]);
+    const op = match[2];
 
     switch(op){
       case '+': return a + b;
       case '-':
       case '−': return a - b;
       case '×': return a * b;
-      case '/':
-      case '÷': return a / b;
+      case '÷':
+      case '/': return +(a / b).toFixed(2);
       default: return null;
     }
   }
 
-  // 🔥 CAPTURE PHASE LISTENER (key point)
+  // 🔹 Global click listener (captures ALL games)
   document.addEventListener('click', function(e){
+
     const opt = e.target.closest('.opt');
     if(!opt) return;
 
+    // already processed
+    if(opt.classList.contains(CLS_LOCK)) return;
+
     const box = opt.parentElement;
-    if(!box || box.dataset.feedbackLocked) return;
+    if(!box) return;
 
-    const correct = getCorrectAnswer();
-    if(correct === null) return;
-
-    box.dataset.feedbackLocked = '1';
+    const correctAnswer = getCorrectAnswer();
+    if(correctAnswer === null) return;
 
     const selected = Number(opt.innerText);
 
-    // lock visually (independent of game logic)
+    // 🔒 lock all options (UI only)
     box.querySelectorAll('.opt').forEach(o=>{
-      o.classList.add(LOCKED);
+      o.classList.add(CLS_LOCK);
     });
 
-    if(selected === correct){
-      opt.classList.add(CORRECT);
+    // ✅ Correct / ❌ Wrong
+    if(selected === correctAnswer){
+      opt.classList.add(CLS_CORRECT);
     }else{
-      opt.classList.add(WRONG);
+      opt.classList.add(CLS_WRONG);
+
+      // highlight correct option
       box.querySelectorAll('.opt').forEach(o=>{
-        if(Number(o.innerText) === correct){
-          o.classList.add(CORRECT);
+        if(Number(o.innerText) === correctAnswer){
+          o.classList.add(CLS_CORRECT);
         }
       });
     }
 
-    // auto clear before next question renders
+    // 🧹 auto clear (next question safe)
     setTimeout(()=>{
-      reset(box);
-      delete box.dataset.feedbackLocked;
-    }, 350);
+      box.querySelectorAll('.opt').forEach(o=>{
+        o.classList.remove(CLS_CORRECT, CLS_WRONG, CLS_LOCK);
+      });
+    }, 450);
 
-  }, true); // 👈 TRUE = capture phase
+  }, true); // 👈 CAPTURE MODE (IMPORTANT)
 
 })();
 
-    
