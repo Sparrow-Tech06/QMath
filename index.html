@@ -278,17 +278,17 @@ section{padding:16px}
   <div class="h-scroll" id="challengeContainer"></div>
 </section>
 
-<section id="topicContent"></section>
+<section id="topicContent" aria-label="Topics"></section>
 
-<section class="share-card">
+<section class="share-card" aria-label="Share section">
   <h4>SHARE THE CHALLENGE</h4>
   <p class="text-mute">Play with friends & earn together</p>
 
   <div class="actions">
-    <div class="invite-btn" onclick="shareWhatsApp()">
+    <div class="invite-btn" onclick="shareWhatsApp()" aria-label="Share via WhatsApp">
       <i class="bi bi-whatsapp"></i> INVITE
     </div>
-    <div class="copy-btn" id="copyBtn" onclick="copyLink()">
+    <div class="copy-btn" id="copyBtn" onclick="copyLink()" aria-label="Copy link">
       <i class="bi bi-clipboard"></i>
       <span>Copied</span>
     </div>
