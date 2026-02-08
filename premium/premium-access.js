@@ -1,45 +1,55 @@
+/* =====================================================
+   PREMIUM ACCESS – UNIVERSAL
+===================================================== */
+
 (function(){
 
-  const PRICE = 1000;
-  const DURATION = 24 * 60 * 60 * 1000;
-  const KEY = "premium_sprint_unlock_till";
+  const GAME_KEY = 'premium_sprint';
+  const PRICE = 10;
+  const HOURS = 24;
 
-  const lock = document.getElementById("premiumLock");
-  const btn = document.getElementById("unlockBtn");
+  const lock = document.getElementById('premiumLock');
+  const btn  = document.getElementById('unlockBtn');
 
-  function coins(){ return parseInt(localStorage.getItem("myCoins") || "0"); }
-  function setCoins(v){ localStorage.setItem("myCoins", v); }
+  const coins = Number(localStorage.getItem('coins') || 0);
+  const data  = JSON.parse(localStorage.getItem(GAME_KEY) || '{}');
 
-  function addHistory(amount, source){
-    const h = JSON.parse(localStorage.getItem("coinHistory")) || [];
-    h.push({ amount, source, date:new Date().toLocaleString() });
-    localStorage.setItem("coinHistory", JSON.stringify(h));
+  const now = Date.now();
+
+  // ✅ Already unlocked
+  if(data.expire && data.expire > now){
+    window.onPremiumGranted();
+    return;
   }
 
-  function unlocked(){
-    return Date.now() < parseInt(localStorage.getItem(KEY) || "0");
-  }
-
-  function lockGame(){
-    lock.classList.remove("d-none");
-    document.body.style.overflow="hidden";
-  }
-
-  function unlockGame(){
-    lock.classList.add("d-none");
-    document.body.style.overflow="";
-  }
-
-  unlocked() ? unlockGame() : lockGame();
+  // 🔒 Lock game
+  lock.classList.remove('d-none');
 
   btn.onclick = ()=>{
-    if(coins() < PRICE){ alert("Not enough coins"); return; }
-    if(!confirm("Unlock Sprint Quiz for 24 hours using 1000 coins?")) return;
+    if(coins < PRICE){
+      alert('Not enough coins');
+      return;
+    }
 
-    setCoins(coins() - PRICE);
-    addHistory(-PRICE, "Sprint Quiz (24h Premium)");
-    localStorage.setItem(KEY, Date.now()+DURATION);
-    unlockGame();
+    // Deduct coins
+    localStorage.setItem('coins', coins - PRICE);
+
+    // Save unlock
+    localStorage.setItem(GAME_KEY, JSON.stringify({
+      expire: now + HOURS*60*60*1000
+    }));
+
+    // History (coin.html tabs)
+    const log = JSON.parse(localStorage.getItem('coinHistory')||'[]');
+    log.push({
+      type:'deduct',
+      title:'Sprint Quiz Unlock',
+      amount:PRICE,
+      time:now
+    });
+    localStorage.setItem('coinHistory',JSON.stringify(log));
+
+    window.onPremiumGranted();
   };
 
 })();
