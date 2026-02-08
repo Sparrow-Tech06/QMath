@@ -115,20 +115,21 @@ div.onclick = ()=>{
   options.querySelectorAll('.opt').forEach(opt=>{
     opt.style.pointerEvents = 'none';
   });
-      if(soundOn) click.play();
 
-      if(val === ans){
-        score++;
-        if(soundOn) correct.play();
-      }else{
-        if(soundOn) wrong.play();
-      }
-      // ⏱ Delay before next question
-     setTimeout(() => {
-        inputLocked = false;
-        nextQuestion();
-          }, 600); // 600ms delay
-      };
+  if(soundOn) click.play();
+
+  if(val === missing){
+    score++;
+    if(soundOn) correct.play();
+  }else{
+    if(soundOn) wrong.play();
+  }
+
+  setTimeout(() => {
+    inputLocked = false;
+    nextQuestion();
+  }, 600);
+};
     options.appendChild(div);
   }
 }
