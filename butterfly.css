@@ -187,4 +187,22 @@ button:focus,
   outline:none;
 }
 
+/* ===== For Puzzle Games ===== */
+.gap-line{
+  display: inline-block;
+  width: 60px;        /* line length */
+  height: 4px;        /* thickness */
+  background: #0d6efd; /* bootstrap primary */
+  border-radius: 4px;
+  vertical-align: middle;
+  margin: 0 8px;
+  animation: blink 1.2s infinite ease-in-out;
+}
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.3}
+}
+
+
+
       
