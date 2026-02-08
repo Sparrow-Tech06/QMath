@@ -92,7 +92,7 @@ function nextQuestion(){
   let missing = Math.floor(Math.random()*a); // value to guess
   let result = a - missing;
 
-  question.innerText = `${a} −  _  = ${result}`;
+  question.innerHTML = `${a} − <span class="gap-line"></span> = ${result}`;
   options.innerHTML = '';
 
   const correctPos = Math.floor(Math.random()*4);
