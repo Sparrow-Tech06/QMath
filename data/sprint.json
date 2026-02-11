@@ -92,7 +92,7 @@
         "desc": "Connect logic paths",
         "image": "https://cdn-icons-png.flaticon.com/512/4712/4712109.png",
         "link": "logic/sprint-captcha.html?game=Logic&title=Brain Wires&subtitle=Connect logic paths", 
-        "bg": "bg-math-division"
+        "bg": "bg-logic-capcha"
       }
     ]
   }
