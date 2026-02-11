@@ -15,11 +15,19 @@
   --sk-base: #e6e8eb;
   --sk-mid:  #f2f3f5;
   --sk-speed: 1.3s ;
+
+  --puzzle-addition: ;
+  --puzzle-subtraction: ;
+  --puzzle-multiplication: ;
+  --puzzle-division: ;
+  
   --math-addition: #F26076;
   --math-subtraction: #f3e5f5;
   --math-multiplication: #e8f5e9;
   --math-division: #fff3e0;
-  --math-mixed: #fce4ec;
+
+  --logic-math: ;
+  --logic-capcha: ;
 }
 @media (prefers-color-scheme: dark) {
 :root{
