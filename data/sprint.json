@@ -8,7 +8,7 @@
         "desc": "Find the missing value",
         "image": "https://cdn-icons-png.flaticon.com/512/2103/2103652.png",
         "link": "puzzle/sum.html?game=Puzzle&title=Sprint Challenge&subtitle=Speed Matters", 
-        "bg": "bg-addition"
+        "bg": "bg-puzzle-addition"
       },
       {
         "label": "PUZZLE",
@@ -16,7 +16,7 @@
         "desc": "Complete the subtraction",
         "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
         "link": "puzzle/minus.html?game=Puzzle&title=Hidden Diff&subtitle=Complete the subtraction", 
-        "bg": "bg-multiplication"
+        "bg": "bg-puzzle-substraction"
       },
       {
         "label": "PUZZLE",
@@ -24,14 +24,15 @@
         "desc": "Find the missing factor",
         "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
         "link": "premium/premium.html?game=Puzzle&title=Factor Hunt&subtitle=Find the missing factor", 
-        "bg": "bg-multiplication"
+        "bg": "bg-puzzle-multiplication"
       },
       {
         "label": "PUZZLE",
         "title": "DIVIDE PATH",
         "desc": "Match blocks under pressure",
         "image": "https://cdn-icons-png.flaticon.com/512/1048/1048953.png",
-        "link": "puzzle/divide-path.html?game=Puzzle&title=Divide Path&subtitle=Match blocks under pressure"
+        "link": "puzzle/divide-path.html?game=Puzzle&title=Divide Path&subtitle=Match blocks under pressure", 
+        "bg": "bg-puzzle-division"
       }
     ]
   },
@@ -44,28 +45,32 @@
         "title": "SUM SPRINT",
         "desc": "Fast math in 30 seconds",
         "image": "https://cdn-icons-png.flaticon.com/512/2896/2896418.png",
-        "link": "games/sum-sprint.html?game=Math&title=Sum Sprint&subtitle=Fast math in 30 seconds"
+        "link": "games/sum-sprint.html?game=Math&title=Sum Sprint&subtitle=Fast math in 30 seconds", 
+        "bg": "bg-math-addition"
       },
       {
         "label": "MATH",
         "title": "DIFF DASH",
         "desc": "Race with numbers",
         "image": "https://cdn-icons-png.flaticon.com/512/3898/3898150.png",
-        "link": "games/diff-dash.html?game=Math&title=Diff Dash&subtitle=Race with number"
+        "link": "games/diff-dash.html?game=Math&title=Diff Dash&subtitle=Race with number", 
+        "bg": "bg-math-substraction"
       }, 
       {
         "label": "MATH",
         "title": "TABLE SPEED",
         "desc": "Multiplication speed test",
         "image": "https://cdn-icons-png.flaticon.com/512/942/942748.png",
-        "link": "games/math-table.html?game=Math&title=Table Speed&subtitle=Multiplication speed test"
+        "link": "games/math-table.html?game=Math&title=Table Speed&subtitle=Multiplication speed test", 
+        "bg": "bg-math-multiplication"
       },
       {
         "label": "MATH",
         "title": "CALC DASH",
         "desc": "Quick calculations",
         "image": "https://cdn-icons-png.flaticon.com/512/3022/3022251.png",
-        "link": "games/math-calc.html?game=Math&title=Calc Dash&subtitle=Quick calculations"
+        "link": "games/math-calc.html?game=Math&title=Calc Dash&subtitle=Quick calculations", 
+        "bg": "bg-math-division"
       }
     ]
   },
@@ -78,14 +83,16 @@
         "title": "LOGIC SPRINT",
         "desc": "Logical reasoning test",
         "image": "https://cdn-icons-png.flaticon.com/512/1686/1686815.png",
-        "link": "logic/reasoning.html?game=Logic&title=Logic Sprint&subtitle=Logical reasoning test"
+        "link": "logic/reasoning.html?game=Logic&title=Logic Sprint&subtitle=Logical reasoning test", 
+        "bg": "bg-logic-division"
       },
       {
         "label": "LOGIC",
         "title": "BRAIN WIRES",
         "desc": "Connect logic paths",
         "image": "https://cdn-icons-png.flaticon.com/512/4712/4712109.png",
-        "link": "logic/sprint-captcha.html?game=Logic&title=Brain Wires&subtitle=Connect logic paths"
+        "link": "logic/sprint-captcha.html?game=Logic&title=Brain Wires&subtitle=Connect logic paths", 
+        "bg": "bg-math-division"
       }
     ]
   }
