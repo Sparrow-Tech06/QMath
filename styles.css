@@ -157,18 +157,17 @@ section{padding:16px}
 
 /* ================= TOPIC ================= */
 .topic-card{
-  background:var(--card2);
+/*  background:var(--card2);  */
   border-radius:var(--radius);
   padding:18px;
   display:flex;gap:14px;
-  border:1px solid var(--border);
 }
 .topic-card:active{transform:scale(.97)}
 
 .topic-card img{
   width:90px;
   aspect-ratio:1/1;
-  padding: 18px;
+  padding: 20px;
   object-fit:contain;
   border-radius:14px; 
   background:var(--card); 
