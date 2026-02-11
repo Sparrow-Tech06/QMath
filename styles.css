@@ -1,6 +1,6 @@
 /* ================= THEME ================= */
 :root{
-  --bg:#f7f8fa ;
+  --bg:#ffffff ;
   --card:#f9fafb;
   --card2:#ffffff;
   --text:#000000;
@@ -235,11 +235,16 @@ section{padding:16px}
    VARIANT CLASSES
 ================================= */
 
-.bg-addition { background: var(--math-addition); }
-.bg-subtraction { background: var(--math-subtraction); }
-.bg-multiplication { background: var(--math-multiplication); }
-.bg-division { background: var(--math-division); }
-.bg-mixed { background: var(--math-mixed); }
+.bg-puzzle-addition { background: var(--math-addition); }
+.bg-puzzle-subtraction { background: var(--math-subtraction); }
+.bg-puzzle-multiplication { background: var(--math-multiplication); }
+.bg-puzzle-division { background: var(--math-division); }
+
+.bg-math-addition { background: var(--math-addition); }
+.bg-math-subtraction { background: var(--math-subtraction); }
+.bg-math-multiplication { background: var(--math-multiplication); }
+.bg-math-division { background: var(--math-division); }
+
 
 
 
