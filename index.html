@@ -38,235 +38,8 @@ content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,vie
   }
 }
   </script>
-<style>
-/* ================= THEME ================= */
-:root{
-  --bg:#f7f8fa ;
-  --card:#f9fafb;
-  --card2:#ffffff;
-  --text:#000000;
-  --muted:#6b7280;
-  --puzzle:#9b8cff;
-  --math:#ff9f1a;
-  --green:#9BFF7A;
-  --radius:18px;
-  --radius-sm:14px;
-  --border:#e3e6ea;
-  --invite: #f0f3ff ;
-  --sk-base: #e6e8eb;
-  --sk-mid:  #f2f3f5;
-  --sk-speed: 1.3s ;
-}
-@media (prefers-color-scheme: dark) {
-:root{
-  --bg:#0f1115;
-  --card:#171a20;
-  --card2:#1d2129;
-  --text:#ffffff;
-  --muted:#9a9a9a;
-  --puzzle:#9b8cff;
-  --math:#ff9f1a;
-  --green:#9BFF7A;
-  --radius:18px;
-  --radius-sm:14px;
-  --border:#2f3750;
-  --sk-base: #1f2430;
-  --sk-mid:  #2a3140;
-  --sk-speed: 1.3s ;
-  }
-}
+<link rel="stylesheet" href="styles.css">
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-  user-select:none;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-a{text-decoration:none;color:inherit}
-
-.app{max-width:660px;margin:auto}
-
-/* ================= HEADER ================= */
-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 16px;
-  background:var(--card2);
-  border-bottom:1px solid var(--border);
-}
-
-.header-left{display:flex;gap:12px;align-items:center}
-.menu-btn{font-size:22px;opacity:.85}
-
-.notify-btn{
-  width:42px;height:42px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--card);
-  border-radius:50%;
-  border:1px solid var(--border);
-}
-
-/* ================= SECTION ================= */
-section{padding:16px}
-
-.section-title{
-  margin:14px 0 10px;
-  font-size:11px;
-  letter-spacing:2px;
-  color:var(--muted);
-}
-
-.section-title::after{
-  content:'';
-  width:36px;height:2px;
-  background:var(--border);
-  display:block;margin-top:6px;
-}
-
-/* ================= HORIZONTAL ================= */
-.h-scroll{
-  display:flex;gap:12px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-}
-.h-scroll::-webkit-scrollbar{display:none}
-
-/* ================= STATUS ================= */
-.status-box{
-  min-width:60px;height:60px;
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--card2);
-  border:1px solid var(--border);
-  scroll-snap-align:start;
-}
-.status-box i{font-size:22px; }
-/* 1️⃣ first box */
-.status-box:nth-child(1){ border-color:#28a745; }
-.status-box:nth-child(1) i{ color:#28a745; }
-
-/* 2️⃣ second */
-.status-box:nth-child(2){ border-color:#dc3545; }
-.status-box:nth-child(2) i{ color:#dc3545; }
-
-/* 3️⃣ third */
-.status-box:nth-child(3){ border-color:#ffc107; }
-.status-box:nth-child(3) i{ color:#ffc107; }
-
-/* 4️⃣ fourth */
-.status-box:nth-child(4){ border-color:#0d6efd; }
-.status-box:nth-child(4) i{ color:#0d6efd; }
-
-/* ================= CHALLENGE ================= */
-.challenge-card{
-  min-width:160px;
-  padding:16px 22px;
-  border-radius:var(--radius);
-  background:var(--card2);
-  display:flex;justify-content:space-between;align-items:center;
-  font-weight:700;
-  scroll-snap-align:start;
-}
-.challenge-card:active{transform:scale(.96) ; }
-.challenge-card.puzzle{color:var(--puzzle); }
-.challenge-card.math{color:var(--math); }
-.challenge-card.active{
-  border:1px solid var(--border);
-}
-
-/* ================= TOPIC ================= */
-.topic-card{
-  background:var(--card2);
-  border-radius:var(--radius);
-  padding:18px;
-  display:flex;gap:14px;
-  border:1px solid var(--border);
-}
-.topic-card:active{transform:scale(.97)}
-
-.topic-card img{
-  width:90px;
-  aspect-ratio:1/1;
-  padding: 18px;
-  object-fit:contain;
-  border-radius:14px; 
-  background:var(--card); 
-  border:1px solid var(--border);
-}
-
-.text-mute{font-size:12px;color:var(--muted)}
-
-/* ================= SKELETON ================= */
-.img-skeleton{
-  background: linear-gradient( 90deg, var(--sk-base) 25%, var(--sk-mid) 37%, var(--sk-base) 63% );
-  background-size: 400% 100%;
-  animation: skeleton-loading var(--sk-speed) ease-in-out infinite;
-}
-
-/* Animation */
-@keyframes skeleton-loading{
-  0%{
-    background-position: 100% 0;
-  }
-  100%{
-    background-position: 0 0;
-  }
-}
-
-.challenge-skeleton{height:60px}
-.topic-skeleton{height:130px}
-.status-skeleton{border-radius:50%}
-
-/* ================= SHARE ================= */
-.share-card{
-  background:var(--card2);
-  border-radius:var(--radius);
-  padding:18px;
-  margin:40px 16px;
-  border:1px solid var(--border);
-  position:relative;
-}
-
-.actions{display:flex;gap:12px;margin-top:20px}
-
-.invite-btn{
-  flex:1;
-  border:2px solid var(--green);
-  background: var(--invite) ;
-  border-radius:var(--radius-sm);
-  padding:14px;
-  font-weight:700;
-  display:flex;align-items:center;justify-content:center;
-  gap:8px;
-}
-
-.copy-btn{
-  width:56px;height:56px;
-  border-radius:var(--radius-sm);
-  background: var(--card) ;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-}
-
-.copy-btn.copied{background:var(--green);color:#000}
-.copy-btn span{
-  position:absolute;
-  bottom:-20px;
-  font-size:11px;
-  color:var(--green);
-  display:none;
-}
-.copy-btn.copied span{display:block}
-</style>
 </head>
 
 <body>
@@ -372,9 +145,12 @@ function buildChallenges(){
 
 function renderTopics(type){
   topicContent.innerHTML='';
+
   sprintData[type].topics.forEach(t=>{
+    const bgClass = t.bg ? t.bg : '';
+
     topicContent.innerHTML+=`
-    <a href="${t.link}" class="topic-card mb-3">
+    <a href="${t.link}" class="topic-card ${bgClass} mb-3">
       <div class="flex-grow-1">
         <small class="text-secondary">${t.label}</small>
         <h5>${t.title}</h5>
@@ -402,3 +178,4 @@ function copyLink(){
 </script>
 </body>
 </html>
+
