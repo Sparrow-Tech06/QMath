@@ -240,7 +240,7 @@ section{padding:16px}
 ================================= */
 
 .bg-puzzle-addition { background: var(--puzzle-addition); }
-.bg-puzzle-substraction { background: var(--puzzle-addition); }
+.bg-puzzle-substraction { background: var(--puzzle-subtraction); }
 .bg-puzzle-multiplication { background: var(--puzzle-multiplication); }
 .bg-puzzle-division { background: var(--puzzle-division); }
 
