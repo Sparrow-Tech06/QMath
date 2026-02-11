@@ -1,7 +1,7 @@
 /* ================= THEME ================= */
 :root{
   --bg:#ffffff ;
-  --card:#f9fafb;
+  --card: rgba(255,255,255,0.7);
   --card2:#ffffff;
   --text:#000000;
   --muted:#6b7280;
