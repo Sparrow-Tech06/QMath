@@ -7,24 +7,21 @@
         "title": "SUM MISSING",
         "desc": "Find the missing value",
         "image": "https://cdn-icons-png.flaticon.com/512/2103/2103652.png",
-        "link": "puzzle/sum.html?game=Puzzle&title=Sprint Challenge&subtitle=Speed Matters", 
-        "variant": "purple"
+        "link": "puzzle/sum.html?game=Puzzle&title=Sprint Challenge&subtitle=Speed Matters"
       },
       {
         "label": "PUZZLE",
         "title": "HIDEEN DIFF",
         "desc": "Complete the subtraction",
         "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
-        "link": "puzzle/minus.html?game=Puzzle&title=Hidden Diff&subtitle=Complete the subtraction", 
-        "variant": "orange"
+        "link": "puzzle/minus.html?game=Puzzle&title=Hidden Diff&subtitle=Complete the subtraction"
       },
       {
         "label": "PUZZLE",
         "title": "FACTOR HUNT",
         "desc": "Find the missing factor",
         "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
-        "link": "premium/premium.html?game=Puzzle&title=Factor Hunt&subtitle=Find the missing factor", 
-        "variant": "green"
+        "link": "premium/premium.html?game=Puzzle&title=Factor Hunt&subtitle=Find the missing factor"
       },
       {
         "label": "PUZZLE",
