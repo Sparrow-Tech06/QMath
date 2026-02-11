@@ -15,9 +15,11 @@
   --sk-base: #e6e8eb;
   --sk-mid:  #f2f3f5;
   --sk-speed: 1.3s ;
-  --purple-bg:linear-gradient(135deg,#667eea,#764ba2);
-  --orange-bg:linear-gradient(135deg,#ff9966,#ff5e62);
-  --green-bg:linear-gradient(135deg,#11998e,#38ef7d);
+  --math-addition: #e3f2fd;
+  --math-subtraction: #f3e5f5;
+  --math-multiplication: #e8f5e9;
+  --math-division: #fff3e0;
+  --math-mixed: #fce4ec;
 }
 @media (prefers-color-scheme: dark) {
 :root{
@@ -233,9 +235,11 @@ section{padding:16px}
    VARIANT CLASSES
 ================================= */
 
-.bg-purple{ background:var(--purple-bg); }
-.bg-orange{ background:var(--orange-bg); }
-.bg-green{ background:var(--green-bg); }
+.bg-addition { background: var(--math-addition); }
+.bg-subtraction { background: var(--math-subtraction); }
+.bg-multiplication { background: var(--math-multiplication); }
+.bg-division { background: var(--math-division); }
+.bg-mixed { background: var(--math-mixed); }
 
 
 
