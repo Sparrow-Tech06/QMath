@@ -245,6 +245,8 @@ section{padding:16px}
 .bg-math-multiplication { background: var(--math-multiplication); }
 .bg-math-division { background: var(--math-division); }
 
+.bg-logic-division { background: var(--math-division); }
+.bg-logic-capcha { background: var(--math-division); }
 
 
 
