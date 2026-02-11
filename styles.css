@@ -123,16 +123,16 @@ section{padding:16px}
 }
 .status-box i{font-size:22px; }
 /* 1️⃣ first box */
-.status-box:nth-child(1){ border-color:#28a745; }
-.status-box:nth-child(1) i{ color:#28a745; }
+.status-box:nth-child(1){ background-color:#28a745; }
+.status-box:nth-child(1) i{ color:#fff; }
 
 /* 2️⃣ second */
-.status-box:nth-child(2){ border-color:#dc3545; }
-.status-box:nth-child(2) i{ color:#dc3545; }
+.status-box:nth-child(2){ background-color:#dc3545; }
+.status-box:nth-child(2) i{ color:#fff; }
 
 /* 3️⃣ third */
-.status-box:nth-child(3){ border-color:#ffc107; }
-.status-box:nth-child(3) i{ color:#ffc107; }
+.status-box:nth-child(3){ background-color:#ffc107; }
+.status-box:nth-child(3) i{ color:#fff; }
 
 /* ================= CHALLENGE ================= */
 .challenge-card{
