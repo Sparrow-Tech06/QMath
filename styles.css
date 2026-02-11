@@ -16,18 +16,18 @@
   --sk-mid:  #f2f3f5;
   --sk-speed: 1.3s ;
 
-  --puzzle-addition: ;
-  --puzzle-subtraction: ;
-  --puzzle-multiplication: ;
-  --puzzle-division: ;
+  --puzzle-addition: #b7d8e6;
+  --puzzle-subtraction: #d7c5f0;
+  --puzzle-multiplication: #c6e5c3;
+  --puzzle-division: #ffd6d6;
   
-  --math-addition: #F26076;
-  --math-subtraction: #f3e5f5;
-  --math-multiplication: #e8f5e9;
-  --math-division: #fff3e0;
+  --math-addition: #ffe9b6;
+  --math-subtraction: #cde7f5;
+  --math-multiplication: #f2c6de;
+  --math-division: #d6f5ec;
 
-  --logic-math: ;
-  --logic-capcha: ;
+  --logic-math: #e2d4f7;
+  --logic-capcha: #f5deb3;
 }
 @media (prefers-color-scheme: dark) {
 :root{
