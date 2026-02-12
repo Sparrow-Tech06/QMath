@@ -30,7 +30,7 @@
   --logic-capcha: #e8c27a;
 
   --share-box: #c4b5fd;
-  --share-border: ;
+  --share-border: none ;
   
 }
 @media (prefers-color-scheme: dark) {
