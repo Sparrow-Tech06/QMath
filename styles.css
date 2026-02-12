@@ -29,8 +29,8 @@
   --logic-math: #c7b2f0;
   --logic-capcha: #e8c27a;
 
-  --share-box: #f3e8ff;
-  --share-border: #e0c9ff ;
+  --share-box: #c4b5fd;
+  --share-border: ;
   
 }
 @media (prefers-color-scheme: dark) {
@@ -212,10 +212,10 @@ section{padding:16px}
 
 .invite-btn{
   flex:1;
-  border:2px solid var(--green);
-  background: var(--invite) ;
+  border: ;
+  background: #fff ;
   border-radius:var(--radius-sm);
-  padding:14px;
+  padding:14px; color: #22c55e ;
   font-weight:700;
   display:flex;align-items:center;justify-content:center;
   gap:8px;
@@ -224,7 +224,7 @@ section{padding:16px}
 .copy-btn{
   width:56px;height:56px;
   border-radius:var(--radius-sm);
-  background: var(--card) ;
+  background: rgba(255,255,255,0.4) ;
   display:flex;align-items:center;justify-content:center;
   position:relative;
 }
