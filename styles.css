@@ -28,6 +28,10 @@
 
   --logic-math: #c7b2f0;
   --logic-capcha: #e8c27a;
+
+  --share-box: #f3e8ff;
+  --share-border: #e0c9ff ;
+  
 }
 @media (prefers-color-scheme: dark) {
 :root{
@@ -196,11 +200,11 @@ section{padding:16px}
 
 /* ================= SHARE ================= */
 .share-card{
-  background:var(--card2);
+  background:var(--share-box);
   border-radius:var(--radius);
   padding:18px;
   margin:40px 16px;
-  border:1px solid var(--border);
+  border:2px solid var(--share-border);
   position:relative;
 }
 
