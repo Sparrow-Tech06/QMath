@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Prizes</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#f7f8fa;
+ --card:#ffffff;
+ --soft:#9aa0aa;
+ --accent:#ffd54f;
+ --border:#e3e6ea;
+ --coin:#9b8cff;
+}
+
+@media (prefers-color-scheme: dark){
+:root{
+ --bg:#0f1115;
+ --card:#1d2129;
+ --soft:#9aa0aa;
+ --accent:#ffd54f;
+ --border:#2f3750;
+ --coin:#9b8cff;
+}
+}
+
+body{
+ background:var(--bg);
+ font-family:system-ui;
+ margin:0;
+ color:#fff;
+}
+
+.page{
+ min-height:100vh;
+ display:flex;
+ flex-direction:column;
+}
+
+header{
+ background:var(--card);
+ padding:22px 16px;
+ text-align:center;
+ position:sticky;
+ top:0;
+ border-bottom:1px solid var(--border);
+}
+
+.badge-card{
+ background:var(--card);
+ border-radius:16px;
+ padding:16px;
+ margin-bottom:14px;
+ border:1px solid var(--border);
+ transition:0.3s;
+}
+
+.badge-icon{
+ font-size:28px;
+}
+
+.locked{
+ opacity:.45;
+ filter:grayscale(100%);
+}
+
+.unlock-label{
+ font-size:12px;
+ letter-spacing:1px;
+}
+
+.progress{
+ height:6px;
+ border-radius:20px;
+ background:#2f3750;
+}
+
+.progress-bar{
+ background:var(--coin);
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<header>
+ <h5 class="mb-1">My Badges</h5>
+ <small id="coinDisplay"></small>
+</header>
+
+<main class="p-3" id="badgeContainer"></main>
+
+</div>
+
+<script>
+const coin = parseInt(localStorage.getItem("myCoins")) || 0;
+document.getElementById("coinDisplay").innerHTML = 
+ `<i class="bi bi-coin text-warning"></i> ${coin} Coins`;
+
+const badges = [
+ { name:"Starter", required:100, icon:"bi-star-fill" },
+ { name:"Bronze Player", required:300, icon:"bi-award-fill" },
+ { name:"Silver Master", required:700, icon:"bi-trophy-fill" },
+ { name:"Gold Champion", required:1200, icon:"bi-gem" },
+ { name:"Diamond Elite", required:2000, icon:"bi-fire" }
+];
+
+const container = document.getElementById("badgeContainer");
+
+badges.forEach(badge => {
+
+ const unlocked = coin >= badge.required;
+ const percent = Math.min((coin / badge.required) * 100, 100);
+
+ const card = document.createElement("div");
+ card.className = "badge-card " + (unlocked ? "" : "locked");
+
+ card.innerHTML = `
+  <div class="d-flex align-items-center justify-content-between">
+    <div>
+      <i class="bi ${badge.icon} badge-icon text-warning"></i>
+      <strong class="ms-2">${badge.name}</strong><br>
+      <span class="unlock-label">
+        ${unlocked ? "UNLOCKED 🎉" : badge.required + " Coins Required"}
+      </span>
+    </div>
+  </div>
+
+  <div class="progress mt-3">
+    <div class="progress-bar" style="width:${percent}%"></div>
+  </div>
+ `;
+
+ container.appendChild(card);
+
+});
+</script>
+
+</body>
+</html>
