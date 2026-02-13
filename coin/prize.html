@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Badges</title>
+<title>Math Achievements</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -11,10 +11,10 @@
 :root{
  --bg:#f4f6fb;
  --card:#ffffff;
- --soft:#7b8495;
- --border:#e4e7ec;
- --primary:#6c63ff;
- --success:#22c55e;
+ --soft:#6b7280;
+ --border:#e5e7eb;
+ --primary:#6366f1;
+ --success:#16a34a;
 }
 
 @media (prefers-color-scheme: dark){
@@ -29,105 +29,105 @@
 
 body{
  margin:0;
- font-family:system-ui;
  background:var(--bg);
+ font-family:system-ui;
 }
 
 header{
- background:linear-gradient(135deg,#6c63ff,#9b8cff);
+ background:linear-gradient(135deg,#6366f1,#8b82ff);
  color:#fff;
- padding:25px 15px;
+ padding:28px 16px;
  text-align:center;
  border-bottom-left-radius:25px;
  border-bottom-right-radius:25px;
 }
 
-.coin-box{
- font-size:18px;
- font-weight:600;
- margin-top:5px;
+header h1{
+ font-size:20px;
+ margin:0;
+}
+
+header p{
+ margin:6px 0 0;
+ font-size:14px;
 }
 
 main{
- padding:16px;
-}
-
-.badge-card{
- background:var(--card);
- border-radius:20px;
  padding:18px;
+}
+
+section.badge-card{
+ background:var(--card);
+ border-radius:18px;
+ padding:16px;
  margin-bottom:16px;
- box-shadow:0 6px 16px rgba(0,0,0,.06);
- transition:.3s;
- position:relative;
- overflow:hidden;
+ border:1px solid var(--border);
+ transition:.25s;
 }
 
-.badge-card.unlocked{
- border:2px solid var(--success);
- box-shadow:0 0 15px rgba(34,197,94,.3);
-}
-
-.badge-card.locked{
+section.badge-card.locked{
  opacity:.55;
  filter:grayscale(100%);
 }
 
 .badge-img{
- width:70px;
- height:70px;
+ width:65px;
+ height:65px;
  object-fit:contain;
 }
 
 .badge-title{
  font-weight:700;
- font-size:16px;
+ font-size:15px;
 }
 
 .progress{
- height:8px;
+ height:7px;
  border-radius:30px;
- background:#e4e7ec;
+ background:#e5e7eb;
 }
 
 .progress-bar{
- background:linear-gradient(90deg,#6c63ff,#9b8cff);
+ background:linear-gradient(90deg,#6366f1,#8b82ff);
 }
 
 .share-btn{
  border:none;
- padding:6px 12px;
+ padding:6px 14px;
  border-radius:20px;
  font-size:12px;
  background:#25D366;
  color:#fff;
 }
-
-.unlock-text{
- font-size:12px;
- color:var(--soft);
-}
 </style>
 </head>
+
 <body>
 
 <header>
-  <h5>🏆 My Badges</h5>
-  <div class="coin-box" id="coinDisplay"></div>
+  <h1>📘 Math Achievements</h1>
+  <p id="coinDisplay"></p>
 </header>
 
-<main id="badgeContainer"></main>
+<main>
+  <article id="badgeContainer"></article>
+</main>
 
 <script>
 const coin = parseInt(localStorage.getItem("myCoins")) || 0;
-document.getElementById("coinDisplay").innerHTML = `💰 ${coin} Coins`;
+document.getElementById("coinDisplay").innerText = `Your Coins: ${coin}`;
+
+const appLink = "https://yourdomain.com"; // change to your real link
 
 const badges = [
- { name:"Starter", required:100, img:"../assets/badges/starter.png" },
- { name:"Bronze Player", required:300, img:"../assets/badges/bronze.png" },
- { name:"Silver Master", required:700, img:"../assets/badges/silver.png" },
- { name:"Gold Champion", required:1200, img:"../assets/badges/gold.png" },
- { name:"Diamond Elite", required:2000, img:"../assets/badges/diamond.png" }
+ { name:"Addition Master", required:100, img:"images/badges/addition.png" },
+ { name:"Subtraction Pro", required:200, img:"images/badges/subtraction.png" },
+ { name:"Multiplication King", required:400, img:"images/badges/multiplication.png" },
+ { name:"Division Expert", required:600, img:"images/badges/division.png" },
+ { name:"Algebra Genius", required:900, img:"images/badges/algebra.png" },
+ { name:"Geometry Star", required:1200, img:"images/badges/geometry.png" },
+ { name:"Fraction Wizard", required:1500, img:"images/badges/fractions.png" },
+ { name:"Percentage Champ", required:1800, img:"images/badges/percentage.png" }
 ];
 
 const container = document.getElementById("badgeContainer");
@@ -137,42 +137,44 @@ badges.forEach(badge => {
  const unlocked = coin >= badge.required;
  const percent = Math.min((coin / badge.required) * 100, 100);
 
- const card = document.createElement("div");
- card.className = "badge-card " + (unlocked ? "unlocked" : "locked");
+ const section = document.createElement("section");
+ section.className = "badge-card " + (unlocked ? "" : "locked");
 
- card.innerHTML = `
-   <div class="d-flex align-items-center justify-content-between">
-     <div class="d-flex align-items-center gap-3">
-        <img src="${badge.img}" class="badge-img">
-        <div>
-          <div class="badge-title">${badge.name}</div>
-          <div class="unlock-text">
-            ${unlocked ? "Unlocked 🎉" : badge.required + " Coins Required"}
-          </div>
-        </div>
-     </div>
+ section.innerHTML = `
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <img src="${badge.img}" alt="${badge.name}" class="badge-img">
+      <div>
+        <div class="badge-title">${badge.name}</div>
+        <small>
+          ${unlocked ? "Unlocked 🎉" : badge.required + " Coins Required"}
+        </small>
+      </div>
+    </div>
 
-     ${unlocked ? `
-       <button class="share-btn" onclick="shareBadge('${badge.name}')">
-         Share
-       </button>` : ""}
-   </div>
+    ${unlocked ? `
+      <button class="share-btn" onclick="shareBadge('${badge.name}','${badge.img}')">
+        Share
+      </button>
+    ` : ""}
+  </div>
 
-   <div class="progress mt-3">
-     <div class="progress-bar" style="width:${percent}%"></div>
-   </div>
+  <div class="progress mt-3">
+    <div class="progress-bar" style="width:${percent}%"></div>
+  </div>
  `;
 
- container.appendChild(card);
+ container.appendChild(section);
+
 });
 
-
-function shareBadge(name){
- const text = `🎉 I just unlocked the "${name}" badge in the game! 🚀🔥`;
+function shareBadge(name, img){
+ const text = `🎉 I unlocked the "${name}" badge in my Math Challenge App! 📘🔥\n\nPlay now:\n${appLink}\n\nBadge Image:\n${location.origin}/${img}`;
  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
- window.open(url,"_blank");
+ window.open(url, "_blank");
 }
 </script>
 
 </body>
 </html>
+
