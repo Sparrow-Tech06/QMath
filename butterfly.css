@@ -187,18 +187,26 @@ button:focus,
 
 /* ===== For Puzzle Games ===== */
 .gap-line{
-  display: inline-block;
-  width: 40px;        /* line length */
-  height: 2px;        /* thickness */
-  background: #0d6efd; /* bootstrap primary */
-  border-radius: 4px;
-  vertical-align: middle;
-  margin: 0 8px;
-  animation: blink 1.2s infinite ease-in-out;
+  display:inline-block;
+  width:60px;
+  border-bottom:3px solid #0d6efd;
+  animation: blinkScale 1s infinite;
+  transform-origin:center;
 }
-@keyframes blink{
-  0%,100%{opacity:1; }
-  50%{opacity:.3; }
+
+@keyframes blinkScale{
+  0%{
+    opacity:1;
+    transform:scale(1);
+  }
+  50%{
+    opacity:.3;
+    transform:scale(1.25);
+  }
+  100%{
+    opacity:1;
+    transform:scale(1);
+  }
 }
 
 
