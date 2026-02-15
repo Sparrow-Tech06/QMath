@@ -31,6 +31,9 @@
 
   --share-box: #c4b5fd;
   --share-border: none ;
+
+  --sideber : #fff ;
+  --sideber-icons: ;
   
 }
 @media (prefers-color-scheme: dark) {
