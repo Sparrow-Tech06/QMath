@@ -23,7 +23,7 @@
         "title": "FACTOR HUNT",
         "desc": "Find the missing factor",
         "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
-        "link": "puzzle/divide.html?game=Puzzle&title=Factor Hunt&subtitle=Find the missing factor", 
+        "link": "puzzle/factor-hunt.html?game=Puzzle&title=Factor Hunt&subtitle=Find the missing factor", 
         "bg": "bg-puzzle-multiplication"
       },
       {
