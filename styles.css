@@ -89,7 +89,7 @@ header{
 .notify-btn{
   width:42px;height:42px;
   display:flex;align-items:center;justify-content:center;
-  background:var(--card); margin-right: 8px ;
+  background:var(--card); margin: 10px ;
   border-radius:50%;
   border:1px solid var(--border);
 }
