@@ -1,1 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Multiplication Missing</title>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+  margin:0;
+  font-family:system-ui;
+  min-height:100vh;
+  background: linear-gradient(135deg,#5f9cff,#7f53ff,#ff7eb3);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ===== MAIN GAME ===== */
+.game{
+  width:100%;
+  max-width:420px;
+  padding:18px;
+}
+
+/* ===== TOP ===== */
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+  color:#fff;
+  font-weight:600;
+}
+
+#timerBox{
+  background:rgba(255,255,255,.2);
+  padding:6px 12px;
+  border-radius:12px;
+  backdrop-filter:blur(8px);
+}
+
+/* ===== CARD ===== */
+.card{
+  border-radius:24px;
+  padding:22px;
+  border:none;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(18px);
+  box-shadow:0 12px 35px rgba(0,0,0,.25);
+}
+
+/* ===== QUESTION ===== */
+.q{
+  font-size:28px;
+  text-align:center;
+  font-weight:700;
+  color:#fff;
+  margin-bottom:18px;
+}
+
+/* ===== GAP ===== */
+.gap-line{
+  display:inline-block;
+  width:55px;
+  border-bottom:4px solid #fff;
+  margin:0 6px;
+}
+
+/* ===== OPTIONS ===== */
+#options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.opt{
+  background:#fff;
+  border-radius:14px;
+  padding:16px;
+  font-size:20px;
+  font-weight:600;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+  box-shadow:0 4px 10px rgba(0,0,0,.12);
+}
+
+.opt:hover{
+  transform:translateY(-2px) scale(1.03);
+}
+
+.opt:active{
+  transform:scale(.96);
+}
+
+/* ===== SUBMIT ===== */
+.submit{
+  margin-top:16px;
+  border-radius:14px;
+  font-weight:600;
+}
+
+/* ===== PROGRESS ===== */
+.progress-text{
+  font-size:14px;
+}
+
+/* ===== ANIMATION ===== */
+.card{
+  animation:fade .4s ease;
+}
+@keyframes fade{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="game">
+
+<div class="top">
+  <span id="timerBox"></span>
+  <span class="progress-text" id="progress">Played: 0 / 10</span>
+</div>
+
+<div class="card">
+  <div class="q" id="question"></div>
+  <div id="options"></div>
+
+  <button id="submitBtn"
+    class="btn btn-light w-100 submit"
+    onclick="endGame(true)"
+    style="display:none">
+    Finish Game
+  </button>
+</div>
+
+</div>
+
+<script>
+
+/* ===== SETTINGS ===== */
+const timerOn = localStorage.getItem('timerOn') === '1';
+
+/* ===== STATE ===== */
+let time = 30;
+let score = 0;
+let index = 0;
+const total = 10;
+let timerRef = null;
+let gameEnded = false;
+
+const timerBox = document.getElementById('timerBox');
+const progress = document.getElementById('progress');
+const submitBtn = document.getElementById('submitBtn');
+const question = document.getElementById('question');
+const options = document.getElementById('options');
+
+/* ===== TIMER ===== */
+if(timerOn){
+  timerBox.innerText = `⏱ ${time}s`;
+  timerRef = setInterval(()=>{
+    time--;
+    timerBox.innerText = `⏱ ${time}s`;
+    if(time <= 0) endGame(false);
+  },1000);
+}else{
+  timerBox.innerText = 'Practice Mode';
+  submitBtn.style.display = 'block';
+}
+
+/* ===== MULTIPLICATION QUESTIONS ===== */
+function nextQuestion(){
+  if(gameEnded) return;
+
+  if(index === total){
+    endGame(false);
+    return;
+  }
+
+  index++;
+  progress.innerText = `Played: ${index} / ${total}`;
+
+  let a = Math.floor(Math.random()*9)+2;
+  let missing = Math.floor(Math.random()*9)+1;
+  let result = a * missing;
+
+  question.innerHTML = `${a} × <span class="gap-line"></span> = ${result}`;
+  options.innerHTML = '';
+
+  const correctPos = Math.floor(Math.random()*4);
+
+  for(let i=0;i<4;i++){
+    let val = i === correctPos
+      ? missing
+      : missing + (Math.random()>.5?1:-1)*(Math.floor(Math.random()*3)+1);
+
+    if(val <= 0) val = missing + 1;
+
+    const div = document.createElement('div');
+    div.className = 'opt';
+    div.innerText = val;
+
+    div.onclick = ()=>{
+      if(gameEnded) return;
+
+      options.querySelectorAll('.opt').forEach(o=>{
+        o.style.pointerEvents='none';
+      });
+
+      if(val === missing) score++;
+
+      setTimeout(nextQuestion,500);
+    };
+
+    options.appendChild(div);
+  }
+}
+
+/* ===== END ===== */
+function endGame(){
+  if(gameEnded) return;
+  gameEnded = true;
+  clearInterval(timerRef);
+
+  localStorage.setItem('lastScore',score);
+  location.replace('../result.html');
+}
+
+nextQuestion();
+
+</script>
+
+</body>
+  </html>
