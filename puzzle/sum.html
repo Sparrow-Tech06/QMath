@@ -88,11 +88,11 @@ function nextQuestion(){
   progress.innerText = `Played: ${index} / ${total}`;
 
   // Generate base numbers
-  let a = Math.floor(Math.random()*10) + 3; // bigger number
-  let missing = Math.floor(Math.random()*a); // value to guess
-  let result = a - missing;
+  let a = Math.floor(Math.random()*10) + 1;
+  let missing = Math.floor(Math.random()*10);
+  let result = a + missing;
 
-  question.innerHTML = `${a} − <span class="gap-line"></span> = ${result}`;
+  question.innerHTML = `${a} + <span class="gap-line"></span> = ${result}`;
   options.innerHTML = '';
 
   const correctPos = Math.floor(Math.random()*4);
