@@ -291,6 +291,19 @@ ul li a i{
   color:var(--icon);
 }
 
+/* ===== Different icon background ===== */
+.menu-list li:nth-child(1) i{ background:#4CAF50;}
+.menu-list li:nth-child(2) i{ background:#2196F3;}
+.menu-list li:nth-child(3) i{ background:#FF9800;}
+.menu-list li:nth-child(4) i{ background:#E91E63;}
+.menu-list li:nth-child(5) i{ background:#9C27B0;}
+
+/* ===== SECOND LIST ===== */
+.menu-list2 li:nth-child(1) i{ background:#00BCD4;}
+.menu-list2 li:nth-child(2) i{ background:#795548;}
+.menu-list2 li:nth-child(3) i{ background:#607D8B;}
+.menu-list2 li:nth-child(4) i{ background:#F44336;}
+
 
 
 
