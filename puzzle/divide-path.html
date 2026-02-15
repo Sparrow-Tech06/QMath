@@ -84,54 +84,57 @@ function nextQuestion(){
     return;
   }
 
-  index++;
-  progress.innerText = `Played: ${index} / ${total}`;
+  index++;    
+  progress.innerText = `Played: ${index} / ${total}`;    
 
-  // Generate base numbers
-  let a = Math.floor(Math.random()*10) + 1;
-  let missing = Math.floor(Math.random()*10);
-  let result = a + missing;
+  /* Generate safe division */
+  let divisor = Math.floor(Math.random()*9) + 1; // 1–9  
+  let result = Math.floor(Math.random()*10) + 1; // 1–10  
+  let a = divisor * result; // ensure no decimal  
 
-  question.innerHTML = `${a} + <span class="gap-line"></span> = ${result}`;
-  options.innerHTML = '';
+  question.innerHTML = `${a} ÷ <span class="gap-line"></span> = ${result}`;    
+  options.innerHTML = '';    
 
-  const correctPos = Math.floor(Math.random()*4);
+  const correctPos = Math.floor(Math.random()*4);    
 
-  for(let i=0;i<4;i++){
-    const val = i === correctPos
-      ? missing
-      : missing + (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random()*4) + 1);
+  for(let i=0;i<4;i++){    
+    let val = i === correctPos    
+      ? divisor    
+      : divisor + (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random()*4) + 1);    
 
-    const div = document.createElement('div');
-    div.className = 'opt';
-    div.innerText = val < 0 ? missing + 1 : val;
+    if(val <= 0) val = divisor + 1;
 
-    let inputLocked = false;
+    const div = document.createElement('div');    
+    div.className = 'opt';    
+    div.innerText = val;    
 
-div.onclick = ()=>{
-  if(gameEnded || inputLocked) return;
-  inputLocked = true;
+    let inputLocked = false;    
 
-  options.querySelectorAll('.opt').forEach(opt=>{
-    opt.style.pointerEvents = 'none';
-  });
+    div.onclick = ()=>{    
+      if(gameEnded || inputLocked) return;    
+      inputLocked = true;    
 
-  if(soundOn) click.play();
+      options.querySelectorAll('.opt').forEach(opt=>{    
+        opt.style.pointerEvents = 'none';    
+      });    
 
-  if(val === missing){
-    score++;
-    if(soundOn) correct.play();
-  }else{
-    if(soundOn) wrong.play();
-  }
+      if(soundOn) click.play();    
 
-  setTimeout(() => {
-    inputLocked = false;
-    nextQuestion();
-  }, 600);
-};
-    options.appendChild(div);
-  }
+      if(val === divisor){    
+        score++;    
+        if(soundOn) correct.play();    
+      }else{    
+        if(soundOn) wrong.play();    
+      }    
+
+      setTimeout(() => {    
+        inputLocked = false;    
+        nextQuestion();    
+      }, 600);    
+    };    
+
+    options.appendChild(div);    
+  }    
 }
 
 /* ===== END GAME ===== */
