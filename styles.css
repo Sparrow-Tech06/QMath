@@ -263,7 +263,7 @@ section{padding:16px}
 /* ================= SIDEBAR ================= */
 .offcanvas{
   width:85%!important;
-  background:var(--card);
+  background:var(--sideber);
 }
 
 ul{
