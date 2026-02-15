@@ -1,1 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily Math Challenge</title>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+/* Modern pastel theme */
+:root{
+--primary:#7c8cff;
+--bg:#f4f6ff;
+--success:#38b000;
+--danger:#ff4d6d;
+}
+
+body{
+font-family:system-ui;
+background:linear-gradient(135deg,#f4f6ff,#e9edff);
+}
+
+/* Header */
+h1{
+color:var(--primary);
+}
+
+/* Coin card */
+.coin-card{
+background:white;
+border-radius:16px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+padding:10px 18px;
+display:inline-flex;
+align-items:center;
+gap:8px;
+}
+
+/* Question */
+.question-box{
+background:white;
+border-radius:22px;
+padding:40px 20px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+font-weight:600;
+text-align:center;
+}
+
+/* Options */
+.options{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+}
+
+.option{
+flex:1 1 calc(50% - 12px);
+border-radius:14px;
+padding:14px;
+cursor:pointer;
+text-align:center;
+transition:.25s;
+background:white;
+box-shadow:0 4px 12px rgba(0,0,0,.05);
+}
+
+.option:hover{
+transform:scale(1.04);
+}
+
+.option:active{
+transform:scale(.95);
+}
+
+.disabled{
+pointer-events:none;
+opacity:.6;
+}
+
+/* Popup */
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:999;
+}
+
+.popup-box{
+background:white;
+padding:28px;
+border-radius:22px;
+text-align:center;
+width:90%;
+max-width:340px;
+animation:pop .3s ease;
+box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+/* Ripple waves */
+.img-wrap{
+position:relative;
+display:inline-block;
+}
+
+.wave{
+position:absolute;
+border-radius:50%;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+animation:ripple 2s infinite;
+}
+
+.wave:nth-child(2){
+animation-delay:.4s;
+}
+.wave:nth-child(3){
+animation-delay:.8s;
+}
+
+.green{background:var(--success);}
+.red{background:var(--danger);}
+
+@keyframes ripple{
+0%{
+width:40px;
+height:40px;
+opacity:.7;
+}
+100%{
+width:260px;
+height:260px;
+opacity:0;
+}
+}
+
+@keyframes pop{
+from{transform:scale(.7);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+.result-img{
+width:95px;
+position:relative;
+z-index:2;
+}
+
+.ok-btn{
+background:var(--primary);
+border:none;
+border-radius:10px;
+padding:10px 20px;
+color:white;
+}
+
+.ok-btn:hover{
+background:#5e6eff;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app" class="container py-4">
+
+<h1 class="fw-bold text-center">Today's Challenge</h1>
+<div class="text-muted text-center">{{todayDate}}</div>
+
+<!-- Coin -->
+<div class="text-center my-3">
+<div class="coin-card">
+🪙 <strong>{{coins}}</strong>
+</div>
+</div>
+
+<!-- Locked -->
+<div v-if="locked" class="alert alert-success text-center">
+You already completed today 🎉  
+Come back tomorrow.
+</div>
+
+<!-- Quiz -->
+<div v-if="quiz && !locked">
+
+<div class="question-box mb-3">
+{{quiz.question}}
+</div>
+
+<div class="options">
+<div class="option"
+v-for="opt in quiz.options"
+:class="{disabled:answered}"
+@click="!answered && check(opt)">
+{{opt}}
+</div>
+</div>
+
+</div>
+
+<!-- Popup -->
+<div v-if="showPopup" class="popup">
+
+<div class="popup-box">
+
+<div class="img-wrap">
+
+<div v-if="result=='correct'" class="wave green"></div>
+<div v-if="result=='correct'" class="wave green"></div>
+<div v-if="result=='correct'" class="wave green"></div>
+
+<div v-if="result=='wrong'" class="wave red"></div>
+<div v-if="result=='wrong'" class="wave red"></div>
+<div v-if="result=='wrong'" class="wave red"></div>
+
+<img :src="popupImage" class="result-img">
+
+</div>
+
+<h5 v-if="result=='correct'" class="mt-3 text-success">
+Correct +10 coins 🎉
+</h5>
+
+<h5 v-if="result=='wrong'" class="mt-3 text-danger">
+Wrong 😢
+</h5>
+
+<button class="ok-btn mt-3" @click="closePopup">
+Continue
+</button>
+
+</div>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+
+<script>
+
+const {createApp}=Vue;
+
+createApp({
+
+data(){
+return{
+
+quiz:null,
+todayDate:"",
+showPopup:false,
+result:"",
+popupImage:"",
+coins:0,
+locked:false,
+answered:false,
+
+quizData:[
+{
+date:"2026-02-15",
+question:"45 + 28 = ?",
+options:[70,72,73,75],
+answer:73
+},
+{
+date:"2026-02-16",
+question:"12 × 7 = ?",
+options:[72,84,96,64],
+answer:84
+},
+{
+date:"2026-02-17",
+question:"100 ÷ 4 = ?",
+options:[20,25,30,40],
+answer:25
+}
+]
+}
+},
+
+mounted(){
+
+let today=new Date();
+this.todayDate=today.toDateString();
+
+let iso=today.toISOString().slice(0,10);
+
+this.quiz=this.quizData.find(q=>q.date===iso);
+
+this.coins=Number(localStorage.getItem("coins")||0);
+
+// 🔒 check daily play
+let played=localStorage.getItem("playedDate");
+
+if(played===iso){
+this.locked=true;
+}
+
+},
+
+methods:{
+
+check(opt){
+
+this.answered=true;
+
+if(opt===this.quiz.answer){
+
+this.result="correct";
+this.popupImage="https://cdn-icons-png.flaticon.com/512/845/845646.png";
+
+// 🪙 reward
+this.coins+=10;
+localStorage.setItem("coins",this.coins);
+
+// 🔒 lock today
+let today=new Date().toISOString().slice(0,10);
+localStorage.setItem("playedDate",today);
+this.locked=true;
+
+}else{
+
+this.result="wrong";
+this.popupImage="https://cdn-icons-png.flaticon.com/512/463/463612.png";
+}
+
+this.showPopup=true;
+
+},
+
+closePopup(){
+this.showPopup=false;
+}
+
+}
+
+}).mount("#app");
+
+</script>
+
+</body>
+  </html>
