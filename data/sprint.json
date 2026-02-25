@@ -68,7 +68,7 @@
         "label": "MATH",
         "title": "CALC DASH",
         "desc": "Quick calculations",
-        "image": "https://cdn-icons-png.flaticon.com/512/3022/3022251.png",
+        "image": "assets/calc-dash.svg",
         "link": "games/math-calc.html?game=Math&title=Calc Dash&subtitle=Quick calculations", 
         "bg": "bg-math-division"
       }
