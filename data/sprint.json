@@ -68,7 +68,7 @@
         "label": "MATH",
         "title": "CALC DASH",
         "desc": "Quick calculations",
-        "image": "assets/calc-dash.svg",
+        "image": "assets/calc-dash.png",
         "link": "games/math-calc.html?game=Math&title=Calc Dash&subtitle=Quick calculations", 
         "bg": "bg-math-division"
       }
