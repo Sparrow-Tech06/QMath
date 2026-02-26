@@ -82,7 +82,7 @@
         "label": "LOGIC",
         "title": "LOGIC SPRINT",
         "desc": "Logical reasoning test",
-        "image": "https://cdn-icons-png.flaticon.com/512/1686/1686815.png",
+        "image": "assets/logicSprint.png",
         "link": "logic/reasoning.html?game=Logic&title=Logic Sprint&subtitle=Logical reasoning test", 
         "bg": "bg-logic-division"
       },
