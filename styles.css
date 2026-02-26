@@ -169,7 +169,7 @@ section{padding:16px}
 .topic-card:active{transform:scale(.97)}
 
 .topic-card img{
-  width:90px;
+  width:190px;
   aspect-ratio:1/1;
   padding: 20px;
   object-fit:contain;
