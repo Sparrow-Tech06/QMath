@@ -38,11 +38,11 @@
 }
 @media (prefers-color-scheme: dark) {
 :root{
-  --bg:#0f1115;
+  --bg: #0D0F35 ;
   --card:#171a20;
   --card2: #323558 ;
   --text:#ffffff;
-  --muted:#9a9a9a;
+  --muted: #F7F8FA ;
   --puzzle:#9b8cff;
   --math:#ff9f1a;
   --green:#9BFF7A;
