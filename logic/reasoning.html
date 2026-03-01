@@ -41,8 +41,8 @@
   
 <script>
 /* ===== SETTINGS ===== */
-const timerOn = localStorage.getItem('timerOn') === '1';
-const soundOn = localStorage.getItem('soundOn') === '1';
+let timerOn = false;
+let soundOn = false;
 
 /* ===== SOUNDS ===== */
 const click   = new Howl({ src:['../assets/sound/click.mp3'], volume:.5 });
@@ -65,28 +65,38 @@ const submitBtn = document.getElementById('submitBtn');
 const questionBox = document.getElementById('question');
 const optionsBox = document.getElementById('options');
 
-/* ===== TIMER ===== */
-if(timerOn){
-  timerBox.innerText = `⏱ ${time}s`;
-  timerRef = setInterval(()=>{
-    time--;
-    timerBox.innerText = `⏱ ${time}s`;
-    if(time <= 0) endGame(false);
-  },1000);
-}else{
-  timerBox.innerText = 'No Timer';
-  submitBtn.style.display = 'block';
-}
+/* ===== GAME START (FROM MENU) ===== */
+function startGame(){
 
-/* ===== LOAD QUESTIONS ===== */
-fetch('./questions.json')
-  .then(res => res.json())
-  .then(data => {
-    questions = data.sort(() => Math.random() - 0.5);
-    total = questions.length;
-    progress.innerText = `Played: 0 / ${total}`;
-    nextQuestion();
-  });
+  timerOn = localStorage.getItem('timerOn') === '1';
+  soundOn = localStorage.getItem('soundOn') === '1';
+
+  /* TIMER START */
+  if(timerOn){
+    timerBox.innerText = `⏱ ${time}s`;
+
+    timerRef = setInterval(()=>{
+      time--;
+      timerBox.innerText = `⏱ ${time}s`;
+
+      if(time <= 0) endGame(false);
+    },1000);
+
+  }else{
+    timerBox.innerText = 'No Timer';
+    submitBtn.style.display = 'block';
+  }
+
+  /* LOAD QUESTIONS */
+  fetch('./questions.json')
+    .then(res => res.json())
+    .then(data => {
+      questions = data.sort(() => Math.random() - 0.5);
+      total = questions.length;
+      progress.innerText = `Played: 0 / ${total}`;
+      nextQuestion();
+    });
+}
 
 /* ===== GAME LOGIC ===== */
 function nextQuestion(){
@@ -105,17 +115,20 @@ function nextQuestion(){
   optionsBox.innerHTML = '';
 
   q.options.forEach(opt => {
+
     const div = document.createElement('div');
     div.className = 'opt';
     div.innerText = opt;
 
     let inputLocked = false;
+
     div.onclick = ()=>{
       if(gameEnded || inputLocked) return;
       inputLocked = true;
-      options.querySelectorAll('.opt').forEach(opt=>{
-        opt.style.pointerEvents = 'none';
-      });
+
+      optionsBox.querySelectorAll('.opt')
+        .forEach(o=>o.style.pointerEvents='none');
+
       if(soundOn) click.play();
 
       if(opt === q.answer){
@@ -124,27 +137,28 @@ function nextQuestion(){
       }else{
         if(soundOn) wrong.play();
       }
-      // ⏱ Delay before next question
-      setTimeout(() => {
+
+      setTimeout(()=>{
         inputLocked = false;
         nextQuestion();
-          }, 600); // 600ms delay
-      };
+      },600);
+    };
+
     optionsBox.appendChild(div);
   });
 }
 
 /* ===== END GAME ===== */
-function endGame(manualSubmit){
+function endGame(){
   if(gameEnded) return;
+
   gameEnded = true;
   clearInterval(timerRef);
 
   let allowReward = timerOn || index === total;
 
-  if(allowReward){
-    localStorage.setItem('rewardKey', Date.now().toString());
-  }
+  if(allowReward)
+    localStorage.setItem('rewardKey', Date.now());
 
   localStorage.setItem('lastGame','Math Reasoning');
   localStorage.setItem('lastScore',score);
@@ -153,6 +167,10 @@ function endGame(manualSubmit){
 
   location.replace('../result.html');
 }
+
+/* ===== LISTEN MENU START ===== */
+document.addEventListener("gameStart", startGame);
+
 </script>
 
 </body>
