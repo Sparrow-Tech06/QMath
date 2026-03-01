@@ -9,12 +9,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="../butterfly.css">
-  
 </head>
 
 <body>
@@ -23,14 +20,13 @@
 
   <div class="top">
     <span id="timerBox"></span>
-    <span class="progress-text" id="progress">Played: 0 / 10</span>
+    <span class="progress-text" id="progress">Played: 0 / 20</span>
   </div>
 
   <div class="card">
     <div class="q" id="question"></div>
     <div id="options" class="options-grid"></div>
 
-    <!-- NO TIMER ONLY -->
     <button id="submitBtn"
       class="btn btn-outline-primary w-100 submit"
       onclick="endGame(true)"
@@ -43,12 +39,11 @@
 
 <script src="../menu.js"></script>
 <script src="../answer-feedback.js"></script>
-<!-- <script src="../game-enhancer.js"></script> -->
 
 <script>
 /* ===== SETTINGS ===== */
-const timerOn = localStorage.getItem('timerOn') === '1';
-const soundOn = localStorage.getItem('soundOn') === '1';
+let timerOn = false;
+let soundOn = false;
 
 /* ===== SOUNDS ===== */
 const click   = new Howl({ src:['../assets/sound/click.mp3'], volume:.5 });
@@ -69,17 +64,31 @@ const submitBtn = document.getElementById('submitBtn');
 const question = document.getElementById('question');
 const options = document.getElementById('options');
 
-/* ===== TIMER ===== */
-if(timerOn){
-  timerBox.innerText = `⏱ ${time}s`;
-  timerRef = setInterval(()=>{
-    time--;
+/* =========================
+   GAME START (IMPORTANT)
+========================= */
+function startGame(){
+
+  // load settings AFTER menu selection
+  timerOn = localStorage.getItem('timerOn') === '1';
+  soundOn = localStorage.getItem('soundOn') === '1';
+
+  if(timerOn){
     timerBox.innerText = `⏱ ${time}s`;
-    if(time <= 0) endGame(false);
-  },1000);
-}else{
-  timerBox.innerText = 'No Timer';
-  submitBtn.style.display = 'block';
+
+    timerRef = setInterval(()=>{
+      time--;
+      timerBox.innerText = `⏱ ${time}s`;
+
+      if(time <= 0) endGame(false);
+    },1000);
+
+  }else{
+    timerBox.innerText = 'No Timer';
+    submitBtn.style.display = 'block';
+  }
+
+  nextQuestion();
 }
 
 /* ===== QUESTIONS ===== */
@@ -100,7 +109,9 @@ function nextQuestion(){
   const correctPos = Math.floor(Math.random()*4);
 
   for(let i=0;i<4;i++){
-    const val = i === correctPos ? answer : answer + Math.floor(Math.random()*5)+1;
+    const val = i === correctPos
+      ? answer
+      : answer + Math.floor(Math.random()*5)+1;
 
     const div = document.createElement('div');
     div.className = 'opt';
@@ -109,7 +120,9 @@ function nextQuestion(){
     div.onclick = ()=>{
       if(gameEnded || div.classList.contains('opt-disabled')) return;
 
-      options.querySelectorAll('.opt').forEach(o=>o.classList.add('opt-disabled'));
+      options.querySelectorAll('.opt')
+        .forEach(o=>o.classList.add('opt-disabled'));
+
       if(soundOn) click.play();
 
       if(val === answer){
@@ -130,15 +143,14 @@ function nextQuestion(){
 function endGame(manualSubmit){
   if(gameEnded) return;
   gameEnded = true;
+
   clearInterval(timerRef);
 
-  // 🔒 REWARD RULE
   let allowReward = false;
 
   if(timerOn){
     allowReward = true;
   }else{
-    // no-timer → full game must be played
     allowReward = index === total;
   }
 
@@ -153,9 +165,7 @@ function endGame(manualSubmit){
 
   location.replace('../result.html');
 }
-
-nextQuestion();
 </script>
 
 </body>
-  </html>
+</html>
