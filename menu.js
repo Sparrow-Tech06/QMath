@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ================= URL PARAMS ================= */
   const params = new URLSearchParams(location.search);
   const gameKey  = params.get("game") || "default";
   const title    = params.get("title") || "Game";
   const subtitle = params.get("subtitle") || "";
 
-  /* ================= MENU HTML ================= */
+  /* ================= HTML ================= */
   const html = `
   <div id="menuOverlay">
     <div class="menuContent">
@@ -41,124 +40,99 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.body.insertAdjacentHTML("beforeend", html);
 
-  /* ================= MENU CSS ================= */
+  /* ================= CSS ================= */
   const css = document.createElement("style");
   css.innerHTML = `
-    #menuOverlay{
-      position:fixed;
-      inset:0;
-      background:#D96868;
-      z-index:9999;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-start;
-      align-items:stretch;
-      padding:16px;
-      animation:fade .2s ease;
-    }
+  #menuOverlay{
+    position:fixed;
+    inset:0;
+    background:#fff;
+    z-index:9999;
+    padding:16px;
+    animation:fade .2s ease;
+  }
 
-    .menuContent{
-      display:flex;
-      flex-direction:column;
-      height:100vh;
-      width:100%;
-    }
+  .menuContent{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
 
-    .menuHeader{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:24px;
-    }
+  .menuHeader{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:24px;
+  }
 
-    .menuHeader button,
-    .menuHeader a{
-      font-size:16px;
-      font-weight:600;
-      background: var(--card);
-      border:1px solid var(--border);
-      text-decoration:none;
-      color:#4f46e5;
-      cursor:pointer;
-      border-radius:12px;
-      padding:6px 10px;
-    }
+  .menuHeader button,
+  .menuHeader a{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:6px 10px;
+    color:#4f46e5;
+    text-decoration:none;
+    font-weight:600;
+    cursor:pointer;
+  }
 
-    .menuBody{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      gap:16px;
-    }
+  .menuBody{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:16px;
+  }
 
-    .menuBody h1{
-      font-size:30px;
-      margin:0;
-    }
+  .optn{
+    display:flex;
+    justify-content:space-between;
+    width:80%;
+    max-width:320px;
+    border:1px solid #e6e8ef;
+    padding:12px 16px;
+    border-radius:14px;
+  }
 
-    .menuBody p{
-      font-size:16px;
-      color:#555;
-      margin:0;
-      text-align:center;
-    }
+  #mStart{
+    width:80%;
+    max-width:320px;
+    padding:14px;
+    background:#4f46e5;
+    color:#fff;
+    border:none;
+    border-radius:14px;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+  }
 
-    .optn{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border:1px solid #e6e8ef;
-      padding:12px 16px;
-      border-radius:14px;
-      width:80%;
-      max-width:320px;
-    }
-
-    #mStart{
-      margin-top:16px;
-      padding:14px;
-      width:80%;
-      max-width:320px;
-      border:none;
-      background:#4f46e5;
-      color:#fff;
-      border-radius:14px;
-      font-weight:600;
-      font-size:18px;
-      cursor:pointer;
-    }
-
-    @keyframes fade{
-      from{opacity:.6; transform:translateY(10px)}
-      to{opacity:1}
-    }
+  @keyframes fade{
+    from{opacity:.6;transform:translateY(10px)}
+    to{opacity:1}
+  }
   `;
   document.head.appendChild(css);
 
-  /* ================= LOAD PREVIOUS SETTINGS ================= */
-  const prevTimer = localStorage.getItem('timerOn');
-  const prevSound = localStorage.getItem('soundOn');
-
+  /* ================= SETTINGS ================= */
   const mTimer = document.getElementById("mTimer");
   const mSound = document.getElementById("mSound");
 
-  if(prevTimer !== null) mTimer.checked = prevTimer === '1';
-  if(prevSound !== null) mSound.checked = prevSound === '1';
+  const prevTimer = localStorage.getItem("timerOn");
+  const prevSound = localStorage.getItem("soundOn");
+
+  if(prevTimer!==null) mTimer.checked = prevTimer==='1';
+  if(prevSound!==null) mSound.checked = prevSound==='1';
 
   /* ================= MENU SOUND ================= */
-  let clickSound = null;
+  let clickSound=null;
 
-  const initSound = () => {
-
-    if(clickSound){
-      clickSound.stop();
-      clickSound = null;
-    }
+  const initSound=()=>{
+    if(clickSound){clickSound.stop();clickSound=null;}
 
     if(mSound.checked){
-      clickSound = new Howl({
+      clickSound=new Howl({
         src:[`../assets/sound/${gameKey}.mp3`],
         loop:true,
         volume:1
@@ -168,34 +142,26 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   initSound();
-  mSound.addEventListener("change", initSound);
+  mSound.addEventListener("change",initSound);
 
-  /* ================= EXIT BUTTON ================= */
-  document.getElementById("backHome").onclick = () => {
+  /* ================= EXIT ================= */
+  document.getElementById("backHome").onclick=()=>{
     if(clickSound) clickSound.stop();
-    window.history.back();
+    history.back();
   };
 
-  /* =====================================================
-     ✅ START GAME ONLY AFTER BUTTON CLICK
-  ====================================================== */
-  document.getElementById("mStart").onclick = () => {
+  /* ================= START GAME ================= */
+  document.getElementById("mStart").onclick=()=>{
 
-    // Save settings
-    localStorage.setItem('timerOn', mTimer.checked ? '1' : '0');
-    localStorage.setItem('soundOn', mSound.checked ? '1' : '0');
+    localStorage.setItem('timerOn',mTimer.checked?'1':'0');
+    localStorage.setItem('soundOn',mSound.checked?'1':'0');
 
-    // Remove overlay
     document.getElementById("menuOverlay").remove();
 
-    // Stop menu music
     if(clickSound) clickSound.stop();
 
-    // 🔥 IMPORTANT PART
-    // Start game AFTER overlay closes
-    if (typeof window.startGame === "function") {
-      window.startGame();
-    }
+    // 🔥 START GAME EVENT
+    document.dispatchEvent(new Event("game:start"));
   };
 
 });
