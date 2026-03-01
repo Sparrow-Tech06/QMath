@@ -238,6 +238,39 @@ function copyLink(){
   });
 }
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  const timerToggle = document.getElementById("setTimer");
+  const soundToggle = document.getElementById("setSound");
+
+  if(!timerToggle || !soundToggle) return;
+
+  /* LOAD SETTINGS */
+  timerToggle.checked =
+    localStorage.getItem("timerOn") !== '0';
+
+  soundToggle.checked =
+    localStorage.getItem("soundOn") !== '0';
+
+  /* SAVE SETTINGS */
+  timerToggle.addEventListener("change", ()=>{
+    localStorage.setItem(
+      "timerOn",
+      timerToggle.checked ? '1' : '0'
+    );
+  });
+
+  soundToggle.addEventListener("change", ()=>{
+    localStorage.setItem(
+      "soundOn",
+      soundToggle.checked ? '1' : '0'
+    );
+  });
+
+});
+</script>
+  
 </body>
 </html>
 
