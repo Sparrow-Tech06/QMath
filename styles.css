@@ -319,6 +319,19 @@ ul li a i{
 .menu-list2 li:nth-child(3) i{ background:#607D8B;}
 .menu-list2 li:nth-child(4) i{ background:#F44336;}
 
+.game-settings{
+  padding:10px 4px;
+}
+
+.setting-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+  font-size:15px;
+}
+
 
 
 
