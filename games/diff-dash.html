@@ -12,9 +12,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+
 <link rel="stylesheet" href="../butterfly.css">
-  
 </head>
 
 <body>
@@ -23,14 +22,13 @@
 
   <div class="top">
     <span id="timerBox"></span>
-    <span class="progress-text" id="progress">Played: 0 / 10</span>
+    <span id="progress">Played: 0 / 10</span>
   </div>
 
   <div class="card">
-    <div class="q" id="question"></div>
+    <div id="question" class="q"></div>
     <div id="options" class="options-grid"></div>
 
-    <!-- NO TIMER ONLY -->
     <button id="submitBtn"
       class="btn btn-outline-primary w-100 submit"
       onclick="endGame(true)"
@@ -45,8 +43,8 @@
 
 <script>
 /* ===== SETTINGS ===== */
-const timerOn = localStorage.getItem('timerOn') === '1';
-const soundOn = localStorage.getItem('soundOn') === '1';
+let timerOn = false;
+let soundOn = false;
 
 /* ===== SOUNDS ===== */
 const click   = new Howl({ src:['../assets/sound/click.mp3'], volume:.5 });
@@ -57,7 +55,7 @@ const wrong   = new Howl({ src:['../assets/sound/wrong.mp3'], volume:.6 });
 let time = 30;
 let score = 0;
 let index = 0;
-const total = 10;
+const total = 20;
 let timerRef = null;
 let gameEnded = false;
 
@@ -67,27 +65,34 @@ const submitBtn = document.getElementById('submitBtn');
 const question = document.getElementById('question');
 const options = document.getElementById('options');
 
-/* ===== TIMER ===== */
-if(timerOn){
-  timerBox.innerText = `⏱ ${time}s`;
-  timerRef = setInterval(()=>{
-    time--;
+/* ===== GAME START (CALLED FROM MENU) ===== */
+function startGame(){
+
+  timerOn = localStorage.getItem('timerOn') === '1';
+  soundOn = localStorage.getItem('soundOn') === '1';
+
+  if(timerOn){
     timerBox.innerText = `⏱ ${time}s`;
-    if(time <= 0) endGame(false);
-  },1000);
-}else{
-  timerBox.innerText = 'No Timer';
-  submitBtn.style.display = 'block';
+
+    timerRef = setInterval(()=>{
+      time--;
+      timerBox.innerText = `⏱ ${time}s`;
+
+      if(time <= 0) endGame(false);
+    },1000);
+
+  }else{
+    timerBox.innerText = 'No Timer';
+    submitBtn.style.display = 'block';
+  }
+
+  nextQuestion();
 }
 
 /* ===== QUESTIONS ===== */
 function nextQuestion(){
   if(gameEnded) return;
-
-  if(index === total){
-    endGame(false);
-    return;
-  }
+  if(index === total){ endGame(false); return; }
 
   index++;
   progress.innerText = `Played: ${index} / ${total}`;
@@ -97,73 +102,57 @@ function nextQuestion(){
 
   // 🔒 ensure non-negative answer
   if(b > a){
-    [a, b] = [b, a];
-  }
+     [a, b] = [b, a];
+   }
 
-  const ans = a - b;
+  const answer = a - b;
 
-  question.innerText = `${a} − ${b} = ?`;
-  options.innerHTML = '';
+  question.innerText = `${a} - ${b} = ?`;
 
   const correctPos = Math.floor(Math.random()*4);
 
   for(let i=0;i<4;i++){
-    const val = i === correctPos
-      ? ans
-      : ans + (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random()*4) + 1);
+    const val = i===correctPos ? answer : answer + (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random()*4) + 1);
 
     const div = document.createElement('div');
-    div.className = 'opt';
-    div.innerText = val;
+    div.className='opt';
+    div.innerText=val;
 
-    let inputLocked = false;
+    div.onclick=()=>{
+      if(gameEnded || div.classList.contains('opt-disabled')) return;
 
-div.onclick = ()=>{
-  if(gameEnded || inputLocked) return;
-  inputLocked = true;
+      options.querySelectorAll('.opt')
+        .forEach(o=>o.classList.add('opt-disabled'));
 
-  options.querySelectorAll('.opt').forEach(opt=>{
-    opt.style.pointerEvents = 'none';
-  });
       if(soundOn) click.play();
 
-      if(val === ans){
+      if(val===answer){
         score++;
         if(soundOn) correct.play();
       }else{
         if(soundOn) wrong.play();
       }
-      // ⏱ Delay before next question
-     setTimeout(() => {
-        inputLocked = false;
-        nextQuestion();
-          }, 600); // 600ms delay
-      };
+
+      setTimeout(nextQuestion,600);
+    };
+
     options.appendChild(div);
   }
 }
 
 /* ===== END GAME ===== */
-function endGame(manualSubmit){
+function endGame(){
   if(gameEnded) return;
+
   gameEnded = true;
   clearInterval(timerRef);
 
-  // 🔒 REWARD RULE
-  let allowReward = false;
+  let allowReward = timerOn || index===total;
 
-  if(timerOn){
-    allowReward = true;
-  }else{
-    // no-timer → full game must be played
-    allowReward = index === total;
-  }
+  if(allowReward)
+    localStorage.setItem('rewardKey', Date.now());
 
-  if(allowReward){
-    localStorage.setItem('rewardKey', Date.now().toString());
-  }
-
-  localStorage.setItem('lastGame','Diff Dash');
+  localStorage.setItem('lastGame','Sprint Quiz');
   localStorage.setItem('lastScore',score);
   localStorage.setItem('lastTotal',total);
   localStorage.setItem('currentGame','sprint');
@@ -171,7 +160,9 @@ function endGame(manualSubmit){
   location.replace('../result.html');
 }
 
-nextQuestion();
+/* ===== LISTEN MENU START ===== */
+document.addEventListener("gameStart", startGame);
+
 </script>
 
 </body>
