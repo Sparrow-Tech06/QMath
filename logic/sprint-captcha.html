@@ -16,23 +16,25 @@
 <link rel="stylesheet" href="../butterfly.css">
 
 <style>
-body{
-  font-family:'Inter',sans-serif;
-}
+body{ font-family:'Inter',sans-serif; }
+
 .game{
   display:flex;
   flex-direction:column;
 }
+
 .top{
   display:flex;
   justify-content:space-between;
   padding:12px 16px;
   font-weight:600;
 }
+
 .card{
   margin:12px;
   padding:20px;
 }
+
 .q{
   font-size:32px;
   text-align:center;
@@ -40,6 +42,7 @@ body{
   font-weight:700;
   margin-bottom:12px;
 }
+
 .eye-btn{
   position:absolute;
   right:14px;
@@ -49,6 +52,7 @@ body{
   cursor:pointer;
   color:#6c757d;
 }
+
 .eye-btn:active{
   transform:translateY(-50%) scale(.9);
 }
@@ -66,10 +70,8 @@ body{
 
   <div class="card position-relative">
 
-    <!-- CAPTCHA -->
     <div class="q" id="captchaBox">******</div>
 
-    <!-- INPUT WITH EYE ICON -->
     <div class="position-relative">
       <input
         type="text"
@@ -83,7 +85,6 @@ body{
       <i class="bi bi-eye-fill eye-btn" id="eyeBtn"></i>
     </div>
 
-    <!-- NO TIMER SUBMIT -->
     <button id="submitBtn"
       class="btn btn-outline-primary w-100 mt-3"
       onclick="endGame(true)"
@@ -99,8 +100,8 @@ body{
 
 <script>
 /* ===== SETTINGS ===== */
-const timerOn = localStorage.getItem('timerOn') === '1';
-const soundOn = localStorage.getItem('soundOn') === '1';
+let timerOn = false;
+let soundOn = false;
 
 /* ===== SOUNDS ===== */
 const click   = new Howl({ src:['../assets/sound/click.mp3'], volume:.5 });
@@ -126,18 +127,32 @@ const captchaBox = document.getElementById('captchaBox');
 const captchaInput = document.getElementById('captchaInput');
 const eyeBtn = document.getElementById('eyeBtn');
 
-/* ===== TIMER ===== */
-if(timerOn){
-  timerBox.innerText = `⏱ ${time}s`;
-  timerRef = setInterval(()=>{
-    time--;
+
+/* ===== GAME START (CALLED FROM MENU) ===== */
+function startGame(){
+
+  timerOn = localStorage.getItem('timerOn') === '1';
+  soundOn = localStorage.getItem('soundOn') === '1';
+
+  if(timerOn){
+
     timerBox.innerText = `⏱ ${time}s`;
-    if(time <= 0) endGame(false);
-  },1000);
-}else{
-  timerBox.innerText = 'No Timer';
-  submitBtn.style.display = 'block';
+
+    timerRef = setInterval(()=>{
+      time--;
+      timerBox.innerText = `⏱ ${time}s`;
+
+      if(time <= 0) endGame(false);
+    },1000);
+
+  }else{
+    timerBox.innerText = 'No Timer';
+    submitBtn.style.display = 'block';
+  }
+
+  nextCaptcha();
 }
+
 
 /* ===== CAPTCHA ===== */
 function generateCaptcha(){
@@ -146,8 +161,8 @@ function generateCaptcha(){
 
 function showCaptcha(){
   if(captchaVisible) return;
-  captchaVisible = true;
 
+  captchaVisible = true;
   captchaBox.innerText = captcha;
 
   setTimeout(()=>{
@@ -156,8 +171,10 @@ function showCaptcha(){
   },3000);
 }
 
+
 /* ===== GAME FLOW ===== */
 function nextCaptcha(){
+
   if(gameEnded) return;
 
   if(index === total){
@@ -167,14 +184,17 @@ function nextCaptcha(){
 
   index++;
   progress.innerText = `Played: ${index} / ${total}`;
+
   captchaInput.value = '';
 
   generateCaptcha();
   showCaptcha();
 }
 
+
 /* ===== INPUT CHECK ===== */
 captchaInput.addEventListener('input',()=>{
+
   if(gameEnded) return;
   if(captchaInput.value.length !== 6) return;
 
@@ -190,23 +210,26 @@ captchaInput.addEventListener('input',()=>{
   setTimeout(nextCaptcha,600);
 });
 
+
 /* ===== EYE ICON ===== */
 eyeBtn.onclick = ()=>{
   if(soundOn) click.play();
   showCaptcha();
 };
 
+
 /* ===== END GAME ===== */
 function endGame(manualSubmit){
+
   if(gameEnded) return;
+
   gameEnded = true;
   clearInterval(timerRef);
 
-  let allowReward = timerOn ? true : index === total;
+  let allowReward = timerOn || index === total;
 
-  if(allowReward){
-    localStorage.setItem('rewardKey',Date.now().toString());
-  }
+  if(allowReward)
+    localStorage.setItem('rewardKey', Date.now());
 
   localStorage.setItem('lastGame','No Captcha');
   localStorage.setItem('lastScore',score);
@@ -216,10 +239,11 @@ function endGame(manualSubmit){
   location.replace('../result.html');
 }
 
-/* ===== START ===== */
-nextCaptcha();
+
+/* ===== LISTEN MENU START ===== */
+document.addEventListener("gameStart", startGame);
+
 </script>
 
 </body>
 </html>
-
