@@ -40,8 +40,8 @@
   
 <script>
 /* ===== SETTINGS ===== */
-const timerOn = localStorage.getItem('timerOn') === '1';
-const soundOn = localStorage.getItem('soundOn') === '1';
+let timerOn = false;
+let soundOn = false;
 
 /* ===== SOUNDS ===== */
 const click   = new Howl({ src:['../assets/sound/click.mp3'], volume:.5 });
@@ -62,20 +62,34 @@ const submitBtn = document.getElementById('submitBtn');
 const question = document.getElementById('question');
 const options = document.getElementById('options');
 
-/* ===== TIMER ===== */
-if(timerOn){
-  timerBox.innerText = `⏱ ${time}s`;
-  timerRef = setInterval(()=>{
-    time--;
+
+/* ===== GAME START (MENU EVENT) ===== */
+function startGame(){
+
+  timerOn = localStorage.getItem('timerOn') === '1';
+  soundOn = localStorage.getItem('soundOn') === '1';
+
+  if(timerOn){
+
     timerBox.innerText = `⏱ ${time}s`;
-    if(time <= 0) endGame(false);
-  },1000);
-}else{
-  timerBox.innerText = 'No Timer';
-  submitBtn.style.display = 'block';
+
+    timerRef = setInterval(()=>{
+      time--;
+      timerBox.innerText = `⏱ ${time}s`;
+
+      if(time <= 0) endGame(false);
+    },1000);
+
+  }else{
+    timerBox.innerText = 'No Timer';
+    submitBtn.style.display = 'block';
+  }
+
+  nextQuestion();
 }
 
-/* ===== QUESTIONS (MISSING NUMBER - MINUS) ===== */
+
+/* ===== QUESTIONS (MISSING NUMBER) ===== */
 function nextQuestion(){
   if(gameEnded) return;
 
@@ -84,79 +98,84 @@ function nextQuestion(){
     return;
   }
 
-  index++;    
-  progress.innerText = `Played: ${index} / ${total}`;    
+  index++;
+  progress.innerText = `Played: ${index} / ${total}`;
 
-  /* Generate safe division */
-  let divisor = Math.floor(Math.random()*9) + 1; // 1–9  
-  let result = Math.floor(Math.random()*10) + 1; // 1–10  
-  let a = divisor * result; // ensure no decimal  
+  let missing = Math.floor(Math.random()*9) + 1; // divisor (never 0)
+  let result = Math.floor(Math.random()*10) + 1; // answer
+  let a = missing * result; // dividend (perfect division)
 
-  question.innerHTML = `${a} ÷ <span class="gap-line"></span> = ${result}`;    
-  options.innerHTML = '';    
+  question.innerHTML =
+    `${a} ÷ <span class="gap-line"></span> = ${result}`;
 
-  const correctPos = Math.floor(Math.random()*4);    
+   options.innerHTML = '';
 
-  for(let i=0;i<4;i++){    
-    let val = i === correctPos    
-      ? divisor    
-      : divisor + (Math.random() > 0.5 ? 1 : -1) * (Math.floor(Math.random()*4) + 1);    
+  const correctPos = Math.floor(Math.random()*4);
 
-    if(val <= 0) val = divisor + 1;
+  for(let i=0;i<4;i++){
 
-    const div = document.createElement('div');    
-    div.className = 'opt';    
-    div.innerText = val;    
+    const val = i === correctPos
+      ? missing
+      : missing + (Math.random()>0.5?1:-1) *
+        (Math.floor(Math.random()*4)+1);
 
-    let inputLocked = false;    
+    const shownValue = val < 0 ? missing + 1 : val;
 
-    div.onclick = ()=>{    
-      if(gameEnded || inputLocked) return;    
-      inputLocked = true;    
+    const div = document.createElement('div');
+    div.className = 'opt';
+    div.innerText = shownValue;
 
-      options.querySelectorAll('.opt').forEach(opt=>{    
-        opt.style.pointerEvents = 'none';    
-      });    
+    div.onclick = ()=>{
 
-      if(soundOn) click.play();    
+      if(gameEnded || div.classList.contains('opt-disabled')) return;
 
-      if(val === divisor){    
-        score++;    
-        if(soundOn) correct.play();    
-      }else{    
-        if(soundOn) wrong.play();    
-      }    
+      options.querySelectorAll('.opt')
+        .forEach(o=>{
+          o.classList.add('opt-disabled');
+          o.style.pointerEvents='none';
+        });
 
-      setTimeout(() => {    
-        inputLocked = false;    
-        nextQuestion();    
-      }, 600);    
-    };    
+      if(soundOn) click.play();
 
-    options.appendChild(div);    
-  }    
+      if(shownValue === missing){
+        score++;
+        if(soundOn) correct.play();
+      }else{
+        if(soundOn) wrong.play();
+      }
+
+      setTimeout(nextQuestion,600);
+    };
+
+    options.appendChild(div);
+  }
 }
 
+
 /* ===== END GAME ===== */
-function endGame(manualSubmit){
+function endGame(){
   if(gameEnded) return;
+
   gameEnded = true;
   clearInterval(timerRef);
 
   let allowReward = timerOn || index === total;
-  if(allowReward){
-    localStorage.setItem('rewardKey', Date.now().toString());
-  }
 
-  localStorage.setItem('lastGame','Divide Path');
+  if(allowReward)
+    localStorage.setItem('rewardKey', Date.now());
+
+  localStorage.setItem('lastGame','Sprint Sum Missing');
   localStorage.setItem('lastScore',score);
   localStorage.setItem('lastTotal',total);
-  localStorage.setItem('currentGame','divide-path');
+  localStorage.setItem('currentGame','sprint-sum-missing');
 
   location.replace('../result.html');
 }
 
-nextQuestion();
+
+/* ===== LISTEN MENU START ===== */
+document.addEventListener("gameStart", startGame);
+
 </script>
 
 </body>
