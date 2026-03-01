@@ -18,6 +18,7 @@ function getCoin(amount = 0, source = "Unknown") {
 
   // 👉 only notify Android
   if (window.Android && typeof Android.onCoinAdded === "function") {
-    Android.onCoinAdded();
+   // Android.onCoinAdded();  // only msg
+    Android.onCoinAdded(amount); // msg + coin
   }
 }
