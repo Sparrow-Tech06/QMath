@@ -38,7 +38,7 @@
 }
 @media (prefers-color-scheme: dark) {
 :root{
-  --bg: #0D0F35 ;
+  --bg: #2b2e4a ;
   --card:#171a20;
   --card2: #323558 ;
   --text:#ffffff;
@@ -53,7 +53,7 @@
   --sk-mid:  #2a3140;
   --sk-speed: 1.3s ;
 
-  --sideber: #323558 ;
+  --sideber: #2b2e4a ;
   }
 }
 
