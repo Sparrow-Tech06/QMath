@@ -9,8 +9,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="../butterfly.css">
 </head>
 
@@ -19,7 +17,7 @@
 <div class="game">
 
   <div class="top">
-    <span id="timerBox"></span>
+    <span id="timerBox">Waiting...</span>
     <span class="progress-text" id="progress">Played: 0 / 20</span>
   </div>
 
@@ -41,16 +39,16 @@
 <script src="../answer-feedback.js"></script>
 
 <script>
-/* ===== SETTINGS ===== */
+/* ================= SETTINGS ================= */
 let timerOn = false;
 let soundOn = false;
 
-/* ===== SOUNDS ===== */
+/* ================= SOUNDS ================= */
 const click   = new Howl({ src:['../assets/sound/click.mp3'], volume:.5 });
 const correct = new Howl({ src:['../assets/sound/correct.mp3'], volume:.6 });
 const wrong   = new Howl({ src:['../assets/sound/wrong.mp3'], volume:.6 });
 
-/* ===== STATE ===== */
+/* ================= STATE ================= */
 let time = 30;
 let score = 0;
 let index = 0;
@@ -64,12 +62,12 @@ const submitBtn = document.getElementById('submitBtn');
 const question = document.getElementById('question');
 const options = document.getElementById('options');
 
-/* =========================
-   GAME START (IMPORTANT)
-========================= */
+/* ===================================================
+   ✅ GAME STARTS ONLY AFTER MENU START BUTTON
+=================================================== */
 function startGame(){
 
-  // load settings AFTER menu selection
+  // read latest settings
   timerOn = localStorage.getItem('timerOn') === '1';
   soundOn = localStorage.getItem('soundOn') === '1';
 
@@ -91,8 +89,9 @@ function startGame(){
   nextQuestion();
 }
 
-/* ===== QUESTIONS ===== */
+/* ================= QUESTIONS ================= */
 function nextQuestion(){
+
   if(gameEnded) return;
   if(index === total){ endGame(false); return; }
 
@@ -109,6 +108,7 @@ function nextQuestion(){
   const correctPos = Math.floor(Math.random()*4);
 
   for(let i=0;i<4;i++){
+
     const val = i === correctPos
       ? answer
       : answer + Math.floor(Math.random()*5)+1;
@@ -118,6 +118,7 @@ function nextQuestion(){
     div.innerText = val;
 
     div.onclick = ()=>{
+
       if(gameEnded || div.classList.contains('opt-disabled')) return;
 
       options.querySelectorAll('.opt')
@@ -139,8 +140,9 @@ function nextQuestion(){
   }
 }
 
-/* ===== END GAME ===== */
+/* ================= END GAME ================= */
 function endGame(manualSubmit){
+
   if(gameEnded) return;
   gameEnded = true;
 
