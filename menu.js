@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     #menuOverlay{
       position:fixed;
       inset:0;
-      background:#fff;
+      background:#D96868;
       z-index:9999;
       display:flex;
       flex-direction:column;
