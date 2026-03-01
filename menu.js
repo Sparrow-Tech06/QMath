@@ -159,12 +159,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Start game
   document.getElementById("mStart").onclick = ()=>{
-    localStorage.setItem('timerOn', mTimer.checked?'1':'0');
-    localStorage.setItem('soundOn', mSound.checked?'1':'0');
 
-    document.getElementById("menuOverlay").remove();
+  localStorage.setItem('timerOn', mTimer.checked?'1':'0');
+  localStorage.setItem('soundOn', mSound.checked?'1':'0');
 
-    if(clickSound) clickSound.stop();
-  };
+  document.getElementById("menuOverlay").remove();
+
+  if(clickSound) clickSound.stop();
+
+  // ✅ START GAME NOW
+  if(window.startGame){
+    window.startGame();
+      }
+   };
 });
 
