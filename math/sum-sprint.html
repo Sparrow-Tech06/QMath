@@ -39,16 +39,10 @@
 <script src="../answer-feedback.js"></script>
 
 <script>
-/* ================= SETTINGS ================= */
+/* ================= STATE ================= */
 let timerOn = false;
 let soundOn = false;
 
-/* ================= SOUNDS ================= */
-const click   = new Howl({ src:['../assets/sound/click.mp3'], volume:.5 });
-const correct = new Howl({ src:['../assets/sound/correct.mp3'], volume:.6 });
-const wrong   = new Howl({ src:['../assets/sound/wrong.mp3'], volume:.6 });
-
-/* ================= STATE ================= */
 let time = 30;
 let score = 0;
 let index = 0;
@@ -56,18 +50,23 @@ const total = 20;
 let timerRef = null;
 let gameEnded = false;
 
+/* ================= ELEMENTS ================= */
 const timerBox = document.getElementById('timerBox');
 const progress = document.getElementById('progress');
 const submitBtn = document.getElementById('submitBtn');
 const question = document.getElementById('question');
 const options = document.getElementById('options');
 
-/* ===================================================
-   ✅ GAME STARTS ONLY AFTER MENU START BUTTON
-=================================================== */
+/* ================= SOUNDS ================= */
+const click   = new Howl({ src:['../assets/sound/click.mp3'], volume:.5 });
+const correct = new Howl({ src:['../assets/sound/correct.mp3'], volume:.6 });
+const wrong   = new Howl({ src:['../assets/sound/wrong.mp3'], volume:.6 });
+
+/* =====================================================
+   GAME START (CALLED AFTER MENU START CLICK)
+===================================================== */
 function startGame(){
 
-  // read latest settings
   timerOn = localStorage.getItem('timerOn') === '1';
   soundOn = localStorage.getItem('soundOn') === '1';
 
@@ -82,8 +81,8 @@ function startGame(){
     },1000);
 
   }else{
-    timerBox.innerText = 'No Timer';
-    submitBtn.style.display = 'block';
+    timerBox.innerText = "No Timer";
+    submitBtn.style.display = "block";
   }
 
   nextQuestion();
@@ -103,30 +102,30 @@ function nextQuestion(){
   const answer = a + b;
 
   question.innerText = `${a} + ${b} = ?`;
-  options.innerHTML = '';
+  options.innerHTML = "";
 
   const correctPos = Math.floor(Math.random()*4);
 
   for(let i=0;i<4;i++){
 
-    const val = i === correctPos
+    const val = i===correctPos
       ? answer
       : answer + Math.floor(Math.random()*5)+1;
 
-    const div = document.createElement('div');
-    div.className = 'opt';
+    const div = document.createElement("div");
+    div.className = "opt";
     div.innerText = val;
 
     div.onclick = ()=>{
 
-      if(gameEnded || div.classList.contains('opt-disabled')) return;
+      if(gameEnded || div.classList.contains("opt-disabled")) return;
 
       options.querySelectorAll('.opt')
         .forEach(o=>o.classList.add('opt-disabled'));
 
       if(soundOn) click.play();
 
-      if(val === answer){
+      if(val===answer){
         score++;
         if(soundOn) correct.play();
       }else{
@@ -141,23 +140,17 @@ function nextQuestion(){
 }
 
 /* ================= END GAME ================= */
-function endGame(manualSubmit){
+function endGame(){
 
   if(gameEnded) return;
   gameEnded = true;
 
   clearInterval(timerRef);
 
-  let allowReward = false;
-
-  if(timerOn){
-    allowReward = true;
-  }else{
-    allowReward = index === total;
-  }
+  let allowReward = timerOn || index===total;
 
   if(allowReward){
-    localStorage.setItem('rewardKey', Date.now().toString());
+    localStorage.setItem('rewardKey',Date.now());
   }
 
   localStorage.setItem('lastGame','Sprint Quiz');
@@ -167,6 +160,10 @@ function endGame(manualSubmit){
 
   location.replace('../result.html');
 }
+
+/* ✅ WAIT FOR MENU */
+document.addEventListener("game:start", startGame);
+
 </script>
 
 </body>
