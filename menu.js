@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ================= URL PARAMS ================= */
+  /* ================= PARAMS ================= */
   const params = new URLSearchParams(location.search);
   const gameKey  = params.get("game") || "default";
   const title    = params.get("title") || "Game";
@@ -12,9 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="menuContent">
 
       <div class="menuHeader">
-        <button id="backHome">
-          <i class="bi bi-box-arrow-right"></i> Exit
-        </button>
+        <button id="backHome">Exit</button>
         <a href="../how-to-play.html">How to Play</a>
       </div>
 
@@ -44,145 +42,79 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ================= CSS ================= */
   const css = document.createElement("style");
   css.innerHTML = `
-    #menuOverlay{
-      position:fixed;
-      inset:0;
-      background:#AEB784;
-      z-index:9999;
-      display:flex;
-      padding:16px;
-      animation:fade .2s ease;
-    }
+  #menuOverlay{
+    position:fixed;
+    inset:0;
+    background:#E36A6A;
+    z-index:9999;
+    display:flex;
+    padding:16px;
+  }
 
-    .menuContent{
-      display:flex;
-      flex-direction:column;
-      height:100vh;
-      width:100%;
-    }
+  .menuContent{
+    width:100%;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
 
-    .menuHeader{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:24px;
-    }
+  .menuHeader{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:24px;
+  }
 
-    .menuHeader button,
-    .menuHeader a{
-      font-size:16px;
-      font-weight:600;
-      background:var(--card);
-      border:1px solid var(--border);
-      color:#4f46e5;
-      border-radius:12px;
-      padding:6px 10px;
-      text-decoration:none;
-      cursor:pointer;
-    }
+  .menuBody{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:16px;
+  }
 
-    .menuBody{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      gap:16px;
-    }
+  .optn{
+    width:80%;
+    max-width:320px;
+    border:1px solid #ddd;
+    padding:12px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+  }
 
-    .menuBody h1{
-      font-size:30px;
-      margin:0;
-    }
-
-    .menuBody p{
-      color:#555;
-      text-align:center;
-      margin:0;
-    }
-
-    .optn{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      border:1px solid #e6e8ef;
-      padding:12px 16px;
-      border-radius:14px;
-      width:80%;
-      max-width:320px;
-    }
-
-    #mStart{
-      margin-top:16px;
-      padding:14px;
-      width:80%;
-      max-width:320px;
-      border:none;
-      background:#4f46e5;
-      color:#fff;
-      border-radius:14px;
-      font-weight:600;
-      font-size:18px;
-      cursor:pointer;
-    }
-
-    @keyframes fade{
-      from{opacity:.6; transform:translateY(10px)}
-      to{opacity:1}
-    }
-  `;
+  #mStart{
+    padding:14px;
+    width:80%;
+    max-width:320px;
+    border:none;
+    background:#4f46e5;
+    color:white;
+    border-radius:12px;
+    font-size:18px;
+    cursor:pointer;
+  }`;
   document.head.appendChild(css);
 
   /* ================= SETTINGS ================= */
   const mTimer = document.getElementById("mTimer");
   const mSound = document.getElementById("mSound");
 
-  const prevTimer = localStorage.getItem("timerOn");
-  const prevSound = localStorage.getItem("soundOn");
-
-  mTimer.checked = prevTimer === null ? true : prevTimer === "1";
-  mSound.checked = prevSound === null ? true : prevSound === "1";
-
-  /* ================= MENU MUSIC ================= */
-  let clickSound = null;
-
-  const initSound = () => {
-
-    if(clickSound){
-      clickSound.stop();
-      clickSound=null;
-    }
-
-    if(mSound.checked){
-      clickSound = new Howl({
-        src:[`../assets/sound/${gameKey}.mp3`],
-        loop:true,
-        volume:1
-      });
-      clickSound.play();
-    }
-  };
-
-  initSound();
-  mSound.addEventListener("change", initSound);
+  mTimer.checked = localStorage.getItem("timerOn") !== "0";
+  mSound.checked = localStorage.getItem("soundOn") !== "0";
 
   /* ================= EXIT ================= */
-  document.getElementById("backHome").onclick = ()=>{
-    if(clickSound) clickSound.stop();
-    history.back();
-  };
+  document.getElementById("backHome").onclick = () => history.back();
 
   /* ================= START GAME ================= */
-  document.getElementById("mStart").onclick = ()=>{
+  document.getElementById("mStart").onclick = () => {
 
     localStorage.setItem("timerOn", mTimer.checked ? "1":"0");
     localStorage.setItem("soundOn", mSound.checked ? "1":"0");
 
     document.getElementById("menuOverlay").remove();
 
-    if(clickSound) clickSound.stop();
-
-    // 🔥 notify game to start
+    // 🔥 tell game to start
     document.dispatchEvent(new Event("game:start"));
   };
 
