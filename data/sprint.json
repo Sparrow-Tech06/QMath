@@ -6,7 +6,7 @@
         "label": "PUZZLE",
         "title": "SUM MISSING",
         "desc": "Find the missing value",
-        "image": "https://cdn-icons-png.flaticon.com/512/2103/2103652.png",
+        "image": "assets/sum-missing.png",
         "link": "puzzle/sum.html?game=Puzzle&title=Sprint Challenge&subtitle=Speed Matters", 
         "bg": "bg-puzzle-addition"
       },
