@@ -22,7 +22,7 @@
         "label": "PUZZLE",
         "title": "FACTOR HUNT",
         "desc": "Find the missing factor",
-        "image": "assets/factor-hunt.png",
+        "image": "assets/table-speed.png",
         "link": "puzzle/factor-hunt.html?game=Puzzle&title=Factor Hunt&subtitle=Find the missing factor", 
         "bg": "bg-puzzle-multiplication"
       },
