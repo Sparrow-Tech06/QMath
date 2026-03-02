@@ -35,7 +35,7 @@
          body {
             background-color: var(--background-color);
             color: var(--text-color);
-            font-family: "Open Sans", system-ui;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             -webkit-user-select: none;
                -moz-user-select: none;
                 -ms-user-select: none;
