@@ -14,7 +14,7 @@
         "label": "PUZZLE",
         "title": "HIDEEN DIFF",
         "desc": "Complete the subtraction",
-        "image": "https://cdn-icons-png.flaticon.com/512/4359/4359784.png",
+        "image": "assets/hidden-diff.png",
         "link": "puzzle/minus.html?game=Puzzle&title=Hidden Diff&subtitle=Complete the subtraction", 
         "bg": "bg-puzzle-substraction"
       },
