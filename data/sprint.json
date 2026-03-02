@@ -52,7 +52,7 @@
         "label": "MATH",
         "title": "DIFF DASH",
         "desc": "Race with numbers",
-        "image": "https://cdn-icons-png.flaticon.com/512/3898/3898150.png",
+        "image": "assets/diff-dash.png",
         "link": "games/diff-dash.html?game=Math&title=Diff Dash&subtitle=Race with number", 
         "bg": "bg-math-substraction"
       }, 
