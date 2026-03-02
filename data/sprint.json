@@ -44,7 +44,7 @@
         "label": "MATH",
         "title": "SUM SPRINT",
         "desc": "Fast math in 30 seconds",
-        "image": "https://cdn-icons-png.flaticon.com/512/2896/2896418.png",
+        "image": "assets/sum-sprint.png",
         "link": "games/sum-sprint.html?game=Math&title=Sum Sprint&subtitle=Fast math in 30 seconds", 
         "bg": "bg-math-addition"
       },
