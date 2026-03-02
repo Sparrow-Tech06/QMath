@@ -60,7 +60,7 @@
         "label": "MATH",
         "title": "TABLE SPEED",
         "desc": "Multiplication speed test",
-        "image": "assets/table-speed.webp",
+        "image": "assets/factor-hunt.png",
         "link": "games/math-table.html?game=Math&title=Table Speed&subtitle=Multiplication speed test", 
         "bg": "bg-math-multiplication"
       },
