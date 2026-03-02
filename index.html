@@ -52,7 +52,7 @@
       </button>
        <h1 class="m-0 fw-bold fs-6"> QMath </h1>
     </div>
-    <a href="notifications/notifications.html" class="notify-btn" aria-label="Notifications">
+    <a onclick="window.location.href='notifications/notifications.html';" class="notify-btn" aria-label="Notifications">
       <i class="bi bi-bell"></i>
    </a>
  </div>
@@ -70,19 +70,19 @@
 
     <!-- First Menu -->
     <ul class="menu-list">
-      <li><a href="coin/my-coin.html"><i class="bi bi-coin"></i> My Coins </a></li>
-      <li><a href="coin/prize.html"><i class="bi bi-trophy-fill"></i> Achievements </a></li>
-      <li><a href="pages/how-to-play.html"><i class="bi bi-controller"></i> How to Play </a></li>
+      <li><a onclick="window.location.href='coin/my-coin.html';"><i class="bi bi-coin"></i> My Coins </a></li>
+      <li><a onclick="window.location.href='coin/prize.html';"><i class="bi bi-trophy-fill"></i> Achievements </a></li>
+      <li><a onclick="window.location.href='pages/how-to-play.html';"><i class="bi bi-controller"></i> How to Play </a></li>
     </ul>
 
     <hr>
 
     <!-- Second Menu -->
     <ul class="menu-list menu-list2">
-      <li><a href="pages/terms-and-conditions.html"><i class="bi bi-shield-check"></i> Terms of Use</a></li>
-      <li><a href="pages/privacy-policy.html"><i class="bi bi-lock"></i> Privacy Policy</a></li>
-      <li><a href="pages/contact-us.html"><i class="bi bi-telephone"></i> Contact Us</a></li>
-      <li><a href="pages/how-to-play.html"><i class="bi bi-question-circle"></i> FAQ </a></li>
+      <li><a onclick="window.location.href='pages/terms-and-conditions.html';"><i class="bi bi-shield-check"></i> Terms of Use</a></li>
+      <li><a onclick="window.location.href='href="pages/privacy-policy.html';"><i class="bi bi-lock"></i> Privacy Policy</a></li>
+      <li><a onclick="window.location.href='href="pages/contact-us.html';"><i class="bi bi-telephone"></i> Contact Us</a></li>
+      <li><a onclick="window.location.href='href="pages/how-to-play.html';"><i class="bi bi-question-circle"></i> FAQ </a></li>
     </ul>
 
 <!-- Game Settings 
@@ -207,7 +207,7 @@ function renderTopics(type){
     const bgClass = t.bg ? t.bg : '';
 
     topicContent.innerHTML+=`
-    <a href="${t.link}" class="topic-card ${bgClass} mb-3">
+    <a onclick="window.location.href='${t.link}';" class="topic-card ${bgClass} mb-3">
       <div class="flex-grow-1">
         <small class="text-secondary">${t.label}</small>
         <h5>${t.title}</h5>
