@@ -16,7 +16,7 @@
 body{
   margin:0;
   background:var(--bg);
-  font-family:'Segoe UI',Roboto,system-ui;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .game{
