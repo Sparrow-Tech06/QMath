@@ -13,3 +13,25 @@ body {
 span {
   
 }
+h1 {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #0A1E3C, #1B3A5C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+}
+h2 {
+      font-size: 1.6rem;
+      font-weight: 550;
+      color: #112b4f;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px dashed #cbd6e6;
+      padding-bottom: 0.3rem;
+}
