@@ -30,7 +30,7 @@
         "label": "PUZZLE",
         "title": "DIVIDE PATH",
         "desc": "Match blocks under pressure",
-        "image": "https://cdn-icons-png.flaticon.com/512/1048/1048953.png",
+        "image": "assets/devide-path.png",
         "link": "puzzle/divide-path.html?game=Puzzle&title=Divide Path&subtitle=Match blocks under pressure", 
         "bg": "bg-puzzle-division"
       }
