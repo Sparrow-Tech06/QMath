@@ -167,7 +167,7 @@ fetch('https://sparrow-tech06.github.io/QMath/data/status.json')
   row.className='h-scroll';
   d.forEach(s=>{
     row.innerHTML+=`
-    <a href="${s.link}" class="status-box">
+    <a onclick="window.location.href='${s.link}';" class="status-box">
       <i class="bi ${s.icon}"></i>
     </a>`;
   });
