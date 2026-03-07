@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <button id="backHome">
           <i class="bi bi-box-arrow-right"></i> Exit
         </button>
-        <a href="how-to-play.html">How to Play</a>
+        <a href="../pages/how-to-play.html">How to Play</a>
       </div>
 
       <div class="menuBody">
