@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Math Achievements</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,173 +12,215 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
- --bg:#f4f6fb;
- --card:#ffffff;
- --soft:#6b7280;
- --border:#e5e7eb;
- --primary:#6366f1;
- --success:#16a34a;
-}
 
-@media (prefers-color-scheme: dark){
 :root{
- --bg:#0f1115;
- --card:#1d2129;
- --soft:#9aa0aa;
- --border:#2f3750;
- --primary:#8b82ff;
-}
+--bg:#f4f6fb;
+--card:#ffffff;
+--border:#e5e7eb;
+--soft:#6b7280;
+--primary:#6366f1;
 }
 
 body{
- margin:0;
- background:var(--bg);
- font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+margin:0;
+background:var(--bg);
+font-family:'Inter',sans-serif;
 }
 
 header{
- background:linear-gradient(135deg,#6366f1,#8b82ff);
- color:#fff;
- padding:28px 16px;
- text-align:center;
- border-bottom-left-radius:25px;
- border-bottom-right-radius:25px;
+background:linear-gradient(135deg,#6366f1,#8b82ff);
+color:white;
+padding:26px 18px;
+text-align:center;
+border-bottom-left-radius:28px;
+border-bottom-right-radius:28px;
+box-shadow:0 8px 25px rgba(0,0,0,0.1);
 }
 
 header h1{
- font-size:20px;
- margin:0;
+font-size:20px;
+margin:0;
+font-weight:700;
 }
 
 header p{
- margin:6px 0 0;
- font-size:14px;
+margin:6px 0 0;
+font-size:14px;
+opacity:.9;
 }
 
 main{
- padding:18px;
+padding:18px;
 }
 
-section.badge-card{
- background:var(--card);
- border-radius:18px;
- padding:16px;
- margin-bottom:16px;
- border:1px solid var(--border);
- transition:.25s;
+.badge-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
 }
 
-section.badge-card.locked{
- opacity:.55;
- filter:grayscale(100%);
+.badge-card{
+background:var(--card);
+border-radius:16px;
+padding:14px;
+border:1px solid var(--border);
+text-align:center;
+cursor:pointer;
+transition:.25s;
+box-shadow:0 4px 12px rgba(0,0,0,.04);
+}
+
+.badge-card:hover{
+transform:translateY(-3px);
+}
+
+.badge-card.locked{
+opacity:.45;
+filter:grayscale(100%);
 }
 
 .badge-img{
- width:65px;
- height:65px;
- object-fit:contain;
+width:70px;
+height:70px;
+object-fit:contain;
+margin-bottom:8px;
 }
 
 .badge-title{
- font-weight:700;
- font-size:15px;
+font-weight:600;
+font-size:14px;
 }
 
 .progress{
- height:7px;
- border-radius:30px;
- background:#e5e7eb;
+height:6px;
+border-radius:20px;
+background:#e5e7eb;
+margin-top:8px;
 }
 
 .progress-bar{
- background:linear-gradient(90deg,#6366f1,#8b82ff);
+background:linear-gradient(90deg,#6366f1,#8b82ff);
 }
 
-.share-btn{
- border:none;
- padding:6px 14px;
- border-radius:20px;
- font-size:12px;
- background:#25D366;
- color:#fff;
+.modal-badge{
+width:120px;
+margin:auto;
+display:block;
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>📘 Math Achievements</h1>
-  <p id="coinDisplay"></p>
+<h1>🏆 Math Achievements</h1>
+<p id="coinDisplay"></p>
 </header>
 
 <main>
-  <article id="badgeContainer"></article>
+
+<div id="badgeContainer" class="badge-grid"></div>
+
 </main>
 
+<!-- Modal -->
+<div class="modal fade" id="badgeModal">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content">
+
+<div class="modal-body text-center p-4">
+
+<img id="modalImg" class="modal-badge mb-3">
+
+<h5 id="modalTitle"></h5>
+
+<p id="modalStatus" class="text-muted small"></p>
+
+<div class="progress">
+<div id="modalProgress" class="progress-bar"></div>
+</div>
+
+<button class="btn btn-primary mt-4 w-100" data-bs-dismiss="modal">
+OK
+</button>
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
+
 const coin = parseInt(localStorage.getItem("myCoins")) || 0;
 document.getElementById("coinDisplay").innerText = `Your Coins: ${coin}`;
 
-const appLink = "https://yourdomain.com"; // change to your real link
-
 const badges = [
- { name:"Starter Spark", required:100, img:"../assets/badges/Starter Spark.png" },
- { name:"Number Rookie", required:200, img:"../assets/badges/Number Rookie.png" },
- { name:"Puzzle Solver", required:400, img:"../assets/badges/Puzzle Solver.png" },
- { name:"Brain Booster", required:600, img:"../assets/badges/Brain Booster.png" },
- { name:"Equation Explorer", required:900, img:"../assets/badges/Equation Explorer.png" },
- { name:"Logic Warrior", required:1200, img:"../assets/badges/Logic Warrior.png" },
- { name:"Mind Hacker", required:1500, img:"../assets/badges/Mind Hacker.png" },
- { name:"Math Strategist", required:1800, img:"../assets/badges/Math Strategist" },
- { name:"Number Legend", required:2200, img:"../assets/badges/fractions.png" },
- { name:"QMath Master", required:2500, img:"../assets/badges/percentage.png" }
+
+{name:"Starter Spark", required:100, img:"../assets/badges/Starter Spark.png"},
+{name:"Number Rookie", required:200, img:"../assets/badges/Number Rookie.png"},
+{name:"Puzzle Solver", required:400, img:"../assets/badges/Puzzle Solver.png"},
+{name:"Brain Booster", required:600, img:"../assets/badges/Brain Booster.png"},
+{name:"Equation Explorer", required:900, img:"../assets/badges/Equation Explorer.png"},
+{name:"Logic Warrior", required:1200, img:"../assets/badges/Logic Warrior.png"},
+{name:"Mind Hacker", required:1500, img:"../assets/badges/Mind Hacker.png"},
+{name:"Math Strategist", required:1800, img:"../assets/badges/Math Strategist.png"},
+{name:"Number Legend", required:2200, img:"../assets/badges/fractions.png"},
+{name:"QMath Master", required:2500, img:"../assets/badges/percentage.png"}
+
 ];
 
 const container = document.getElementById("badgeContainer");
 
-badges.forEach(badge => {
+badges.forEach(badge=>{
 
- const unlocked = coin >= badge.required;
- const percent = Math.min((coin / badge.required) * 100, 100);
+const unlocked = coin >= badge.required;
 
- const section = document.createElement("section");
- section.className = "badge-card " + (unlocked ? "" : "locked");
+const percent = Math.min((coin/badge.required)*100,100);
 
- section.innerHTML = `
-  <div class="d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center gap-3">
-      <img src="${badge.img}" alt="${badge.name}" class="badge-img">
-      <div>
-        <div class="badge-title">${badge.name}</div>
-        <small>
-          ${unlocked ? "Unlocked 🎉" : badge.required + " Coins Required"}
-        </small>
-      </div>
-    </div>
+const card=document.createElement("div");
 
-    ${unlocked ? `
-      <button class="share-btn" onclick="shareBadge('${badge.name}','${badge.img}')">
-        Share
-      </button>
-    ` : ""}
-  </div>
+card.className="badge-card "+(unlocked?"":"locked");
 
-  <div class="progress mt-3">
-    <div class="progress-bar" style="width:${percent}%"></div>
-  </div>
- `;
+card.innerHTML=`
 
- container.appendChild(section);
+<img src="${badge.img}" class="badge-img">
+
+<div class="badge-title">${badge.name}</div>
+
+<div class="progress">
+<div class="progress-bar" style="width:${percent}%"></div>
+</div>
+
+`;
+
+card.onclick=()=>openModal(badge,unlocked,percent);
+
+container.appendChild(card);
 
 });
 
-function shareBadge(name, img){
- const text = `🎉 I unlocked the "${name}" badge in my Math Challenge App! 📘🔥\n\nPlay now:\n${appLink}\n\nBadge Image:\n${location.origin}/${img}`;
- const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
- window.open(url, "_blank");
+function openModal(badge,unlocked,percent){
+
+document.getElementById("modalImg").src=badge.img;
+
+document.getElementById("modalTitle").innerText=badge.name;
+
+document.getElementById("modalStatus").innerText=
+unlocked
+? "Congratulations! Badge unlocked 🎉"
+: `Need ${badge.required} coins`;
+
+document.getElementById("modalProgress").style.width=percent+"%";
+
+new bootstrap.Modal(document.getElementById("badgeModal")).show();
+
 }
+
 </script>
 
 </body>
