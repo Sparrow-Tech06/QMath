@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Streak</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+:root{
+--accent:#ff9f1c;
+
+--green:#d1fae5;
+--green-text:#065f46;
+
+--red:#fee2e2;
+--red-text:#7f1d1d;
+
+--soft:#fff1dc;
+}
+
+body{
+background:#fff;
+font-family:system-ui;
+margin:0;
+}
+
+.app{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.surface{
+max-width:420px;
+width:100%;
+text-align:center;
+}
+
+.streak-box{
+width:190px;
+height:190px;
+border-radius:50%;
+background:var(--soft);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+margin:auto;
+border:3px solid var(--accent);
+margin-bottom:30px;
+}
+
+.streak-number{
+font-size:64px;
+font-weight:800;
+color:var(--accent);
+}
+
+.streak-label{
+font-size:13px;
+letter-spacing:1px;
+}
+
+.btn-strike{
+width:100%;
+height:60px;
+border-radius:18px;
+font-size:18px;
+font-weight:700;
+background:var(--accent);
+border:none;
+}
+
+.calendar{
+margin-top:30px;
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:10px;
+}
+
+.day{
+padding:10px;
+border-radius:12px;
+font-size:12px;
+background:#f3f4f6;
+}
+
+.day.active{
+background:var(--green);
+color:var(--green-text);
+font-weight:700;
+}
+
+.day.missed{
+background:var(--red);
+color:var(--red-text);
+}
+
+/* Confetti */
+
+.confetti{
+position:fixed;
+top:-10px;
+width:8px;
+height:8px;
+opacity:.9;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(720deg);
+opacity:0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+<div class="surface">
+
+<div class="streak-box">
+<div class="streak-number" id="streak">1</div>
+<div class="streak-label">DAYS STREAK</div>
+</div>
+
+<button class="btn-strike" id="strikeBtn">STRIKE TODAY</button>
+
+<div class="calendar" id="calendar"></div>
+
+</div>
+</div>
+
+<script src="https://sparrow-tech06.github.io/QMath/coin/get-coin.js"></script>
+
+<script>
+
+let db;
+
+const todayObj=new Date();
+const today=todayObj.toDateString();
+
+const streakEl=document.getElementById("streak");
+const btn=document.getElementById("strikeBtn");
+const calendar=document.getElementById("calendar");
+
+/* ---------------- DB ---------------- */
+
+indexedDB.open("StreakDB",1).onupgradeneeded=e=>{
+e.target.result.createObjectStore("streak",{keyPath:"id"});
+};
+
+indexedDB.open("StreakDB",1).onsuccess=e=>{
+db=e.target.result;
+init();
+};
+
+/* ---------------- INIT ---------------- */
+
+function init(){
+
+getData(data=>{
+
+if(!data){
+data={id:1,count:1,lastDate:"",history:[]};
+saveData(data);
+}
+
+resetIfMissed(data);
+
+streakEl.innerText=data.count;
+
+if(data.lastDate===today){
+btn.disabled=true;
+btn.innerText="COME BACK TOMORROW";
+}
+
+drawCalendar(data.history);
+
+});
+
+}
+
+/* ---------------- DB HELPERS ---------------- */
+
+function getData(cb){
+
+let tx=db.transaction("streak","readonly");
+let store=tx.objectStore("streak");
+
+let req=store.get(1);
+req.onsuccess=()=>cb(req.result);
+
+}
+
+function saveData(data){
+
+let tx=db.transaction("streak","readwrite");
+tx.objectStore("streak").put(data);
+
+}
+
+/* ---------------- RESET LOGIC ---------------- */
+
+function resetIfMissed(data){
+
+if(!data.lastDate) return;
+
+let last=new Date(data.lastDate);
+let diff=(todayObj-last)/86400000;
+
+if(diff>=2){
+
+data.count=1;
+data.history=[];
+
+saveData(data);
+
+}
+
+}
+
+/* ---------------- STRIKE ---------------- */
+
+btn.onclick=()=>{
+
+getData(data=>{
+
+data.count++;
+data.lastDate=today;
+data.history.push(today);
+
+saveData(data);
+
+streakEl.innerText=data.count;
+
+btn.disabled=true;
+btn.innerText="COME BACK TOMORROW";
+
+drawCalendar(data.history);
+
+confetti();
+
+getCoin(10,"Daily Streak");
+
+});
+
+};
+
+/* ---------------- CALENDAR ---------------- */
+
+function drawCalendar(history){
+
+calendar.innerHTML="";
+
+const days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+for(let i=6;i>=0;i--){
+
+let d=new Date();
+d.setDate(todayObj.getDate()-i);
+
+let str=d.toDateString();
+
+let el=document.createElement("div");
+el.className="day";
+
+el.innerText=days[d.getDay()];
+
+if(history.includes(str)){
+
+el.classList.add("active");
+
+}else if(d<todayObj){
+
+el.classList.add("missed");
+
+}
+
+calendar.appendChild(el);
+
+}
+
+}
+
+/* ---------------- CONFETTI ---------------- */
+
+function confetti(){
+
+const colors=["#ff9f1c","#34d399","#60a5fa","#f472b6"];
+
+for(let i=0;i<50;i++){
+
+let c=document.createElement("div");
+
+c.className="confetti";
+
+c.style.left=Math.random()*100+"vw";
+c.style.background=colors[Math.floor(Math.random()*colors.length)];
+
+c.style.animationDuration=(2+Math.random()*2)+"s";
+c.style.width=(6+Math.random()*6)+"px";
+c.style.height=c.style.width;
+
+c.style.transform="rotate("+Math.random()*360+"deg)";
+
+document.body.appendChild(c);
+
+setTimeout(()=>c.remove(),4000);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
