@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Streak</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+:root{
+--accent:#ff9f1c;
+--soft:#fff1dc;
+--text:#1f2937;
+--muted:#6b7280;
+}
+
+body{
+background:#fff;
+font-family:system-ui;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.surface{
+width:420px;
+padding:40px 25px;
+text-align:center;
+}
+
+.streak-box{
+width:180px;
+height:180px;
+border-radius:50%;
+background:var(--soft);
+border:3px solid var(--accent);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+margin:auto;
+margin-bottom:30px;
+}
+
+.streak-number{
+font-size:60px;
+font-weight:800;
+color:var(--accent);
+}
+
+.calendar{
+display:flex;
+justify-content:space-between;
+margin-bottom:30px;
+}
+
+.day{
+width:40px;
+height:40px;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+background:#f3f4f6;
+}
+
+.day.active{
+background:var(--accent);
+color:#000;
+font-weight:700;
+}
+
+.day.today{
+border:2px solid var(--accent);
+}
+
+.btn-strike{
+width:100%;
+height:60px;
+border:none;
+border-radius:18px;
+font-weight:700;
+background:var(--accent);
+}
+
+.btn-strike:disabled{
+background:#e5e7eb;
+color:#9ca3af;
+}
+
+/* confetti */
+
+.confetti{
+position:fixed;
+top:-10px;
+width:10px;
+height:10px;
+animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
+opacity:0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="surface">
+
+<div class="streak-box">
+<div class="streak-number" id="streak">1</div>
+<div>DAYS STREAK</div>
+</div>
+
+<div class="calendar" id="calendar"></div>
+
+<button class="btn-strike" id="strikeBtn">STRIKE TODAY</button>
+
+</div>
+
+<script>
+
+const streakEl = document.getElementById("streak");
+const btn = document.getElementById("strikeBtn");
+const calendar = document.getElementById("calendar");
+
+let db;
+
+const today = new Date();
+const todayStr = today.toDateString();
+
+/* ------------------ DATABASE ------------------ */
+
+const request = indexedDB.open("DailyStreakDB",1);
+
+request.onupgradeneeded = e => {
+
+db = e.target.result;
+
+db.createObjectStore("streak",{keyPath:"id"});
+
+};
+
+request.onsuccess = e => {
+
+db = e.target.result;
+
+loadStreak();
+
+};
+
+
+/* ------------------ LOAD STREAK ------------------ */
+
+function loadStreak(){
+
+let tx = db.transaction("streak","readonly");
+let store = tx.objectStore("streak");
+
+let req = store.get(1);
+
+req.onsuccess = () => {
+
+if(req.result){
+
+let data = req.result;
+
+checkMissedDay(data);
+
+streakEl.innerText = data.count;
+
+renderCalendar(data.count);
+
+if(data.lastDate === todayStr){
+
+btn.disabled=true;
+btn.innerText="COME BACK TOMORROW";
+
+}
+
+}else{
+
+saveDefault();
+
+}
+
+};
+
+}
+
+
+/* ------------------ DEFAULT ------------------ */
+
+function saveDefault(){
+
+let tx = db.transaction("streak","readwrite");
+let store = tx.objectStore("streak");
+
+store.put({
+
+id:1,
+count:1,
+lastDate:""
+
+});
+
+}
+
+
+/* ------------------ MISSED DAY RESET ------------------ */
+
+function checkMissedDay(data){
+
+if(!data.lastDate) return;
+
+let last = new Date(data.lastDate);
+
+let diff = (today - last) / (1000*60*60*24);
+
+if(diff >= 2){
+
+data.count = 1;
+
+let tx = db.transaction("streak","readwrite");
+let store = tx.objectStore("streak");
+
+store.put(data);
+
+}
+
+}
+
+
+/* ------------------ CALENDAR UI ------------------ */
+
+function renderCalendar(count){
+
+calendar.innerHTML="";
+
+for(let i=1;i<=7;i++){
+
+let d=document.createElement("div");
+
+d.className="day";
+
+d.innerText=i;
+
+if(i<=count){
+
+d.classList.add("active");
+
+}
+
+if(i===count+1){
+
+d.classList.add("today");
+
+}
+
+calendar.appendChild(d);
+
+}
+
+}
+
+
+/* ------------------ CONFETTI ------------------ */
+
+function confetti(){
+
+const colors=["#ff9f1c","#34d399","#60a5fa","#f472b6"];
+
+for(let i=0;i<40;i++){
+
+let c=document.createElement("div");
+
+c.className="confetti";
+
+c.style.left=Math.random()*100+"vw";
+
+c.style.background=colors[Math.floor(Math.random()*colors.length)];
+
+document.body.appendChild(c);
+
+setTimeout(()=>c.remove(),3000);
+
+}
+
+}
+
+
+/* ------------------ STRIKE BUTTON ------------------ */
+
+btn.onclick=()=>{
+
+let tx=db.transaction("streak","readwrite");
+let store=tx.objectStore("streak");
+
+let req=store.get(1);
+
+req.onsuccess=()=>{
+
+let data=req.result;
+
+data.count+=1;
+data.lastDate=todayStr;
+
+store.put(data);
+
+streakEl.innerText=data.count;
+
+renderCalendar(data.count);
+
+btn.disabled=true;
+btn.innerText="COME BACK TOMORROW";
+
+confetti();
+
+};
+
+};
+
+</script>
+
+</body>
+</html>
