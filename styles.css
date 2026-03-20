@@ -278,8 +278,9 @@ section{padding:16px}
   background:var(--sideber);
 }
 
-.btn-clean { color: var(--btn-clean);}
+.btn-clean { color: var(--btn-clean); }
 .btn-close { filter: var(--close-btn-filter); }
+.offcanvas-header h5 { color: var(--btn-clean); }
 
 ul{
   list-style:none;
