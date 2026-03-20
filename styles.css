@@ -38,6 +38,7 @@
   --li-color: #333 ;
 
   --btn-clean-color: #000 ;
+  --close-btn-filter: invert(0); /* light theme → black */
 }
 @media (prefers-color-scheme: dark) {
 :root{
@@ -62,6 +63,7 @@
   --li-color: #fff ;
 
   --btn-clean-color: #fff ;
+  --close-btn-filter: invert(1); /* white */
   }
 }
 
@@ -277,7 +279,7 @@ section{padding:16px}
 }
 
 .btn-clean { color: var(--btn-clean);}
-.btn-close { color: var(--btn-clean);}
+.btn-close { filter: var(--close-btn-filter); }
 
 ul{
   list-style:none;
