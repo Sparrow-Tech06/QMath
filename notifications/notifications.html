@@ -32,17 +32,21 @@
        --popup-text: #444 ;
        --header : #ffffff ;
        --border: #e3e6ea ;
+       --backbtn: #f7f8fa;
+       --backbtncolor: #000 ;
     }
  @media (prefers-color-scheme: dark) {
     :root {
        --body-bg: #000000 ;
        --text-color: #ffffff ;
        --date-titie: #6c757d ;
-       --card: #1e1e1e ;
-       --popup: #ffffff ;
+       --card: #212121 ;
+       --popup: #e1e1e1 ;
        --popup-text: #fff ;
        --header : #212121 ;
        --border: #e3e6ea ;
+       --backbtn: #e1e1e1;
+       --backbtncolor: #fff ;
       }
    }
 
@@ -62,8 +66,8 @@
             color: var(--text-color);
           }
        .header .bi {
-            background: red ;
-            color: #000; /* White icon */
+            background: var(--backbtn) ;
+            color: var(--backbtncolor); /* White icon */
             font-size: 1.2rem;
             webkit-text-stroke: 2px currentColor; /* outline add */
             padding: 4px 10px;
