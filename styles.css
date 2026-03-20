@@ -36,6 +36,8 @@
   --sideber-icons: #fff ;
   --side-hover: #f5f7fb ;
   --li-color: #333 ;
+
+  --btn-clean-color: #000 ;
 }
 @media (prefers-color-scheme: dark) {
 :root{
@@ -58,6 +60,8 @@
   --sideber: #212121 ;
   --side-hover: #e1e1e1 ;
   --li-color: #fff ;
+
+  --btn-clean-color: #fff ;
   }
 }
 
@@ -271,6 +275,9 @@ section{padding:16px}
   width:85%!important;
   background:var(--sideber);
 }
+
+.btn-clean { color: var(--btn-clean);}
+.btn-close { color: var(--btn-clean);}
 
 ul{
   list-style:none;
