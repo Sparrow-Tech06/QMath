@@ -34,6 +34,7 @@
        --border: #e3e6ea ;
        --backbtn: #f7f8fa;
        --backbtncolor: #000 ;
+       --text-color: #000 ;
     }
  @media (prefers-color-scheme: dark) {
     :root {
@@ -47,6 +48,7 @@
        --border: #e3e6ea ;
        --backbtn: #000 ;
        --backbtncolor: #fff ;
+       --text-color: #fff ;
       }
    }
 
@@ -141,10 +143,11 @@
     .popup-content h5 {
       margin-bottom: 12px;
       font-weight: 600;
+      color: var(--text-color);
     }
     .popup-content p {
       font-size: 14px;
-      color: #444;
+      color: var(--popup-text);
     }
   </style>
 </head>
