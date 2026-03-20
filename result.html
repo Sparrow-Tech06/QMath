@@ -17,6 +17,7 @@
   --border:#e6e8ef;
   --primary:#4f46e5;
   --card: #ffffff ;
+  
 }
 @media (prefers-color-scheme: dark) {
 :root {
@@ -42,15 +43,16 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  background: var(--card);
 }
 .card{
   max-width:420px;
-  width:100%;
+  width:90%;
+  margin: 0 auto ; 
   border: none ;
   border-radius:18px;
   padding:28px;
   text-align:center;
+  background: var(--card);
 }
 .score{
   font-size:48px;
