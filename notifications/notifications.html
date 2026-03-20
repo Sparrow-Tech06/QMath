@@ -25,7 +25,7 @@
 /*************************************************/
     :root {
        --body-bg: #ffffff ;
-       --text-color: #000000 ;
+       --text: #000000 ;
        --date-titie: #6c757d ;
        --card: #ffffff ;
        --popup: #ffffff ;
@@ -38,7 +38,7 @@
  @media (prefers-color-scheme: dark) {
     :root {
        --body-bg: #000000 ;
-       --text-color: #ffffff ;
+       --text: #ffffff ;
        --date-titie: #6c757d ;
        --card: #212121 ;
        --popup: #212121 ;
@@ -142,8 +142,9 @@
       font-size: 14px;
       color: var(--popup-text);
     }
-    .not-title { var(--text-color); }
-    .not-time { var(--text-color); }
+    .not-title { var(--text); }
+    .not-time { var(--text); }
+    
   </style>
 </head>
 <body>
