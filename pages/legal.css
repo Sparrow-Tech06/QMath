@@ -16,10 +16,10 @@
           /* Dark Mode Colors */
       @media (prefers-color-scheme: dark) {
          :root {
-            --background-color: #121212;
+            --background-color: #000000 ;
             --text-color: #ffffff;
             
-            --sticky-header:#1e1e1e;
+            --sticky-header: #212121 ;
             
             --back-home:#4B4376 ;
             --back-home-hover: #605678 ;
