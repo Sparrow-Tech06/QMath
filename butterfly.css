@@ -11,6 +11,11 @@
   --correct:#10b981;
   --wrong:#ef4444;
 }
+@media (prefers-color-scheme: dark) {
+:root{
+   --bg: #000000 ;
+   --card: #212121 ;
+}
 
 /* ===== BASE ===== */
 *{
