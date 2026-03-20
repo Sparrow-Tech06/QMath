@@ -14,6 +14,7 @@
 <style>
 
 :root{
+--bg: #ffffff ;
 --primary:#6C63FF;
 --accent:#00A8FF;
 --success:#22c55e;
@@ -23,7 +24,7 @@
 /******************************/
 body{
 margin:0;
-background:#fff;
+background: var(--bg);
 font-family:'Inter',sans-serif;
 user-select: none ;
 }
@@ -179,14 +180,10 @@ background:#e8c27a;
 
 <body>
 
-<header>
-
-<button class="back-btn" onclick="history.back()">←</button>
-
-<div class="header-title">Achievements</div>
-
-<div class="coin" id="coinDisplay"></div>
-
+<header class="header sticky-top">
+    <button class="back-btn" onclick="history.back()"> </button>
+    <div class="header-title"> Achievements </div> 
+    <div class="coin" id="coinDisplay"></div>
 </header>
 
 
