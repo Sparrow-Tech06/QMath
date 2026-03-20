@@ -110,9 +110,6 @@
       color: #adb5bd;
       margin-bottom: 12px;
     }
-
-    .title { var(--text-color); }
-    .time { var(--text-color); }
     
     /* Popup with Zoom Animation */
     .popup {
@@ -145,6 +142,8 @@
       font-size: 14px;
       color: var(--popup-text);
     }
+    .not-title { var(--text-color); }
+    .not-time { var(--text-color); }
   </style>
 </head>
 <body>
@@ -202,8 +201,8 @@
               <div class="d-flex align-items-center">
                 <img src="../assets/splash.png" alt="Logo" class="notification-logo me-3" draggable="false">
                 <div>
-                  <div class="title">${noti.title}</div>
-                  <small class="time">${noti.time}</small>
+                  <div class="not-title">${noti.title}</div>
+                  <small class="not-time">${noti.time}</small>
                 </div>
               </div>
             `;
