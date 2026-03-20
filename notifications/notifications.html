@@ -29,7 +29,7 @@
        --date-titie: #6c757d ;
        --card: #ffffff ;
        --popup: #ffffff ;
-       --popup-text: #444 ;
+       --popup-text: #000 ;
        --header : #ffffff ;
        --border: #e3e6ea ;
        --backbtn: #f7f8fa;
@@ -48,7 +48,6 @@
        --border: #e3e6ea ;
        --backbtn: #000 ;
        --backbtncolor: #fff ;
-       --text-color: #fff ;
       }
    }
 
@@ -127,7 +126,7 @@
       z-index: 999;
     }
     .popup-content {
-      background: #fff;
+      background: var(--popup);
       padding: 25px;
       border-radius: 14px;
       width: 90%; max-width: 380px;
@@ -143,7 +142,7 @@
     .popup-content h5 {
       margin-bottom: 12px;
       font-weight: 600;
-      color: var(--text-color);
+      color: var(--popup-text);
     }
     .popup-content p {
       font-size: 14px;
