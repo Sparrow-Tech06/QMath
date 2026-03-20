@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 :root{
      --overlay: #212121 ;
    }
+   }
   #menuOverlay{
     position:fixed;
     inset:0;
