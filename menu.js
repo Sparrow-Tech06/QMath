@@ -46,6 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
   :root {
      --overlay: #ffffff ;
   }
+  @media (prefers-color-scheme: dark) {
+:root{
+     --overlay: #212121 ;
+   }
   #menuOverlay{
     position:fixed;
     inset:0;
