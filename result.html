@@ -16,6 +16,7 @@
   --muted:#6c757d;
   --border:#e6e8ef;
   --primary:#4f46e5;
+  --card: #ffffff ;
 }
 @media (prefers-color-scheme: dark) {
 :root {
@@ -24,6 +25,7 @@
     --muted: #a1a5b0;     /* readable muted text */
     --border: #2a2d34;    /* subtle borders */
     --primary: #818cf8;   /* slightly brighter for dark bg */
+    --card: #212121 ;
   }
 }
   /***************************************************/
@@ -40,6 +42,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
+  background: var(--card);
 }
 .card{
   max-width:420px;
