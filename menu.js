@@ -43,10 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ================= CSS ================= */
   const css = document.createElement("style");
   css.innerHTML = `
+  :root {
+     --overlay: #ffffff ;
+  }
   #menuOverlay{
     position:fixed;
     inset:0;
-    background:#fff;
+    background: var(--overlay);
     z-index:9999;
     display:flex;
     padding:16px;
