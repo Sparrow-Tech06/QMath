@@ -32,15 +32,15 @@
   --share-box: #c4b5fd;
   --share-border: none ;
 
-  --sideber : #fff ;
+  --sideber : #ffffff ;
   --sideber-icons: ;
   
 }
 @media (prefers-color-scheme: dark) {
 :root{
-  --bg: #2b2e4a ;
+  --bg: #000000 ;
   --card:#171a20;
-  --card2: #323558 ;
+  --card2: #121212 ;
   --text:#ffffff;
   --muted: #F7F8FA ;
   --puzzle:#9b8cff;
@@ -52,8 +52,9 @@
   --sk-base: #1f2430;
   --sk-mid:  #2a3140;
   --sk-speed: 1.3s ;
+  --border: #2a2a2a ;
 
-  --sideber: #2b2e4a ;
+  --sideber: #121212 ;
   }
 }
 
