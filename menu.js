@@ -45,10 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
   css.innerHTML = `
   :root {
      --overlay: #ffffff ;
+     --text-color: #000 ;
   }
   @media (prefers-color-scheme: dark) {
 :root{
      --overlay: #212121 ;
+     --text-color: #fff ;
    }
    }
   #menuOverlay{
@@ -80,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     background:var(--card);
     border:1px solid var(--border);
     text-decoration:none;
-    color:#4f46e5;
+    color:var(--text-color);
     cursor:pointer;
     border-radius:12px;
     padding:6px;
@@ -93,10 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
     justify-content:center;
     align-items:center;
     gap:16px;
+    color:var(--text-color);
   }
 
-  .menuBody h1{font-size:30px;margin:0;}
-  .menuBody p{color:#555;margin:0;}
+  .menuBody h1{font-size:30px;margin:0; color:var(--text-color);}
+  .menuBody p{color:var(--text-color);margin:0;}
 
   .optn{
     display:flex;
