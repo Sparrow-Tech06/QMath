@@ -40,7 +40,7 @@
 :root{
   --bg: #000000 ;
   --card:#171a20;
-  --card2: #121212 ;
+  --card2: #212121 ;
   --text:#ffffff;
   --muted: #F7F8FA ;
   --puzzle:#9b8cff;
@@ -54,7 +54,7 @@
   --sk-speed: 1.3s ;
   --border: #2a2a2a ;
 
-  --sideber: #121212 ;
+  --sideber: #212121 ;
   }
 }
 
