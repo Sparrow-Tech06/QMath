@@ -50,10 +50,10 @@
 
          * {
             font-family: "Open Sans", system-ui;
-          /*  -webkit-user-select:none;
+            -webkit-user-select:none;
                -moz-user-select:none;
                 -ms-user-select:none;
-                    user-select:none; *
+                    user-select:none; 
             margin:0;
             padding:0;
             -webkit-box-sizing:border-box;
