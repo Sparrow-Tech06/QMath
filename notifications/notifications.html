@@ -35,7 +35,7 @@ body {
   --popup: #ffffff;
   --popup-text: #000;
   --header: #ffffff;
-  --border: #e4e6eb;
+  --border:#eee;
   --backbtn: #f1f3f5;
   --backbtncolor: #000;
 }
@@ -50,7 +50,7 @@ body {
     --popup: #1f1f1f;
     --popup-text: #f1f3f5;
     --header: #212121;
-    --border: #2a2a2a;
+    --border:#333;
     --backbtn: #1a1a1a;
     --backbtncolor: #ffffff;
   }
@@ -58,20 +58,28 @@ body {
 
 /* ================= HEADER ================= */
 header {
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  background: var(--header);
-  border-bottom: 1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:var(--header);
+  padding:12px 15px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid var(--border);
 }
 
-header i {
-  background: var(--backbtn);
-  color: var(--backbtncolor);
-  padding: 6px 12px;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  cursor: pointer;
+.back-btn{
+  width:36px;
+  height:36px;
+  background: var(--backbtnBg);
+  color: var(--backbtnclr);
+  border: none;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
 }
 
 /* ================= DATE ================= */
@@ -167,7 +175,10 @@ header i {
 
 <!-- HEADER -->
 <header class="sticky-top">
-  <i class="bi bi-arrow-left" onclick="history.back()"></i>
+  <button class="back-btn" role="button" aria-label="Go back" onclick="window.history.back();">
+    <i class="bi bi-arrow-left"></i>
+  </button>
+  <div class="title"> notification </div>
 </header>
 
 <!-- MAIN -->
