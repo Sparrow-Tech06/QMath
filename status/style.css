@@ -81,22 +81,15 @@ main {
 
 /* Question */
 .question {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  background: #000 ;
+  font-size: 1.4rem; padding: 20px ;
+  font-weight: 600; margin-bottom: 1.5rem;
+  background: #000 ; 
 }
 
 /* Buttons */
 .option-btn {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  background: rgba(0,0,0,0.04);
-  color: var(-text);
-  transition: all 0.2s ease;
+  width: 100%; margin-bottom: 10px; padding: 14px;  border-radius: 14px;
+  border: none; background: rgba(0,0,0,0.04); color: var(-text); transition: all 0.2s ease;
 }
 
 .option-btn:hover {
