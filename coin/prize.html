@@ -1,97 +1,229 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
 
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 
-<title>Daily Math Challenge</title>
+<title>Math Achievements</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<style>
+
+:root{
+--bg: #ffffff ;
+--header:#FFFFFF;
+--accent:#00A8FF;
+--success:#22c55e;
+--border:#e5e7eb;
+--soft:#6b7280;
+}
+/******************************/
+body{
+margin:0;
+background: var(--bg);
+font-family:'Inter',sans-serif;
+user-select: none ;
+}
+
+header{
+display:flex;
+align-items:center;
+padding:14px 16px;
+background: var(--header);
+border-bottom:1px solid var(--border);
+gap:10px;
+}
+
+.back-btn{
+border:none;
+background:#f7f8fa;
+width:38px;
+height:38px;
+border-radius: 50% ;
+font-size:18px;
+}
+
+.header-title{
+font-weight:700;
+font-size:17px;
+}
+
+.coin{
+margin-left:auto;
+font-size:14px;
+color:var(--soft);
+}
+
+main{
+padding:16px;
+max-width: 660px ;
+}
+
+.badge-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+    
+}
+
+.badge-card{
+border-radius:16px;
+padding:14px;
+text-align:center;
+cursor:pointer;
+transition:.2s;
+}
+
+.badge-card:hover{
+transform:translateY(-2px);
+}
+
+.badge-img{
+width:72px;
+height:72px;
+object-fit:contain;
+margin-bottom:8px;
+border-radius:12px;
+}
+
+.badge-card.locked .badge-img{
+filter:grayscale(100%);
+opacity:.5;
+}
+
+.badge-title{
+font-weight:600;
+font-size:14px;
+}
+
+.progress{
+height:6px;
+border-radius:20px;
+margin-top:8px;
+}
+
+.progress-bar{
+background:linear-gradient(90deg,var(--primary),var(--accent));
+}
+
+.modal-status{
+color:#fff;
+padding:10px;
+font-weight:600;
+text-align:center;
+}
+
+.status-unlocked{
+background:var(--success);
+}
+
+.status-locked{
+background:#6b7280;
+}
+
+.modal-badge{
+width:110px;
+display:block;
+margin:auto;
+border-radius:14px;
+}
+
+.modal-badge.locked{
+filter:blur(4px) grayscale(100%);
+opacity:.6;
+}
+/* Badge card different background colors */
+
+.badge-grid .badge-card:nth-child(1){
+background:#8fbfd6;
+}
+
+.badge-grid .badge-card:nth-child(2){
+background:#b89ee6;
+}
+
+.badge-grid .badge-card:nth-child(3){
+background:#9fd69a;
+}
+
+.badge-grid .badge-card:nth-child(4){
+background:#f5a8a8;
+}
+
+.badge-grid .badge-card:nth-child(5){
+background:#f3d27a;
+}
+
+.badge-grid .badge-card:nth-child(6){
+background:#9ecff0;
+}
+
+.badge-grid .badge-card:nth-child(7){
+background:#a8e5d3;
+}
+
+.badge-grid .badge-card:nth-child(8){
+background:#e89cc5;
+}
+
+.badge-grid .badge-card:nth-child(9){
+background:#c7b2f0;
+}
+
+.badge-grid .badge-card:nth-child(10){
+background:#e8c27a;
+}
+
+</style>
 </head>
 
 <body>
 
-<div id="app" class="container py-4">
+<header class="header sticky-top">
+    <button class="bi bi-arrow-left back-btn" onclick="history.back()"> </button>
+    <div class="header-title"> Achievements </div> 
+    <div class="coin" id="coinDisplay"></div>
+</header>
 
-<div class="title text-center">
 
-Today's Challenge
+<main>
 
+<div id="badgeContainer" class="badge-grid"></div>
+
+</main>
+
+
+<!-- Modal -->
+
+<div class="modal fade" id="badgeModal">
+
+<div class="modal-dialog modal-dialog-centered">
+
+<div class="modal-content">
+
+<div id="modalStatusBanner" class="modal-status"></div>
+
+<div class="modal-body text-center">
+
+<img id="modalImg" class="modal-badge mb-3">
+
+<h5 id="modalTitle"></h5>
+
+<p id="modalText" class="text-muted small"></p>
+
+<div class="progress">
+<div id="modalProgress" class="progress-bar"></div>
 </div>
 
-<div class="text-center text-muted">
-
-{{todayDate}}
-
-</div>
-
-<div class="text-center my-3">
-
-<div class="coin-card card-ui">
-
-🪙 {{coins}}
-
-</div>
-
-</div>
-
-<div v-if="locked" class="alert alert-success text-center">
-
-You already completed today's challenge 🎉
-
-</div>
-
-<div v-if="quiz && !locked">
-
-<div class="question card-ui mb-3">
-
-{{quiz.question}}
-
-</div>
-
-<div class="options">
-
-<div
-class="option"
-v-for="opt in quiz.options"
-:class="{disabled:answered}"
-@click="!answered && check(opt)"
->
-
-{{opt}}
-
-</div>
-
-</div>
-
-</div>
-
-<div v-if="showPopup" class="popup">
-
-<div class="popup-box">
-
-<img :src="popupImage" class="result-img">
-
-<h5 v-if="result=='correct'" class="text-success mt-3">
-
-Correct +10 coins 🎉
-
-</h5>
-
-<h5 v-if="result=='wrong'" class="text-danger mt-3">
-
-Wrong answer
-
-</h5>
-
-<button class="ok-btn" @click="closePopup">
-
-Continue
-
+<button class="btn btn-primary w-100 mt-4" data-bs-dismiss="modal">
+OK
 </button>
 
 </div>
@@ -100,110 +232,101 @@ Continue
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-     const {createApp}=Vue;
 
-createApp({
+const coin = parseInt(localStorage.getItem("myCoins")) || 0;
 
-data(){
+document.getElementById("coinDisplay").innerText = coin+" Coins";
 
-return{
+const badges = [
 
-quiz:null,
-coins:0,
+{name:"Starter Spark",required:100,img:"../assets/badges/Starter Spark.png"},
+{name:"Number Rookie",required:200,img:"../assets/badges/Number Rookie.png"},
+{name:"Puzzle Solver",required:400,img:"../assets/badges/Puzzle Solver.png"},
+{name:"Brain Booster",required:600,img:"../assets/badges/Brain Booster.png"},
+{name:"Equation Explorer",required:900,img:"../assets/badges/Equation Explorer.png"},
+{name:"Logic Warrior",required:1200,img:"../assets/badges/Logic Warrior.png"},
+{name:"Mind Hacker",required:1500,img:"../assets/badges/Mind Hacker.png"},
+{name:"Math Strategist",required:1800,img:"../assets/badges/Math Strategist.png"},
+{name:"Number Legend",required:2200,img:"../assets/badges/Number Legend.png"},
+{name:"QMath Master",required:2500,img:"../assets/badges/QMath Master.png"}
 
-todayDate:"",
+];
 
-locked:false,
-answered:false,
+const container=document.getElementById("badgeContainer");
 
-showPopup:false,
-result:"",
-popupImage:""
+badges.forEach(badge=>{
 
-}
+const unlocked=coin>=badge.required;
 
-},
+const percent=Math.min((coin/badge.required)*100,100);
 
-async mounted(){
+const card=document.createElement("div");
 
-let today=new Date();
+card.className="badge-card "+(unlocked?"":"locked");
 
-this.todayDate=today.toDateString();
+card.innerHTML=`
 
-let iso=today.toISOString().slice(0,10);
+<img src="${badge.img}" class="badge-img">
 
-/* load json */
+<div class="badge-title">${badge.name}</div>
 
-let res=await fetch("data/questions.json");
+<div class="progress">
+<div class="progress-bar" style="width:${percent}%"></div>
+</div>
 
-let data=await res.json();
+`;
 
-this.quiz=data.find(q=>q.date===iso);
+card.onclick=()=>openModal(badge,unlocked,percent);
 
-/* coins */
+container.appendChild(card);
 
-this.coins=Number(localStorage.getItem("coins")||0);
+});
 
-/* check played */
+function openModal(badge,unlocked,percent){
 
-let played=localStorage.getItem("playedDate");
+const banner=document.getElementById("modalStatusBanner");
 
-if(played===iso){
+const img=document.getElementById("modalImg");
 
-this.locked=true;
+img.src=badge.img;
 
-}
+img.classList.toggle("locked",!unlocked);
 
-},
+document.getElementById("modalTitle").innerText=badge.name;
 
-methods:{
+document.getElementById("modalText").innerText=
+unlocked
+? "You successfully unlocked this achievement."
+: `Collect ${badge.required} coins to unlock this badge.`;
 
-check(opt){
+document.getElementById("modalProgress").style.width=percent+"%";
 
-this.answered=true;
+if(unlocked){
 
-let today=new Date().toISOString().slice(0,10);
+banner.innerText="🎉 Congratulations";
 
-if(opt===this.quiz.answer){
-
-this.result="correct";
-
-this.popupImage="assets/correct.png";
-
-this.coins+=10;
-
-localStorage.setItem("coins",this.coins);
-
-localStorage.setItem("playedDate",today);
-
-this.locked=true;
+banner.className="modal-status status-unlocked";
 
 }else{
 
-this.result="wrong";
+banner.innerText="🔒 Badge Locked";
 
-this.popupImage="assets/wrong.png";
-
-}
-
-this.showPopup=true;
-
-},
-
-closePopup(){
-
-this.showPopup=false;
+banner.className="modal-status status-locked";
 
 }
 
+new bootstrap.Modal(document.getElementById("badgeModal")).show();
+
 }
 
-}).mount("#app");
 </script>
 
 </body>
-
-</html> 
+</html>
