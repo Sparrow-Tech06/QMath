@@ -11,6 +11,7 @@
            --hover-color:#000;
            
            --color-heading:#121212 ;
+           --subheading: #112b4f ;
         }
         
           /* Dark Mode Colors */
@@ -26,6 +27,7 @@
             --hover-color:#fff;
             
             --color-heading: #90caf9 ;
+            --subheading: #93c4fd ;
           }
        }    
        
@@ -49,10 +51,10 @@
 
          * {
             font-family: "Open Sans", system-ui;
-            -webkit-user-select:none;
+          /*  -webkit-user-select:none;
                -moz-user-select:none;
                 -ms-user-select:none;
-                    user-select:none;
+                    user-select:none; *
             margin:0;
             padding:0;
             -webkit-box-sizing:border-box;
@@ -75,7 +77,7 @@
       h2 {
          font-size: 1.30rem;
          margin-top: 30px;
-         color: #112b4f;
+         color: ;
       }
       h3 {
          font-size: 20px ; 
