@@ -4,18 +4,33 @@
   --border:#e3e6ea;
   --primary:#f4f3ff;
   --accent:#6f63ff;
-  --text-color:#000;
+  --text:#000;
   --submit:#ffd54f;
 
-  /* NEW */
   --correct:#10b981;
   --wrong:#ef4444;
+
+  --opt-bg:#ffffff;
+  --opt-hover:#f5f7ff;
 }
-@media (prefers-color-scheme: dark) {
+
+/* ===== DARK MODE ===== */
+@media (prefers-color-scheme: dark){
 :root{
-   --bg: #000000 ;
-   --card: #212121 ;
-  }
+  --bg:#000;
+  --card:#1e1e1e;
+  --border:#2c2c2c;
+  --primary:#1a1a2e;
+  --accent:#8b7fff;
+  --text:#fff;
+  --submit:#ffca28;
+
+  --correct:#22c55e;
+  --wrong:#f87171;
+
+  --opt-bg:#121212;
+  --opt-hover:#1f1f1f;
+}
 }
 
 /* ===== BASE ===== */
