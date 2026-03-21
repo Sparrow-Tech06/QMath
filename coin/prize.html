@@ -18,16 +18,30 @@
 
 :root{
 --bg: #ffffff ;
+--text: #000 ;
 --header:#FFFFFF;
 --accent:#00A8FF;
 --success:#22c55e;
 --border:#e5e7eb;
 --soft:#6b7280;
+
+  --backbtnBg: #eaeaea ;
+  --backbtnclr: #000 ;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#000;
+    --text: #fff ;
+    --header:#212121;
+    --backbtnBg: #000 ;
+    --backbtnclr: #fff ;
+  }
 }
 /******************************/
 body{
 margin:0;
 background: var(--bg);
+color: var(-text);
 font-family:'Inter',sans-serif;
 user-select: none ;
 }
@@ -42,12 +56,16 @@ gap:10px;
 }
 
 .back-btn{
-border:none;
-background:#f7f8fa;
-width:38px;
-height:38px;
-border-radius: 50% ;
-font-size:18px;
+  width:36px;
+  height:36px;
+  background: var(--backbtnBg);
+  color: var(--backbtnclr);
+  border: none;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
 }
 
 .header-title{
@@ -187,7 +205,9 @@ background:#e8c27a;
 <body>
 
 <header class="header sticky-top">
-    <button class="bi bi-arrow-left back-btn" onclick="history.back()"> </button>
+    <button class="back-btn" role="button" aria-label="Go back" onclick="window.history.back();">
+      <i class="bi bi-arrow-left"></i>
+   </button>
     <div class="header-title"> Achievements </div> 
     <div class="coin" id="coinDisplay"></div>
 </header>
