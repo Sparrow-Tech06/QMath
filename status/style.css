@@ -65,14 +65,8 @@ main {
 
 /* Card */
 .quiz-card {
-  width: 100%;
-  max-width: 90%;
-  padding: 2rem;
-  border-radius: var(--radius);
-  background: var(--card);
-  backdrop-filter: blur(20px);
-  text-align: center;
-  animation: fadeIn 0.6s ease;
+  width: 100%; max-width: 90%;  padding: 2rem; border-radius: var(--radius);
+  background: var(--card); backdrop-filter: blur(20px); text-align: center;animation: fadeIn 0.6s ease;
 }
 
 @keyframes fadeIn {
@@ -82,7 +76,7 @@ main {
 
 /* Question */
 .question {
-  font-size: 1.4rem; padding: 20px ;
+  font-size: 1.4rem; padding: 20px ; border-radius: 8px;
   font-weight: 600; margin-bottom: 1.5rem;
   background: #000 ; color: var(-text);
 }
