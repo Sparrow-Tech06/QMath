@@ -1,55 +1,18 @@
-
 :root {
-  --bg: #ffffff;
+  --bg: #f2f2f7;
   --card: rgba(255,255,255,0.7);
   --text: #1c1c1e;
   --accent: #007aff;
   --success: #34c759;
   --danger: #ff3b30;
   --radius: 22px;
-  --backbtnBg: #eaeaea ;
-  --backbtnclr: #000 ;
-}
-/* DARK MODE */
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#000;
-    --card:#212121;
-    --backbtnBg: #000 ;
-    --backbtnclr: #fff ;
-  }
 }
 
-/*********************** Base *************************/
+/* Base */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "San Francisco", sans-serif;
   background: var(--bg);
-}
-
-/****************** HEADER *******************/
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:var(--card);
-  padding:12px 15px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  border-bottom:1px solid var(--border);
-}
-
-.back-btn{
-  width:36px;
-  height:36px;
-  background:#eaeaea;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#000;
-  text-decoration:none;
 }
 
 /* Layout */
@@ -68,6 +31,9 @@ main {
   border-radius: var(--radius);
   background: var(--card);
   backdrop-filter: blur(20px);
+  box-shadow:
+    0 8px 30px rgba(0,0,0,0.08),
+    inset 0 1px rgba(255,255,255,0.6);
   text-align: center;
   animation: fadeIn 0.6s ease;
 }
@@ -152,5 +118,4 @@ main {
     opacity: 0;
   }
 }
-
 
