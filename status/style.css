@@ -6,6 +6,16 @@
   --success: #34c759;
   --danger: #ff3b30;
   --radius: 22px;
+  --backbtnBg: #eaeaea ;
+  --backbtnclr: #000 ;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#000;
+    --card:#212121;
+    --backbtnBg: #000 ;
+    --backbtnclr: #fff ;
+  }
 }
 
 /* Base */
