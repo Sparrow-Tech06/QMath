@@ -6,6 +6,8 @@
   --success: #34c759;
   --danger: #ff3b30;
   --radius: 22px;
+  --header: #ffffff ;
+  --border:#eee;
   --backbtnBg: #eaeaea ;
   --backbtnclr: #000 ;
 }
@@ -30,7 +32,7 @@ header{
   position:sticky;
   top:0;
   z-index:1000;
-  background:var(--card);
+  background:var(--header);
   padding:12px 15px;
   display:flex;
   align-items:center;
