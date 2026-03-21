@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Daily Quiz</title>
+<title>Daily Math Quiz</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -11,8 +11,8 @@
 <style>
 :root {
   --bg: #f2f2f7;
-  --glass: rgba(255,255,255,0.6);
-  --text: #1d1d1f;
+  --card: rgba(255,255,255,0.7);
+  --text: #1c1c1e;
   --accent: #007aff;
   --success: #34c759;
   --danger: #ff3b30;
@@ -22,11 +22,11 @@
 /* Base */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", sans-serif;
+  background: linear-gradient(180deg, #e5e5ea, #f9f9fb);
 }
 
-/* Center layout */
+/* Layout */
 main {
   min-height: 100vh;
   display: flex;
@@ -34,42 +34,46 @@ main {
   justify-content: center;
 }
 
-/* Glass card */
-.card-ui {
+/* Card */
+.quiz-card {
   width: 100%;
   max-width: 380px;
-  padding: 28px;
+  padding: 2rem;
   border-radius: var(--radius);
-  background: var(--glass);
-  backdrop-filter: blur(25px);
-  box-shadow: 
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  box-shadow:
     0 8px 30px rgba(0,0,0,0.08),
-    inset 0 1px 1px rgba(255,255,255,0.6);
+    inset 0 1px rgba(255,255,255,0.6);
   text-align: center;
-  transition: 0.3s ease;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 
 /* Question */
 .question {
-  font-size: 1.35rem;
+  font-size: 1.4rem;
   font-weight: 600;
-  margin-bottom: 24px;
-  color: var(--text);
+  margin-bottom: 1.5rem;
 }
 
-/* Options */
-.option {
+/* Buttons */
+.option-btn {
   width: 100%;
+  margin-bottom: 10px;
   padding: 14px;
   border-radius: 14px;
-  margin-bottom: 10px;
   border: none;
-  background: rgba(255,255,255,0.8);
+  background: rgba(0,0,0,0.04);
   transition: all 0.2s ease;
 }
 
-.option:hover {
-  transform: scale(1.02);
+.option-btn:hover {
+  transform: scale(1.03);
   background: var(--accent);
   color: white;
 }
@@ -81,50 +85,58 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.25);
   backdrop-filter: blur(10px);
 }
 
 /* Popup box */
 .popup-box {
   width: 280px;
-  padding: 24px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(30px);
+  padding: 2rem;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(25px);
   text-align: center;
-  animation: spring 0.4s cubic-bezier(.34,1.56,.64,1);
+  animation: scaleUp 0.4s ease;
 }
 
-@keyframes spring {
-  from { transform: scale(0.6); }
-  to { transform: scale(1); }
+@keyframes scaleUp {
+  from { transform: scale(0.7); opacity: 0;}
+  to { transform: scale(1); opacity: 1;}
 }
 
 .correct { color: var(--success); }
 .wrong { color: var(--danger); }
 
 .popup button {
-  margin-top: 15px;
+  margin-top: 1rem;
   border-radius: 12px;
 }
 
-/* Canvas */
-canvas {
+/* 🎉 Custom Confetti */
+.confetti-piece {
   position: fixed;
+  width: 8px;
+  height: 12px;
   top: 0;
-  left: 0;
-  pointer-events: none;
+  opacity: 0.9;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="confetti"></canvas>
-
 <main id="app">
-  <section class="card-ui">
+
+  <section class="quiz-card">
 
     <div v-if="loading">Loading...</div>
 
@@ -135,11 +147,11 @@ canvas {
     <div v-else>
       <div class="question">{{ quiz.question }}</div>
 
-      <button 
+      <button
         v-for="(opt,i) in quiz.options"
         :key="i"
-        class="option"
-        @click="check(opt)"
+        class="option-btn"
+        @click="checkAnswer(opt)"
       >
         {{ opt }}
       </button>
@@ -150,15 +162,19 @@ canvas {
   <!-- Popup -->
   <div v-if="showPopup" class="popup">
     <div class="popup-box">
-      <h3 :class="isCorrect ? 'correct' : 'wrong'">
-        {{ isCorrect ? 'Correct' : 'Wrong' }}
-      </h3>
 
-      <p v-if="!isCorrect">Answer: {{ quiz.answer }}</p>
+      <h2 :class="isCorrect ? 'correct' : 'wrong'">
+        {{ isCorrect ? '✔ Correct' : '✖ Wrong' }}
+      </h2>
+
+      <p v-if="!isCorrect">
+        Answer: {{ quiz.answer }}
+      </p>
 
       <button class="btn btn-dark" @click="closePopup">
         Continue
       </button>
+
     </div>
   </div>
 
@@ -173,8 +189,7 @@ createApp({
       quiz: null,
       loading: true,
       showPopup: false,
-      isCorrect: false,
-      confettiPieces: []
+      isCorrect: false
     }
   },
 
@@ -189,65 +204,44 @@ createApp({
       this.loading = false;
     },
 
-    check(ans) {
-      this.isCorrect = ans === this.quiz.answer;
+    checkAnswer(selected) {
+      this.isCorrect = selected === this.quiz.answer;
       this.showPopup = true;
 
-      if (this.isCorrect) this.startConfetti();
+      if (this.isCorrect) {
+        this.launchConfetti();
+      }
     },
 
     closePopup() {
       this.showPopup = false;
     },
 
-    /* 🎉 Custom Confetti */
-    startConfetti() {
-      const canvas = document.getElementById("confetti");
-      const ctx = canvas.getContext("2d");
+    // 🎉 CUSTOM CONFETTI ENGINE
+    launchConfetti() {
+      const colors = ["#ff3b30", "#34c759", "#007aff", "#ffcc00", "#af52de"];
 
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      for (let i = 0; i < 120; i++) {
+        const div = document.createElement("div");
+        div.classList.add("confetti-piece");
 
-      this.confettiPieces = Array.from({length: 120}, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height - canvas.height,
-        r: Math.random() * 6 + 2,
-        d: Math.random() * 50,
-        color: `hsl(${Math.random()*360},100%,50%)`,
-        tilt: Math.random() * 10 - 5
-      }));
+        div.style.left = Math.random() * 100 + "vw";
+        div.style.background = colors[Math.floor(Math.random() * colors.length)];
+        div.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        div.style.transform = `rotate(${Math.random()*360}deg)`;
 
-      const draw = () => {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
+        document.body.appendChild(div);
 
-        this.confettiPieces.forEach(p => {
-          ctx.beginPath();
-          ctx.fillStyle = p.color;
-          ctx.fillRect(p.x, p.y, p.r, p.r);
-
-          p.y += 3;
-          p.x += Math.sin(p.d);
-
-          if (p.y > canvas.height) {
-            p.y = -10;
-          }
-        });
-
-        requestAnimationFrame(draw);
-      };
-
-      draw();
-
-      setTimeout(() => {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-      }, 2000);
+        setTimeout(() => div.remove(), 4000);
+      }
     }
   },
 
   mounted() {
     this.loadQuiz();
   }
-}).mount('#app');
+
+}).mount("#app");
 </script>
 
 </body>
