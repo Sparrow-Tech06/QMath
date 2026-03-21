@@ -15,9 +15,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --bg:#ffffff;
+  --card:#ffffff;
+  --text:#111;
+  --muted:#777;
+  --border:#eee;
+  --backbtnBg: #eaeaea ;
+  --backbtnclr: #000 ;
+}
 
+/* DARK MODE */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#000;
+    --card:#212121;
+    --text:#fff;
+    --muted:#aaa;
+    --border:#333;
+    --backbtnBg: #000 ;
+    --backbtnclr: #fff ;
+  }
+}
+  /*********************************************/
 body{
-  background:#f5f7fb;
+  background:var(--bg);
+  color:var(--text);
   font-family: system-ui, -apple-system, sans-serif;
 }
 
@@ -26,17 +49,23 @@ body{
   position:sticky;
   top:0;
   z-index:1000;
-  background:#fff;
+  background:var(--card);
   padding:12px 15px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  gap:10px;
+  border-bottom:1px solid var(--border);
 }
 
 .back-btn{
-  font-size:20px;
-  color:#333;
+  width:36px;
+  height:36px;
+  background:#eaeaea;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: var(--backbtn);
   text-decoration:none;
 }
 
@@ -47,12 +76,10 @@ body{
 
 /* BALANCE CARD */
 .balance-card{
-  background:linear-gradient(135deg,#6a5cff,#00c6ff);
-  color:#fff;
+  background:var(--card);
   border-radius:16px;
   padding:18px;
-  margin:15px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  box-shadow:0 4px 12px rgba(0,0,0,0.06);
 }
 
 .balance-card h2{
@@ -62,7 +89,7 @@ body{
 }
 
 .balance-card small{
-  opacity:0.9;
+  color:var(--muted);
 }
 
 /* HISTORY */
@@ -71,14 +98,27 @@ body{
 }
 
 .history-item{
-  background:#fff;
   border-radius:14px;
   padding:12px 14px;
   margin-bottom:10px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  box-shadow:0 3px 10px rgba(0,0,0,0.04);
+}
+
+/* DIFFERENT BG LOOP */
+.history-item:nth-child(5n+1){ background:#e3f2fd; }
+.history-item:nth-child(5n+2){ background:#e8f5e9; }
+.history-item:nth-child(5n+3){ background:#fff3e0; }
+.history-item:nth-child(5n+4){ background:#f3e5f5; }
+.history-item:nth-child(5n+5){ background:#fce4ec; }
+
+@media (prefers-color-scheme: dark){
+  .history-item:nth-child(5n+1){ background:#102a43; }
+  .history-item:nth-child(5n+2){ background:#1b4332; }
+  .history-item:nth-child(5n+3){ background:#3d2c00; }
+  .history-item:nth-child(5n+4){ background:#3b1d3f; }
+  .history-item:nth-child(5n+5){ background:#4a1c2a; }
 }
 
 .left{
@@ -93,7 +133,7 @@ body{
 
 .date{
   font-size:11px;
-  color:#888;
+  color:var(--muted);
 }
 
 .amount{
@@ -101,19 +141,14 @@ body{
   font-size:15px;
 }
 
-.plus{
-  color:#28a745;
-}
-
-.minus{
-  color:#dc3545;
-}
+.plus{ color:#28a745; }
+.minus{ color:#dc3545; }
 
 /* EMPTY STATE */
 .empty{
   text-align:center;
   margin-top:80px;
-  color:#888;
+  olor:var(--muted);
 }
 
 .empty i{
