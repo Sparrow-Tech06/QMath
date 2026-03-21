@@ -168,10 +168,10 @@ function endGame(){
   if(allowReward)
     localStorage.setItem('rewardKey', Date.now());
 
-  localStorage.setItem('lastGame','Sprint Sum Missing');
+  localStorage.setItem('lastGame','Math Minus Game');
   localStorage.setItem('lastScore',score);
   localStorage.setItem('lastTotal',total);
-  localStorage.setItem('currentGame','sprint-sum-missing');
+  localStorage.setItem('currentGame','puzzle');
 
   location.replace('../result.html');
 }
