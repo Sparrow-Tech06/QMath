@@ -19,6 +19,7 @@
 
 :root{
 --bg: #ffffff ;
+--text: #111 ;
 --header:#FFFFFF;
 --primary: #4f46e5;
 --accent: #06b6d4;
@@ -32,6 +33,7 @@
 @media (prefers-color-scheme: dark){
   :root{
       --bg: #000000 ;
+      --text:#fff;
       --header: #212121 ;
       --backbtnBg: #000 ;
       --backbtnclr: #fff ;
@@ -41,6 +43,7 @@
 body{
 margin:0;
 background: var(--bg);
+color:var(--text);
 font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 user-select: none ;
 }
