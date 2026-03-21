@@ -32,7 +32,6 @@
        }    
        
     /********************************************************************************/   
-        html { font-size: 15px; } /* root font size */
         
          body {
             background-color: var(--background-color);
@@ -77,7 +76,7 @@
       h2 {
          font-size: 1.30rem;
          margin-top: 30px;
-         color: ;
+         color: var(--subheading) ;
       }
       h3 {
          font-size: 20px ; 
