@@ -20,7 +20,7 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "San Francisco", sans-serif;
-  background: linear-gradient(180deg, #e5e5ea, #f9f9fb);
+  background: var(--bg);
 }
 
 /* Layout */
