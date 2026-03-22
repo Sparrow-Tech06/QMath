@@ -39,7 +39,7 @@
     </div>
 
     <div v-else>
-      <div class="question">{{ quiz.question }}</div>
+      <div class="question" style="color:var(--text);">{{ quiz.question }}</div>
 
       <button
         v-for="(opt,i) in quiz.options"
