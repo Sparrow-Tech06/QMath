@@ -59,15 +59,16 @@ header{
 
 /* Layout */
 main {
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   /* align-items: center; */
   justify-content: center;
+  margin-top: 30px ;
 }
 
 /* Card */
 .quiz-card {
-  width: 90%; max-width: 660px;  padding: 2rem; border-radius: var(--radius); color: var(--text);
+  width: 95%; max-width: 660px;  padding: 2rem; border-radius: var(--radius); color: var(--text);
   background: var(--card); backdrop-filter: blur(20px); text-align: center;animation: fadeIn 0.6s ease;
 }
 
