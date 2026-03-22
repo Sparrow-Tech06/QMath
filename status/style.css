@@ -79,7 +79,7 @@ main {
 
 /* Question */
 .question {
-  font-size: 1.4rem; padding: 20px ; border-radius: 8px;
+  font-size: 1.4rem; padding: 30px 20px ; border-radius: 8px;
   font-weight: 600; margin-bottom: 2rem;
   background: var(--question) ; color: var(-text);
 }
