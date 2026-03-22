@@ -10,6 +10,7 @@
   --border:#eee;
   --backbtnBg: #eaeaea ;
   --backbtnclr: #000 ;
+  --question: #fff ;
 }
 @media (prefers-color-scheme: dark){
   :root{
@@ -19,6 +20,7 @@
     --header: #212121 ;
     --backbtnBg: #000 ;
     --backbtnclr: #fff ;
+    --question: #212121 ;
   }
 }
 
@@ -77,8 +79,8 @@ main {
 /* Question */
 .question {
   font-size: 1.4rem; padding: 20px ; border-radius: 8px;
-  font-weight: 600; margin-bottom: 1.5rem;
-  background: #000 ; color: var(-text);
+  font-weight: 600; margin-bottom: 2rem;
+  background: var(--question) ; color: var(-text);
 }
 
 /* Buttons */
