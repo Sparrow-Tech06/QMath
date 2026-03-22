@@ -12,7 +12,7 @@
       },
       {
         "label": "PUZZLE",
-        "title": "HIDEEN DIFF",
+        "title": "HIDDEN DIFF",
         "desc": "Complete the subtraction",
         "image": "assets/hidden-diff.png",
         "link": "puzzle/minus.html?game=Puzzle&title=Hidden Diff&subtitle=Complete the subtraction", 
