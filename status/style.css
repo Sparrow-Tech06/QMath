@@ -57,8 +57,12 @@ header{
   justify-content:center;
   text-decoration:none;
 }
-
-/* Layout */
+ h1 {
+   color:var(--text);
+   text-align: centre;
+   margin: 30px ;
+ }
+/*******************Layout ******†*********/
 main {
   min-height: auto;
   display: flex;
