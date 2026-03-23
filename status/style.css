@@ -59,8 +59,9 @@ header{
 }
  h1 {
    color:var(--text);
-   text-align: centre;
+   text-align: center;
    margin: 30px ;
+   font-weight: 650 ;
  }
 /*******************Layout ******†*********/
 main {
