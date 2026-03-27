@@ -1,11 +1,12 @@
 :root{
   --bg:#ffffff;
-  --card:#f7f8fa;
+  --card:#A98B76;
   --border:#e3e6ea;
   --primary:#f4f3ff;
   --accent:#6f63ff;
   --text:#000;
   --submit:#ffd54f;
+  --green-dark: #8C735F;
 
   --correct:#10b981;
   --wrong:#ef4444;
@@ -82,7 +83,7 @@ body{
   border-radius:18px;
   padding:20px;
   background:var(--card);
-  /* box-shadow:0 10px 28px rgba(0,0,0,.06); ;
+  box-shadow: 0 8px 0 var(--green-dark);
 }
 
 /* ===== QUESTION ===== */
