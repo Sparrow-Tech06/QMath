@@ -192,6 +192,21 @@ if(localStorage.getItem('soundOn') === '1'){
 }
 
 /* ===== ONE-TIME REWARD ===== */
+/* (function rewardOnce(){
+  const rewardKey = localStorage.getItem('rewardKey');
+  if(!rewardKey) return;
+
+  const lock = 'rewarded_' + rewardKey;
+  if(localStorage.getItem(lock) === '1') return;
+
+  if(typeof getCoin === 'function'){
+    getCoin(10, gameName);
+  }
+
+  localStorage.setItem(lock,'1');
+})();  */
+
+/* ===== ONE-TIME REWARD WITH 50% CONDITION ===== */
 (function rewardOnce(){
   const rewardKey = localStorage.getItem('rewardKey');
   if(!rewardKey) return;
@@ -199,6 +214,17 @@ if(localStorage.getItem('soundOn') === '1'){
   const lock = 'rewarded_' + rewardKey;
   if(localStorage.getItem(lock) === '1') return;
 
+  const percentValue = total ? Math.round((score/total)*100) : 0;
+
+  // ❌ If less than 50%
+  if(percentValue < 50){
+    const percentEl = document.getElementById('percent');
+    percentEl.innerText = percentValue + '% Accuracy • Minimum 50% required for reward';
+    percentEl.style.color = '#ef4444';
+    return;
+  }
+
+  // ✅ If 50% or more
   if(typeof getCoin === 'function'){
     getCoin(10, gameName);
   }
