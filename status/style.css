@@ -26,6 +26,12 @@
 }
 
 /* Base */
+*{
+  margin: 0 ;
+  padding: 0 ;
+  box-sizing: border-box ;
+  user-select: none ;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "San Francisco", sans-serif;
