@@ -98,7 +98,7 @@ body{
   font-weight: 700;
   padding: 30px;
   border-radius: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   box-shadow: 0 6px 0 var(--green-dark);
 }
 
@@ -131,8 +131,7 @@ body{
   padding:14px;
   text-align:center;
   cursor:pointer;
-  background:#fff;
-  margin: 30px 0px ;
+  background: var(--opt-bg) ;
   transition:
     transform .08s ease,
     box-shadow .12s ease,
