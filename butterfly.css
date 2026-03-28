@@ -71,9 +71,9 @@ body{
 
 .top > span{
   background:var(--accent);
-  padding:6px 12px;
-  border-radius:10px;
-  font-size:12px;
+  padding: 8px 16px;
+  border-radius:8px;
+  font-size:14px;
   color:#fff;
 }
 
