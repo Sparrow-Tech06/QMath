@@ -79,7 +79,7 @@ body{
 /* ===== CARD ===== */
 .card{
   flex:1;
-  border:1px solid var(--border);
+/*  border:1px solid var(--border);  */
   border-radius:18px;
   padding:20px;
   background:var(--card);
