@@ -218,7 +218,7 @@ button:focus,
 .gap-line{
   display:inline-block;
   width:60px;
-  border-bottom:3px solid #0d6efd;
+  border-bottom:3px solid #fff;
   animation: blinkScale 1s infinite;
   transform-origin:center;
 }
