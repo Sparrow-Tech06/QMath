@@ -13,6 +13,7 @@
   --wrong:#ef4444;
 
   --opt-bg:#ffffff;
+  --opt-text: #000 ;
   --opt-hover:#f5f7ff;
 }
 
@@ -31,6 +32,7 @@
   --wrong:#f87171;
 
   --opt-bg:#121212;
+  --opt-text: #fff ;
   --opt-hover:#1f1f1f;
 }
 }
@@ -132,6 +134,7 @@ body{
   text-align:center;
   cursor:pointer;
   background: var(--opt-bg) ;
+  color: var(--opt-text) ;
   transition:
     transform .08s ease,
     box-shadow .12s ease,
