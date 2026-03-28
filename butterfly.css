@@ -1,12 +1,13 @@
 :root{
   --bg:#ffffff;
-  --card:#A98B76;
+  --card:#ECEBFF;
   --border:#e3e6ea;
   --primary:#f4f3ff;
   --accent:#6f63ff;
   --text:#000;
   --submit:#ffd54f;
-  --green-dark: #8C735F;
+  --green-dark: #574CDB;
+  --green: #6F63FF;
 
   --correct:#10b981;
   --wrong:#ef4444;
@@ -88,18 +89,17 @@ body{
 
 /* ===== QUESTION ===== */
 .q{
-  font-size:24px;
-  font-weight:700;
-  margin-bottom:30px;
-  background:var(--primary);
-  border:2px solid var(--accent);
-  text-align:center;
-  padding:30px;
-  border-radius:12px;
-  color:var(--text-color);
-
   /* animation */
   animation:qFade .35s ease;
+  background: var(--green);
+  color:var(--text-color);
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  padding: 30px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 0 var(--green-dark);
 }
 
 @keyframes qFade{
