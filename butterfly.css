@@ -20,20 +20,28 @@
 /* ===== DARK MODE ===== */
 @media (prefers-color-scheme: dark){
 :root{
-  --bg:#000;
-  --card:#1e1e1e;
-  --border:#2c2c2c;
-  --primary:#1a1a2e;
-  --accent:#8b7fff;
-  --text:#fff;
-  --submit:#ffca28;
+  --bg:#0f0f1a;              /* pure black se better, eye-friendly */
+  --card:#1b1b2f;            /* slight bluish tint for premium feel */
+  --border:#2a2a40;
+
+  --primary:#141427;         /* background sections */
+  --accent:#8c82ff;          /* softer version of #6f63ff for dark */
+
+  --text:#e6e6ff;            /* pure white nahi, thoda soft */
+  --submit:#ffcf5a;
+
+  --green-dark:#6f63ff;      /* brand consistency */
+  --green:#8c82ff;
 
   --correct:#22c55e;
   --wrong:#f87171;
 
-  --opt-bg:#121212;
-  --opt-text: #fff ;
-  --opt-hover:#1f1f1f;
+  --opt-bg:#18182a;          /* options card bg */
+  --opt-text:#f1f1ff;
+  --opt-hover:#23233a;
+
+  /* extra depth (recommended) */
+  --shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 }
 
