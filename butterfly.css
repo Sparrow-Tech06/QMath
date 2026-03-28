@@ -20,7 +20,7 @@
 /* ===== DARK MODE ===== */
 @media (prefers-color-scheme: dark){
 :root{
-  --bg:#0f0f1a;              /* pure black se better, eye-friendly */
+  --bg:#000;              /* pure black se better, eye-friendly */
   --card:#1b1b2f;            /* slight bluish tint for premium feel */
   --border:#2a2a40;
 
