@@ -102,7 +102,7 @@ body{
   /* animation */
   animation:qFade .35s ease;
   background: var(--green);
-  color:var(--text-color);
+  color:var(--text);
   text-align: center;
   font-size: 26px;
   font-weight: 700;
