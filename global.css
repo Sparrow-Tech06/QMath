@@ -34,6 +34,7 @@ body {
     transform: scale(1);
   }
 }
-button {
+
+button, a {
   touch-action: manipulation;
 }
