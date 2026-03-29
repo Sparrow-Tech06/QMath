@@ -3,6 +3,7 @@ root {
   --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --body-bg: #fff ;
   --header: #A98B76;
+  --border: #e3e3e3 ;
   --back-btn: # ;
 }
 @media (prefers-color-scheme: dark) {
@@ -37,6 +38,12 @@ body {
   }
 }
 
+header {
+  padding:10px 16px;
+  background:var(--header);
+  border-bottom:1px solid var(--border);
+  position: sticky; top: 0;
+}
 button, a {
   touch-action: manipulation;
 }
