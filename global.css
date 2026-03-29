@@ -21,4 +21,15 @@ root {
 
 body {
   font-family: var(--font-main);
+  animation: pageOpen 0.4s ease-out;
+}
+@keyframes pageOpen {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
