@@ -1,5 +1,8 @@
 root {
-  
+  --font-main: system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --body-bg: #fff ;
+  --header: #fff ;
+  --back-btn: # ;
 }
 /********************************/
 * {
@@ -10,5 +13,5 @@ root {
 }
 
 body {
-  
+  font-family: var(--font-main);
 }
