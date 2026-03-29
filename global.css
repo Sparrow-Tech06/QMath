@@ -1,7 +1,7 @@
 root {
  /* --font-main: system-ui, -apple-system, Roboto, Arial, sans-serif; */  /*  THIS IS FOR SYSTEM FONTS */
   --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --body-bg: #fff ;
+  --body-bg: #000 ;
   --header: #A98B76;
   --border: #e3e3e3 ;
   --back-btn: # ;
