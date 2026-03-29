@@ -76,10 +76,6 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:10px 16px;
-  background:var(--card2);
-  border-bottom:1px solid var(--border);
-  position: sticky; top: 0;
 }
 
 .header-left{display:flex;gap:12px;align-items:center}
