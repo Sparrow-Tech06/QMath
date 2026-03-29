@@ -1,5 +1,6 @@
 root {
-  --font-main: system-ui, -apple-system, Roboto, Arial, sans-serif;
+ /* --font-main: system-ui, -apple-system, Roboto, Arial, sans-serif;  */
+  --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --body-bg: #fff ;
   --header: #fff ;
   --back-btn: # ;
@@ -23,6 +24,7 @@ root {
 body {
   font-family: var(--font-main);
   animation: pageOpen 0.4s ease-out;
+  background: var(--body-bg) ;
 }
 @keyframes pageOpen {
   from {
