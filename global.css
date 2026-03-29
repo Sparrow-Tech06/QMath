@@ -2,7 +2,7 @@ root {
  /* --font-main: system-ui, -apple-system, Roboto, Arial, sans-serif; */  /*  THIS IS FOR SYSTEM FONTS */
   --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --body-bg: #fff ;
-  --header: #fff ;
+  --header: #A98B76;
   --back-btn: # ;
 }
 @media (prefers-color-scheme: dark) {
