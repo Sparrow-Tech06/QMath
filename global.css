@@ -4,6 +4,13 @@ root {
   --header: #fff ;
   --back-btn: # ;
 }
+@media (prefers-color-scheme: dark) {
+:root{
+   --body-bg: #000 ;
+   --header: #212121 ;
+   --back-btn: # ;
+  }
+}
 /********************************/
 * {
   margin: 0;
