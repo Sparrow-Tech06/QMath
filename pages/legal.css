@@ -1,14 +1,4 @@
-
-        :root {
-           --background-color: #ffffff;
-           --text-color: #121212;
-           
-           --sticky-header:#ffffff;
-           --header-border:#ddd;
-           
-           --backbtnBg: #eaeaea ;
-           --backbtnclr: #000 ;
-           
+   :root {
            --color-heading:#121212 ;
            --subheading: #112b4f ;
         }
@@ -16,14 +6,6 @@
           /* Dark Mode Colors */
       @media (prefers-color-scheme: dark) {
          :root {
-            --background-color: #000000 ;
-            --text-color: #ffffff;
-            
-            --sticky-header: #212121 ;
-            
-            --backbtnBg: #000 ;
-            --backbtnclr: #fff ;
-            
             --color-heading: #90caf9 ;
             --subheading: #93c4fd ;
           }
@@ -31,39 +13,7 @@
        
     /********************************************************************************/   
         
-         body {
-            background-color: var(--background-color);
-            color: var(--text-color);
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-user-select: none;
-               -moz-user-select: none;
-                -ms-user-select: none;
-                    user-select: none;
-            margin:0 ;
-            padding: 0;
-            -webkit-box-sizing:border-box;
-                    box-sizing:border-box;
-            transition: background-color 0.3s, color 0.3s;          
-        }
-
-         * {
-            font-family: "Open Sans", system-ui;
-            -webkit-user-select:none;
-               -moz-user-select:none;
-                -ms-user-select:none;
-                    user-select:none; 
-            margin:0;
-            padding:0;
-            -webkit-box-sizing:border-box;
-                    box-sizing:border-box;
-            transition: background-color 0.3s, color 0.3s;          
-            user-select:none;
-            scrollbar-width: none; /* Firefox */
-           -ms-overflow-style: none; /* Internet Explorer and Edge */
-        }
-         *::-webkit-scrollbar {
-           display: none; /* Chrome, Safari, and Opera */
-         }
+         
     /*****************************************************************************************/
       
       h1 {
@@ -97,20 +47,6 @@
       }
       
     /***********************************************************/  
-        .sticky-header {
-             position: sticky;
-             top: 0;
-             left: 0;
-             width: 100%;
-             background: var(--sticky-header); /* Bootstrap light background */
-             z-index: 1000;
-             display: flex;
-             align-items: center;
-             justify-content: flex-start;
-             padding: 10px 10px;
-             transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-           }
-           
         #header-heading { 
             font-size: 20px; 
             margin-left: 15px; 
@@ -122,20 +58,3 @@
         }
         
      /***************************************/   
-.back-btn{
-  width:36px;
-  height:36px;
-  background: var(--backbtnBg);
-  color: var(--backbtnclr);
-  border: none;
-  outline: none ;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-}
-          
-          
-          
-          
