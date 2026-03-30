@@ -14,66 +14,23 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="control_center/version-check.js" defer> </script>
-
+ 
+  <link rel="stylesheet" href="../global.css">
+  
 <style>
 :root{
-  --bg:#ffffff;
-  --header: #fff;
   --card:#f7f8fa;
-  --text:#111;
   --muted:#777;
-  --border:#eee;
-  --backbtnBg: #eaeaea ;
-  --backbtnclr: #000 ;
 }
 
 /* DARK MODE */
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#000;
-    --header: #212121;
     --card:#212121;
-    --text:#fff;
     --muted:#aaa;
-    --border:#333;
-    --backbtnBg: #000 ;
-    --backbtnclr: #fff ;
   }
 }
   /*********************************************/
-* {
-  margin: 0 ; padding: 0 ; box-sizing: border-box; user-select: none;
-}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-/* HEADER */
-.header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:var(--header);
-  padding:12px 15px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  border-bottom:1px solid var(--border);
-}
-
-.back-btn{
-  width:36px;
-  height:36px;
-  background: var(--backbtnBg);
-  color: var(--backbtnclr);
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-}
 
 .title{
   font-weight:600;
