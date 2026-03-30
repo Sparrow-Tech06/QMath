@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   @media (prefers-color-scheme: dark) {
 :root{
-     --overlay: #212121 ;
+     --overlay: #22252b ;
      --text-color: #fff ;
    }
    }
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     color:var(--text-color);
     cursor:pointer;
     border-radius:12px;
-    padding:6px;
+    padding:6px 10px;
   }
 
   .menuBody{
