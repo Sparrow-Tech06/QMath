@@ -2,13 +2,15 @@ root {
  /* --font-main: system-ui, -apple-system, Roboto, Arial, sans-serif; */  /*  THIS IS FOR SYSTEM FONTS */
   --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --body-bg: #BFA28C ;
+  --text: #000 ;
   --header: #A98B76;
-  --border: #e3e3e3 ;
+  --border: #2a2a2a ;
   --back-btn: # ;
 }
 @media (prefers-color-scheme: dark) {
 :root{
    --body-bg: #000 ;
+   --text: #fff ;
    --header: #212121 ;
    --back-btn: # ;
   }
@@ -24,6 +26,7 @@ root {
 
 body {
   font-family: var(--font-main);
+  color: var(--text);
   animation: pageOpen 0.4s ease-out;
   background: var(--body-bg) ;
 }
