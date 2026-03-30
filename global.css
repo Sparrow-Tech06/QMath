@@ -10,9 +10,9 @@
 }
 @media (prefers-color-scheme: dark) {
 :root{
-   --body-bg: #000 ;
+   --body-bg: #16181d ;
    --text: #fff ;
-   --header: #212121 ;
+   --header: #22252b ;
    --border:#333 ;
    --backbtnBg: #000 ;
    --backbtnclr: #fff ;
