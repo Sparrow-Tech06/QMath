@@ -1,68 +1,19 @@
 :root {
-  --bg: #fff;
   --card: #574CDB ;
-  --text: #000 ;
   --accent: #007aff;
   --success: #34c759;
   --danger: #ff3b30;
   --radius: 22px;
-  --header: #ffffff ;
-  --border:#eee;
-  --backbtnBg: #eaeaea ;
-  --backbtnclr: #000 ;
   --question: #fff ;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#000;
-    --text: #fff ;
     --card: #1b1b2f;
     --header: #212121 ;
-    --border: #333 ;
-    --backbtnBg: #000 ;
-    --backbtnclr: #fff ;
     --question: #212121 ;
   }
 }
 
-/* Base */
-*{
-  margin: 0 ;
-  padding: 0 ;
-  box-sizing: border-box ;
-  user-select: none ;
-}
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", sans-serif;
-  background: var(--bg);
-}
-
-/* HEADER */
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:var(--header);
-  padding:12px 15px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  border-bottom:1px solid var(--border);
-}
-
-.back-btn{
-  width:36px;
-  height:36px;
-  background: var(--backbtnBg);
-  color: var(--backbtnclr);
-  border: none;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-}
  h1 {
    color:var(--text);
    text-align: center;
