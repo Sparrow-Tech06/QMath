@@ -43,13 +43,26 @@ body {
     transform: scale(1);
   }
 }
-
+/*******************************************/
 header {
   padding:10px 16px;
   background:var(--header);
   border-bottom:1px solid var(--border);
   position: sticky; top: 0;
 }
+.back-btn{
+  width:36px;
+  height:36px;
+  background: var(--backbtnBg);
+  color: var(--backbtnclr);
+  border: none;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+}
+/******************************************/
 button, a {
   touch-action: manipulation;
 }
