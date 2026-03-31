@@ -47,18 +47,6 @@
 }
 
 /* ===== BASE ===== */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-  user-select:none;
-}
-body{
-  margin:0;
-  background:var(--bg);
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
 
 .game{
   max-width:520px;
@@ -66,10 +54,6 @@ body{
   display:flex;
   flex-direction:column;
   padding:16px;
-
-  /* game feel */
-  user-select:none;
-  -webkit-user-select:none;
 }
 
 /* ===== TOP BAR ===== */
