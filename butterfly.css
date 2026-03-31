@@ -14,7 +14,7 @@
   --opt-bg:#ffffff;
   --opt-text: #000 ;
   --opt-hover:#f5f7ff;
-  --opt-bfr: #fff !
+  --opt-bfr: #e3e6ea ;
 }
 
 /* ===== DARK MODE ===== */
@@ -251,7 +251,7 @@ button:focus,
   text-align:center;
   cursor:pointer;
   background: var(--opt-bg);
-  color: var(--opt-text);
+  color: var(--text);
   transition:
     transform .08s ease,
     box-shadow .12s ease,
@@ -272,7 +272,7 @@ button:focus,
 
   /* BG aur Border setup */
   background: var(--opt-bfr);
-  border:1px solid var(--accent);
+  border:2px solid var(--accent);
   border-radius: 50%;
             
   /* Sizing */
