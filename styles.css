@@ -41,7 +41,7 @@
 }
 @media (prefers-color-scheme: dark) {
 :root{
-  --card: rgba(23,26,32,0.4);
+  --card: rgba(23,26,32,0.6);
   --card2: #212121 ;
   --text:#ffffff;
   --muted: #F7F8FA ;
