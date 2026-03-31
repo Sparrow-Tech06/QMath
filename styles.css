@@ -41,7 +41,7 @@
 }
 @media (prefers-color-scheme: dark) {
 :root{
-  --card:#171a20;
+  --card: rgba(23,26,32,0.4);
   --card2: #212121 ;
   --text:#ffffff;
   --muted: #F7F8FA ;
@@ -169,7 +169,8 @@ section{padding:16px}
   padding: 20px;
   object-fit:contain;
   border-radius:14px; 
-  background:var(--card); 
+  background:var(--card);
+  backdrop-filter: blur(10px);
   border:1px solid var(--border);
 }
 
