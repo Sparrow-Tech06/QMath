@@ -1,5 +1,4 @@
 :root{
-  --bg:#ffffff;
   --card:#ECEBFF;
   --border:#e3e6ea;
   --primary:#f4f3ff;
@@ -15,12 +14,12 @@
   --opt-bg:#ffffff;
   --opt-text: #000 ;
   --opt-hover:#f5f7ff;
+  --opt-bfr: #fff !
 }
 
 /* ===== DARK MODE ===== */
 @media (prefers-color-scheme: dark){
 :root{
-  --bg:#000;              /* pure black se better, eye-friendly */
   --card:#1b1b2f;            /* slight bluish tint for premium feel */
   --border:#2a2a40;
 
@@ -39,6 +38,8 @@
   --opt-bg:#18182a;          /* options card bg */
   --opt-text:#f1f1ff;
   --opt-hover:#23233a;
+
+  --opt-bfr: #000 ;
 
   /* extra depth (recommended) */
   --shadow: 0 4px 20px rgba(0,0,0,0.4);
@@ -286,9 +287,9 @@ button:focus,
   transform: translateY(-50%);
 
   /* BG aur Border setup */
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
+  background: var(--opt-bfr);
+  border:1px solid var(--accent);
+  border-radius: 50%;
             
   /* Sizing */
   width: 26px;
