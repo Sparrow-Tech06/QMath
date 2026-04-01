@@ -1,0 +1,208 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">  
+  
+<title> QMath – Daily Math Practice </title>  
+  
+<meta name="description" content="Daily Math Quiz app for students and learners. Practice mental math, improve calculation speed, and solve timed math quizzes every day.">  
+<meta name="keywords" content="daily math quiz, math quiz app, mental math quiz, math practice app, brain math quiz, timed math quiz, basic math quiz, math quiz for students">           
+<meta name="author" content="Daily Math Quiz App">  
+  
+<meta itemprop="name" content="QMath – Daily Mental Math Practice">  
+<meta itemprop="description" content="Solve daily math quizzes and improve your mental calculation speed with simple and timed challenges.">  
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">  
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">  
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">  
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">  
+  
+<script src="control_center/version-check.js" defer> </script>  
+  
+<meta http-equiv="X-UA-Compatible" content="IE=edge">  
+
+<!-- ================== STRUCTURED DATA (JSON-LD) ================== -->  
+<script type="application/ld+json">  
+{  
+  "@context": "https://schema.org",  
+  "@type": "MobileApplication",  
+  "name": "QMath – Daily Math Practice",  
+  "operatingSystem": "Android",  
+  "applicationCategory": "EducationalApplication",  
+  "description": "Daily math quiz app to practice mental math, improve speed and accuracy.",  
+  "offers": {  
+    "@type": "Offer",  
+    "price": "0",  
+    "priceCurrency": "INR"  
+  }  
+}  
+</script>  
+
+<link rel="stylesheet" href="styles.css">  
+<link rel="stylesheet" href="global.css">  
+
+</head>  
+  
+<body>  
+<main class="app">  
+  
+<header id="main-header" class="header-section p-0">  
+  <!-- <div class="container-fluid d-flex justify-content-between align-items-center p-1"> -->  
+     <div class="d-flex align-items-center gap-2">  
+       <button class="btn btn-clean" data-bs-toggle="offcanvas" data-bs-target="#sidebar">  
+         <i class="bi bi-list fs-3"></i>  
+      </button>  
+       <h1 class="m-0 fw-bold fs-6"> QMath </h1>  
+    </div>  
+    <a onclick="window.location.href='notifications/notifications.html';" class="notify-btn" aria-label="Notifications">  
+      <i class="bi bi-bell"></i>  
+   </a>  
+<!-- </div> -->  
+</header>  
+  
+<!-- ================= SIDEBAR ================= -->  
+<div class="offcanvas offcanvas-start" id="sidebar">  
+  
+  <div class="offcanvas-header">  
+    <h5 style="color:var(--text);"> Qmath Menu </h5>  
+    <button class="btn-close" data-bs-dismiss="offcanvas"></button>  
+  </div>  
+  
+  <div class="offcanvas-body">  
+  
+    <!-- First Menu -->  
+    <ul class="menu-list">  
+      <li><a onclick="window.location.href='coin/my-coin.html';"><i class="bi bi-coin"></i> My Coins </a></li>  
+      <li><a onclick="window.location.href='coin/prize.html';"><i class="bi bi-trophy-fill"></i> Achievements </a></li>  
+    <!--  <li><a onclick="window.location.href='pages/how-to-play.html';"><i class="bi bi-controller"></i> How to Play </a></li>  
+    </ul>  
+  
+    <hr> -->  
+  
+    <!-- Second Menu -->  
+   <!-- <ul class="menu-list menu-list2"> -->  
+   <!-- <li><a onclick="window.location.href='pages/terms-and-conditions.html';"><i class="bi bi-shield-check"></i> Terms of Use</a></li> -->  
+      <li><a onclick="window.location.href='pages/privacy-policy.html';"><i class="bi bi-lock"></i> Privacy Policy</a></li>  
+      <li><a onclick="window.location.href='mailto:team.kyraapps@outlook.com?subject=App Support Request';"><i class="bi bi-envelope-at"></i> Contact Us </a></li>  
+     <!-- <li><a onclick="window.location.href='pages/how-to-play.html';"><i class="bi bi-question-circle"></i> FAQ </a></li> -->  
+    </ul>  
+  
+  </div>  
+</div>  
+    
+<section>  
+  <div id="statusSection"></div>  
+</section>  
+  
+<section>  
+  <div class="section-title">TODAY'S CHALLENGE</div>  
+  <div class="h-scroll" id="challengeContainer"></div>  
+</section>  
+  
+<section id="topicContent" aria-label="Topics"></section>  
+  
+</main>  
+  
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>  
+  
+<script>  
+const statusSection=document.getElementById("statusSection");  
+const challengeContainer=document.getElementById("challengeContainer");  
+const topicContent=document.getElementById("topicContent");  
+let sprintData={};  
+  
+/* ---------- SKELETON INIT ---------- */  
+statusSection.innerHTML=`  
+<div class="h-scroll">  
+${Array(6).fill(0).map(()=>`<div class="status-box img-skeleton status-skeleton"></div>`).join('')}  
+</div>`;  
+  
+challengeContainer.innerHTML=  
+Array(3).fill(0).map(()=>`<div class="challenge-card img-skeleton challenge-skeleton"></div>`).join('');  
+  
+topicContent.innerHTML=  
+Array(4).fill(0).map(()=>`<div class="topic-card img-skeleton topic-skeleton mb-3"></div>`).join('');  
+  
+/* ---------- STATUS ---------- */  
+fetch('https://sparrow-tech06.github.io/QMath/data/status.json')  
+.then(r=>r.json())  
+.then(d=>{  
+  const row=document.createElement('div');  
+  row.className='h-scroll';  
+  d.forEach(s=>{  
+    row.innerHTML+=`  
+    <a onclick="window.location.href='${s.link}';" class="status-box">  
+      <i class="bi ${s.icon}"></i>  
+    </a>`;  
+  });  
+  statusSection.innerHTML='';  
+  statusSection.appendChild(row);  
+})  
+.catch(()=>statusSection.innerHTML='<p class="text-center text-muted">Failed to load</p>');  
+  
+/* ---------- SPRINT ---------- */  
+fetch('https://sparrow-tech06.github.io/QMath/data/sprint.json')  
+.then(r=>r.json())  
+.then(data=>{  
+  sprintData=data;  
+  challengeContainer.innerHTML='';  
+  buildChallenges();  
+})  
+.catch(()=>{  
+  topicContent.innerHTML='<p class="text-center text-muted py-5"> Something want wrong </p>';  
+});  
+  
+function buildChallenges(){  
+  Object.keys(sprintData).forEach((k,i)=>{  
+    const c=sprintData[k];  
+    const div=document.createElement('div');  
+    div.className=`challenge-card ${c.color} ${i===0?'active':''}`;  
+    div.innerHTML=`${k.toUpperCase()} <i class="bi bi-play-fill"></i>`;  
+
+    div.onclick=()=>{  
+      document.querySelectorAll('.challenge-card')  
+        .forEach(el=>el.classList.remove('active'));  
+
+      div.classList.add('active');  
+      renderTopics(k);  
+    };  
+
+    challengeContainer.appendChild(div);  
+    if(i===0) renderTopics(k);  
+  });  
+}  
+  
+function renderTopics(type){  
+  topicContent.innerHTML='';  
+
+  const fragment = document.createDocumentFragment();  
+
+  sprintData[type].topics.forEach(t=>{  
+    const a = document.createElement('a');  
+    a.className = `topic-card ${t.bg || ''} mb-3`;  
+
+    a.innerHTML = `  
+      <div class="flex-grow-1">  
+        <small class="text-secondary">${t.label}</small>  
+        <h5>${t.title}</h5>  
+        <p class="text-mute">${t.desc}</p>  
+      </div>  
+      <img src="${t.image}" loading="lazy"  
+       class="img-skeleton"  
+       onload="this.classList.remove('img-skeleton')"  
+       onerror="this.src='https://picsum.photos/100'; this.classList.remove('img-skeleton')">  
+    `;  
+
+    a.onclick = ()=>window.location.href = t.link;  
+    fragment.appendChild(a);  
+  });  
+
+  topicContent.appendChild(fragment);  
+}  
+</script>  
+
+</body>  
+</html>
