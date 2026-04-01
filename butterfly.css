@@ -87,7 +87,7 @@
   /* animation */
   animation:qFade .35s ease;
   background: var(--green);
-  color:var(--text);
+  color: #fff ;
   text-align: center;
   font-size: 26px;
   font-weight: 700;
