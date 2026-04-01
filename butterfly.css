@@ -3,7 +3,7 @@
   --border:#e3e6ea;
   --primary:#f4f3ff;
   --accent:#6f63ff;
-  --text:#fff;
+  --text:#000 ;
   --submit:#ffd54f;
   --green-dark: #574CDB;
   --green: #6F63FF;
@@ -230,7 +230,7 @@ button:focus,
   text-align:center;
   cursor:pointer;
   background: var(--opt-bg);
-  color: #fff ;
+  color: var(--text) ;
   transition:
     transform .08s ease,
     box-shadow .12s ease,
