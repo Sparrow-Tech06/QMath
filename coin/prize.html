@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+
+<title>Math Achievements</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../global.css">
+  
+<style>
+
+:root{
+--primary: #36d1dc ;
+--accent: #5b86e5 ;
+--success:#22c55e;
+--soft:#6b7280;
+}
+
+/* HEADER */
+.header-title{
+font-weight:700;
+font-size:17px;
+}
+
+.coin{
+margin-left:auto;
+font-size:14px;
+color:var(--soft);
+display:flex;
+align-items:center;
+gap:4px;
+}
+
+/* MAIN */
+main{
+padding:16px;
+max-width: 660px ;
+}
+
+.badge-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+}
+
+/* CARD IMPROVED */
+.badge-card{
+border-radius:18px;
+padding:16px;
+text-align:center;
+cursor:pointer;
+transition:all .25s ease;
+box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+position:relative;
+}
+
+.badge-card:hover{
+transform:translateY(-4px);
+box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.badge-card:active{
+transform:scale(0.96);
+}
+
+/* LOCK OVERLAY */
+.badge-card.locked::after{
+content:"";
+position:absolute;
+top:8px;
+right:10px;
+width:22px;
+height:22px;
+background:url('../assets/lock.png') no-repeat center/contain;
+}
+
+/* IMAGE IMPROVED */
+.badge-img{
+width:80px;
+height:80px;
+object-fit:contain;
+margin-bottom:10px;
+border-radius:16px;
+padding:10px;
+background:rgba(255,255,255,0.4);
+backdrop-filter: blur(6px);
+box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.badge-card.locked .badge-img{
+filter:grayscale(100%);
+opacity:.5;
+}
+
+.badge-title{
+font-weight:600;
+font-size:14px;
+}
+
+/* PROGRESS */
+.progress{
+height:6px;
+border-radius:20px;
+margin-top:8px;
+}
+
+.progress-bar{
+background:linear-gradient(90deg,var(--primary),var(--accent));
+transition: width 1s ease;
+}
+
+/* MODAL */
+.modal-status{
+color:#fff;
+padding:10px;
+font-weight:600;
+text-align:center;
+}
+
+.status-unlocked{
+background:var(--success);
+}
+
+.status-locked{
+background:#6b7280;
+}
+
+.modal-badge{
+width:110px;
+display:block;
+margin:auto;
+border-radius:14px;
+}
+
+.modal-badge.locked{
+filter:blur(4px) grayscale(100%);
+opacity:.6;
+}
+
+/* BACKGROUND COLORS */
+.badge-grid .badge-card:nth-child(1){background:#8fbfd6;}
+.badge-grid .badge-card:nth-child(2){background:#b89ee6;}
+.badge-grid .badge-card:nth-child(3){background:#9fd69a;}
+.badge-grid .badge-card:nth-child(4){background:#f5a8a8;}
+.badge-grid .badge-card:nth-child(5){background:#f3d27a;}
+.badge-grid .badge-card:nth-child(6){background:#9ecff0;}
+.badge-grid .badge-card:nth-child(7){background:#a8e5d3;}
+.badge-grid .badge-card:nth-child(8){background:#e89cc5;}
+.badge-grid .badge-card:nth-child(9){background:#c7b2f0;}
+.badge-grid .badge-card:nth-child(10){background:#e8c27a;}
+
+</style>
+</head>
+
+<body>
+
+<header class="header sticky-top">
+    <button class="back-btn" onclick="window.history.back();">
+      <i class="bi bi-arrow-left"></i>
+   </button>
+    <div class="header-title"> Achievements </div> 
+    <div class="coin">
+      <i class="bi bi-coin"></i>
+      <span id="coinDisplay"></span>
+    </div>
+</header>
+
+<main>
+<div id="badgeContainer" class="badge-grid"></div>
+</main>
+
+<!-- MODAL -->
+<div class="modal fade" id="badgeModal">
+<div class="modal-dialog modal-dialog-centered">
+<div class="modal-content">
+
+<div id="modalStatusBanner" class="modal-status"></div>
+
+<div class="modal-body text-center">
+
+<img id="modalImg" class="modal-badge mb-3">
+
+<h5 id="modalTitle"></h5>
+
+<p id="modalText" class="text-muted small"></p>
+
+<div class="progress">
+<div id="modalProgress" class="progress-bar"></div>
+</div>
+
+<button class="btn btn-primary w-100 mt-4" data-bs-dismiss="modal">
+OK
+</button>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+const coin = parseInt(localStorage.getItem("myCoins")) || 0;
+document.getElementById("coinDisplay").innerText = coin + " Coins";
+
+/* BADGES */
+const badges = [
+{name:"Starter Spark",required:100,img:"../assets/badges/Starter Spark.png"},
+{name:"Number Rookie",required:200,img:"../assets/badges/Number Rookie.png"},
+{name:"Puzzle Solver",required:400,img:"../assets/badges/Puzzle Solver.png"},
+{name:"Brain Booster",required:600,img:"../assets/badges/Brain Booster.png"},
+{name:"Equation Explorer",required:900,img:"../assets/badges/Equation Explorer.png"},
+{name:"Logic Warrior",required:1200,img:"../assets/badges/Logic Warrior.png"},
+{name:"Mind Hacker",required:1500,img:"../assets/badges/Mind Hacker.png"},
+{name:"Math Strategist",required:1800,img:"../assets/badges/Math Strategist.png"},
+{name:"Number Legend",required:2200,img:"../assets/badges/Number Legend.png"},
+{name:"QMath Master",required:2500,img:"../assets/badges/QMath Master.png"}
+];
+
+/* SORT: unlocked first */
+badges.sort((a,b)=>{
+  const aUnlocked = coin >= a.required;
+  const bUnlocked = coin >= b.required;
+  return aUnlocked === bUnlocked ? a.required - b.required : bUnlocked - aUnlocked;
+});
+
+const container = document.getElementById("badgeContainer");
+const fragment = document.createDocumentFragment();
+
+/* CREATE CARDS */
+badges.forEach(badge=>{
+
+const unlocked = coin >= badge.required;
+const percent = Math.min((coin / badge.required) * 100, 100);
+
+const card = document.createElement("div");
+card.className = "badge-card " + (unlocked ? "" : "locked");
+
+card.innerHTML = `
+<img src="${badge.img}" class="badge-img">
+<div class="badge-title">${badge.name}</div>
+<div class="progress">
+  <div class="progress-bar" style="width:${percent}%"></div>
+</div>
+`;
+
+card.onclick = () => openModal(badge, unlocked, percent);
+
+fragment.appendChild(card);
+
+});
+
+container.appendChild(fragment);
+
+/* PROGRESS ANIMATION TRIGGER */
+setTimeout(()=>{
+  document.querySelectorAll('.progress-bar').forEach(el=>{
+    el.style.width = el.style.width;
+  });
+},100);
+
+/* MODAL */
+function openModal(badge, unlocked, percent){
+
+const banner = document.getElementById("modalStatusBanner");
+const img = document.getElementById("modalImg");
+
+img.src = badge.img;
+img.classList.toggle("locked", !unlocked);
+
+document.getElementById("modalTitle").innerText = badge.name;
+
+document.getElementById("modalText").innerText =
+unlocked
+? "You successfully unlocked this achievement."
+: `Collect ${badge.required} coins to unlock this badge.`;
+
+document.getElementById("modalProgress").style.width = percent + "%";
+
+if(unlocked){
+banner.innerText = "🎉 Congratulations";
+banner.className = "modal-status status-unlocked";
+}else{
+banner.innerText = "🔒 Badge Locked";
+banner.className = "modal-status status-locked";
+}
+
+new bootstrap.Modal(document.getElementById("badgeModal")).show();
+
+}
+
+</script>
+
+</body>
+</html>
