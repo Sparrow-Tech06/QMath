@@ -13,70 +13,82 @@
   
 <style>
 :root {
-  --card: #6F63FF;
-  --accent: #007aff;
-  --success: #34c759;
-  --danger: #ff3b30;
-  --radius: 22px;
+  --bg: #f6f7fb;
+
+  /* 🎨 Soft Pastel Palette */
+  --card: #eef0ff;
+  --accent: #7c83fd;
+  --accent-soft: #dfe1ff;
+
+  --success: #8fd9a8;
+  --danger: #ff9a9a;
+
+  --text: #2b2d42;
+  --subtext: #6c757d;
+
   --question: #ffffff;
-  --text: #1a1a1a;
-  --option-border: rgba(0,0,0,0.08);
+  --option-bg: #ffffff;
+  --option-border: #e6e8f0;
+
+  --radius: 18px;
 }
 
 @media (prefers-color-scheme: dark){
   :root{
-    --card: #1b1b2f;
-    --question: #212121;
+    --bg: #121212;
+    --card: #1e1f2f;
+    --question: #2a2c3f;
+    --option-bg: #2a2c3f;
     --text: #f1f1f1;
-    --option-border: rgba(255,255,255,0.1);
+    --subtext: #aaa;
+    --option-border: rgba(255,255,255,0.08);
+    --accent-soft: rgba(124,131,253,0.15);
   }
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #f5f6fa;
+  background: var(--bg);
 }
 
+/* Heading */
 h1 {
   color: var(--text);
   text-align: center;
-  margin: 30px;
-  font-weight: 650;
+  margin: 25px 0;
+  font-size: 1.6rem;
+  font-weight: 600;
 }
 
 /* Layout */
 main {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  padding: 10px;
 }
 
 /* Card */
 .quiz-card {
-  width: 95%;
-  max-width: 660px;
-  padding: 3rem 1.6rem;
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem 1.4rem;
   border-radius: var(--radius);
-  color: var(--text);
   background: var(--card);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
   text-align: center;
-  animation: fadeIn 0.6s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px);}
-  to { opacity: 1; transform: translateY(0);}
+  animation: fadeIn 0.5s ease;
 }
 
 /* Question */
 .question {
-  font-size: 1.4rem;
-  padding: 30px 20px;
+  font-size: 1.3rem;
+  padding: 20px;
   border-radius: 14px;
   font-weight: 600;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   background: var(--question);
   color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--option-border);
 }
 
 /* Options */
@@ -86,26 +98,26 @@ main {
   padding: 14px;
   border-radius: 14px;
   border: 1px solid var(--option-border);
-  background: rgba(0,0,0,0.04);
+  background: var(--option-bg);
   color: var(--text);
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
   text-align: left;
   font-weight: 500;
   position: relative;
   padding-left: 48px;
 }
 
-/* A B C D label */
+/* Label bubble (A B C D) */
 .option-btn::before {
   content: attr(data-label);
   position: absolute;
-  left: 14px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--accent);
-  color: #fff;
-  width: 26px;
-  height: 26px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -114,10 +126,11 @@ main {
   font-weight: 600;
 }
 
+/* Hover */
 .option-btn:hover {
-  transform: scale(1.02);
-  background: var(--accent);
-  color: #fff;
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  transform: translateY(-1px);
 }
 
 /* Popup */
@@ -127,28 +140,35 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.25);
-  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(8px);
 }
 
 .popup-box {
   width: 280px;
-  padding: 2rem;
-  border-radius: 24px;
-  background: rgba(255,255,255,0.9);
+  padding: 1.8rem;
+  border-radius: 20px;
+  background: #ffffff;
   text-align: center;
-  animation: scaleUp 0.4s ease;
+  animation: scaleUp 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.correct { color: #4caf88; }
+.wrong { color: #ff6b6b; }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 
 @keyframes scaleUp {
-  from { transform: scale(0.7); opacity: 0;}
+  from { transform: scale(0.85); opacity: 0;}
   to { transform: scale(1); opacity: 1;}
 }
 
-.correct { color: var(--success); }
-.wrong { color: var(--danger); }
-
-/* Confetti */
+/* Confetti stays same */
 .confetti-piece {
   position: fixed;
   width: 8px;
