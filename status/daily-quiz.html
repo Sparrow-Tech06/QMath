@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  
+<title>Daily Math Quiz</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+<style>
+:root {
+  --card: #6F63FF;
+  --accent: #007aff;
+  --success: #34c759;
+  --danger: #ff3b30;
+  --radius: 22px;
+  --question: #ffffff;
+  --text: #1a1a1a;
+  --option-border: rgba(0,0,0,0.08);
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --card: #1b1b2f;
+    --question: #212121;
+    --text: #f1f1f1;
+    --option-border: rgba(255,255,255,0.1);
+  }
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f5f6fa;
+}
+
+h1 {
+  color: var(--text);
+  text-align: center;
+  margin: 30px;
+  font-weight: 650;
+}
+
+/* Layout */
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Card */
+.quiz-card {
+  width: 95%;
+  max-width: 660px;
+  padding: 3rem 1.6rem;
+  border-radius: var(--radius);
+  color: var(--text);
+  background: var(--card);
+  text-align: center;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Question */
+.question {
+  font-size: 1.4rem;
+  padding: 30px 20px;
+  border-radius: 14px;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  background: var(--question);
+  color: var(--text);
+}
+
+/* Options */
+.option-btn {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--option-border);
+  background: rgba(0,0,0,0.04);
+  color: var(--text);
+  transition: all 0.25s ease;
+  text-align: left;
+  font-weight: 500;
+  position: relative;
+  padding-left: 48px;
+}
+
+/* A B C D label */
+.option-btn::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--accent);
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.option-btn:hover {
+  transform: scale(1.02);
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Popup */
+.popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+}
+
+.popup-box {
+  width: 280px;
+  padding: 2rem;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.9);
+  text-align: center;
+  animation: scaleUp 0.4s ease;
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.7); opacity: 0;}
+  to { transform: scale(1); opacity: 1;}
+}
+
+.correct { color: var(--success); }
+.wrong { color: var(--danger); }
+
+/* Confetti */
+.confetti-piece {
+  position: fixed;
+  width: 8px;
+  height: 12px;
+  top: 0;
+  opacity: 0.9;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+</style>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+
+<header>
+  <button onclick="window.history.back();">
+    <i class="bi bi-arrow-left"></i>
+  </button>
+</header>
+
+<h1>Today's Question</h1>
+
+<main id="app">
+  <section class="quiz-card">
+
+    <div v-if="loading">Loading...</div>
+
+    <div v-else-if="!quiz">
+      No quiz today
+    </div>
+
+    <div v-else>
+      <div class="question">{{ quiz.question }}</div>
+
+      <button
+        v-for="(opt,i) in quiz.options"
+        :key="i"
+        class="option-btn"
+        :data-label="labels[i]"
+        :disabled="showPopup"
+        @click="checkAnswer(opt)"
+      >
+        {{ opt }}
+      </button>
+    </div>
+
+  </section>
+
+  <!-- Popup -->
+  <div v-if="showPopup" class="popup">
+    <div class="popup-box">
+
+      <h2 :class="isCorrect ? 'correct' : 'wrong'">
+        {{ isCorrect ? '✔ Correct' : '✖ Wrong' }}
+      </h2>
+
+      <p v-if="!isCorrect">
+        Answer: {{ quiz.answer }}
+      </p>
+
+      <button class="btn btn-dark" @click="closePopup">
+        Continue
+      </button>
+
+    </div>
+  </div>
+
+</main>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+  data() {
+    return {
+      quiz: null,
+      loading: true,
+      showPopup: false,
+      isCorrect: false,
+      labels: ["A", "B", "C", "D"]
+    }
+  },
+
+  methods: {
+    async loadQuiz() {
+      const res = await fetch('questions.json');
+      const data = await res.json();
+
+      const today = new Date().toISOString().split('T')[0];
+      this.quiz = data.find(q => q.date === today) || null;
+
+      this.loading = false;
+    },
+
+    checkAnswer(selected) {
+      this.isCorrect = selected === this.quiz.answer;
+      this.showPopup = true;
+
+      if (this.isCorrect) {
+        this.launchConfetti();
+      }
+    },
+
+    closePopup() {
+      this.showPopup = false;
+    },
+
+    launchConfetti() {
+      const colors = ["#ff3b30", "#34c759", "#007aff", "#ffcc00", "#af52de"];
+
+      for (let i = 0; i < 120; i++) {
+        const div = document.createElement("div");
+        div.classList.add("confetti-piece");
+
+        div.style.left = Math.random() * 100 + "vw";
+        div.style.background = colors[Math.floor(Math.random() * colors.length)];
+        div.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+        document.body.appendChild(div);
+
+        setTimeout(() => div.remove(), 4000);
+      }
+    }
+  },
+
+  mounted() {
+    this.loadQuiz();
+  }
+
+}).mount("#app");
+</script>
+
+</body>
+</html>
