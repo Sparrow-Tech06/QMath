@@ -7,7 +7,7 @@
         "title": "SUM MISSING",
         "desc": "Find the missing value",
         "image": "assets/sum-missing.png",
-        "link": "puzzle/sum.html?game=Puzzle&title=Sprint Challenge&subtitle=Speed Matters", 
+        "link": "puzzle/sum.html?game=Puzzle&title=Sum Missing&subtitle=Find the missing value", 
         "bg": "bg-puzzle-addition"
       },
       {
