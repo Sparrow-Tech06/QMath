@@ -2,7 +2,7 @@ const versionKey = 'html_version';
 
 function checkVersion() {
 
-  fetch('version.txt?t=' + new Date().getTime())
+  fetch('https://sparrow-gif.github.io/QMath/control_center/version.txt?t=' + new Date().getTime())
     .then(res => res.text())
     .then(serverVersion => {
 
