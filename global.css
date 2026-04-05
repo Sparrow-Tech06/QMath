@@ -43,6 +43,13 @@ body {
     transform: scale(1);
   }
 }
+input:focus,
+button:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
 /*******************************************/
 header {
   padding:10px 16px;
