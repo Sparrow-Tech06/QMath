@@ -1,6 +1,9 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 :root {
  /* --font-main: system-ui, -apple-system, Roboto, Arial, sans-serif; */  /*  THIS IS FOR SYSTEM FONTS */
-  --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-main: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --body-bg: #fff ;
   --text: #000 ;
   --header: #fff ;
