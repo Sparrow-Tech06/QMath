@@ -4,20 +4,13 @@
   --bg:linear-gradient(160deg,#f4f7ff,#ffffff);
 }
 
-*{user-select:none;}
-
-body{
-  background:var(--bg);
-  min-height:100vh;
-}
-
 .app{
   max-width:420px;
   margin:auto;
   padding:16px;
 }
 
-/* LEVELS */
+/******************* LEVELS *******************/
 .level-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -58,7 +51,7 @@ body{
 }
 @keyframes shimmer{to{background-position:-200%}}
 
-/* GAME */
+/********************** GAME *******************/
 .game{
   background:#ffffffee;
   backdrop-filter:blur(8px);
