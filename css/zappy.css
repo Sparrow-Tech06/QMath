@@ -1,1 +1,113 @@
 
+:root{
+  --primary:#6c8cff;
+  --bg:linear-gradient(160deg,#f4f7ff,#ffffff);
+}
+
+*{user-select:none;}
+
+body{
+  background:var(--bg);
+  min-height:100vh;
+}
+
+.app{
+  max-width:420px;
+  margin:auto;
+  padding:16px;
+}
+
+/* LEVELS */
+.level-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+.level{
+  background:linear-gradient(135deg,#6c8cff,#8fa6ff);
+  color:#fff;
+  aspect-ratio:1;
+  border-radius:22px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 12px 26px rgba(108,140,255,.45);
+  transition:.25s;
+}
+.level:hover{transform:translateY(-5px) scale(1.03);}
+.level.locked{
+  background:#e5e9ff;
+  color:#9aa6d8;
+  box-shadow:none;
+}
+.level.locked::after{
+  content:"\F47A";
+  font-family:"bootstrap-icons";
+  font-size:26px;
+  opacity:.7;
+}
+
+/* SKELETON */
+.skeleton{
+  height:100px;
+  border-radius:22px;
+  background:linear-gradient(90deg,#eee,#f5f5f5,#eee);
+  background-size:200%;
+  animation:shimmer 1.2s infinite;
+}
+@keyframes shimmer{to{background-position:-200%}}
+
+/* GAME */
+.game{
+  background:#ffffffee;
+  backdrop-filter:blur(8px);
+  border-radius:22px;
+  padding:16px;
+  box-shadow:0 15px 30px rgba(0,0,0,.15);
+}
+
+/* COINS (flex grow/shrink) */
+.coin-row{
+  display:flex;
+  gap:10px;
+}
+.coin{
+  flex:1 1 0;
+  background:linear-gradient(135deg,#e3f2fd,#bbdefb);
+  border-radius:18px;
+  padding:16px;
+  text-align:center;
+  font-weight:700;
+  transition:.15s;
+}
+.coin:active{transform:scale(.92);}
+
+/* POPUP */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+.popup{
+  background:#fff;
+  width:90%;
+  max-width:320px;
+  padding:22px;
+  border-radius:22px;
+  box-shadow:0 20px 45px rgba(0,0,0,.35);
+  animation:pop .25s ease;
+}
+@keyframes pop{
+  from{transform:scale(.85);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.popup img{
+  width:120px;
+  margin-bottom:12px;
+}
+
