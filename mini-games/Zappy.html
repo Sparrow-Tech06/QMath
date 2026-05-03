@@ -3,24 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coin Logic - Clean UI</title>
+    <title>Coin Logic - QMath Edition</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            background: #fff;
-            color: #000;
+        :root {
+            --primary-bg: #FFFFFF;
+            --card-grey: #F1F3F4;
+            --accent-yellow: #FFD700;
+            --qmath-blue: #94C1D9;
+            --qmath-green: #29A745;
+            --qmath-red: #DC3545;
+            --text-main: #202124;
         }
 
-        #app { width: 100%; max-width: 400px; padding: 20px; text-align: center; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+        }
 
-        /* Top Header */
+        #app { width: 100%; max-width: 420px; padding: 25px; text-align: center; }
+
+        /* Header Style */
         .game-header {
             display: flex;
             justify-content: space-between;
@@ -28,134 +38,175 @@
         }
 
         .info-box {
-            border: 1.5px solid #000;
-            border-radius: 8px;
-            padding: 8px 25px;
-            font-weight: bold;
-            background: #f0f0f0;
+            background: var(--card-grey);
+            border: 2px solid var(--text-main);
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
         }
 
         /* Main Game Card */
         .main-card {
-            background: #e0e0e0;
-            border: 1.5px solid #000;
-            border-radius: 20px;
-            padding: 40px 20px;
-            position: relative;
-            margin-bottom: 40px;
+            background: var(--qmath-blue); /* Professional QMath Blue */
+            border: 2px solid var(--text-main);
+            border-radius: 28px;
+            padding: 45px 25px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 0 var(--text-main);
         }
 
         .target-label {
-            background: #d0d0d0;
-            border: 1.5px solid #000;
-            border-radius: 12px;
-            padding: 15px;
+            background: var(--card-grey);
+            border: 2px solid var(--text-main);
+            border-radius: 15px;
+            padding: 12px 25px;
             display: inline-block;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 30px;
-            min-width: 150px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 35px;
         }
 
         .yellow-line {
-            height: 6px;
-            background: #ffd700;
+            height: 8px;
+            background: var(--accent-yellow);
             width: 100%;
             border-radius: 10px;
-            margin-bottom: 30px;
+            border: 2px solid var(--text-main);
+            margin-bottom: 35px;
         }
 
         .amount-display {
-            font-size: 3rem;
-            font-weight: bold;
-            border-bottom: 3px solid #000;
-            display: inline-block;
-            min-width: 120px;
-            padding-bottom: 5px;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--text-main);
+            text-decoration: underline;
+            text-underline-offset: 10px;
         }
 
-        /* Option Buttons Grid with MinMax */
+        /* Option Buttons Grid */
         .btn-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
             gap: 15px;
-            margin-bottom: 50px;
-            justify-items: center;
+            margin-bottom: 40px;
         }
 
         .option-btn {
-            background: #e0e0e0;
-            border: 1.5px solid #000;
-            border-radius: 15px;
-            width: 80px;
-            height: 80px;
+            background: var(--card-grey);
+            border: 2px solid var(--text-main);
+            border-radius: 18px;
+            height: 85px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
-            font-weight: bold;
+            font-size: 1.5rem;
+            font-weight: 800;
             cursor: pointer;
-            transition: transform 0.1s;
+            box-shadow: 0 5px 0 var(--text-main);
+            transition: all 0.1s;
         }
 
-        .option-btn:active { transform: scale(0.9); }
+        .option-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 var(--text-main);
+        }
 
         /* Reset Button */
         .reset-btn {
-            background: #ffd700;
-            width: 80px;
-            height: 80px;
+            background: var(--accent-yellow);
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
+            border: 2px solid var(--text-main);
+            cursor: pointer;
+            font-size: 2.8rem;
+            box-shadow: 0 6px 0 var(--text-main);
+            transition: 0.1s;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto;
-            border: none;
-            cursor: pointer;
-            font-size: 2.5rem;
         }
 
-        /* Popup Styles */
+        .reset-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--text-main);
+        }
+
+        /* Modern Modern Popup */
         .overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
+            z-index: 100;
         }
 
         .popup {
             background: white;
-            border: 2px solid #000;
-            padding: 30px;
-            border-radius: 20px;
-            width: 80%;
-            max-width: 300px;
+            border: 3px solid var(--text-main);
+            padding: 40px 30px;
+            border-radius: 32px;
+            width: 85%;
+            max-width: 340px;
+            box-shadow: 0 15px 0 rgba(0,0,0,0.2);
+            animation: bounceIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
+        @keyframes bounceIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .popup h2 { font-weight: 900; font-size: 2rem; margin-bottom: 10px; }
+        .popup p { color: #666; margin-bottom: 25px; font-weight: 600; }
+
+        .btn-action {
+            width: 100%;
+            padding: 15px;
+            border-radius: 16px;
+            border: 2px solid var(--text-main);
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .btn-next { background: var(--qmath-green); color: white; box-shadow: 0 4px 0 #1e7e34; }
+        .btn-retry { background: var(--accent-yellow); color: var(--text-main); box-shadow: 0 4px 0 #ccac00; }
+        .btn-home { background: var(--card-grey); color: var(--text-main); box-shadow: 0 4px 0 #ccc; }
+
+        /* Levels list */
         .level-list {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 20px;
         }
 
         .lvl-box {
-            border: 1px solid #000;
-            padding: 10px;
-            border-radius: 8px;
+            background: var(--card-grey);
+            border: 2px solid var(--text-main);
+            padding: 15px 5px;
+            border-radius: 12px;
+            font-weight: 800;
             cursor: pointer;
         }
 
-        .lvl-box.locked { opacity: 0.5; background: #eee; }
+        .lvl-box.locked { background: #eee; opacity: 0.5; cursor: not-allowed; }
     </style>
 </head>
 <body>
 
 <div id="app">
     <div v-if="screen==='home'">
-        <h3 class="mb-4">Select Level</h3>
+        <h2 style="font-weight: 900;">COIN LOGIC</h2>
+        <p style="color: #666; font-weight: 600;">Choose a challenge</p>
         <div class="level-list">
             <div v-for="(l, i) in levels" :key="l.id" 
                  class="lvl-box" :class="{locked: !isUnlocked(l,i)}"
@@ -167,14 +218,16 @@
 
     <div v-if="screen==='game'">
         <div class="game-header">
-            <div class="info-box" @click="screen='home'">Level {{current.id}}</div>
-            <div class="info-box">Moves {{current.movesLeft}}</div>
+            <div class="info-box" @click="screen='home'">LVL {{current.id}}</div>
+            <div class="info-box" :style="{color: current.movesLeft <= 1 ? 'var(--qmath-red)' : ''}">
+                MOVES {{current.movesLeft}}
+            </div>
         </div>
 
         <div class="main-card">
             <div class="target-label">Target {{current.target}}</div>
             <div class="yellow-line"></div>
-            <div class="amount-display">{{current.amount}}</div>
+            <div class="amount-display">₹{{current.amount}}</div>
         </div>
 
         <div class="btn-grid">
@@ -191,11 +244,21 @@
 
     <div v-if="popup" class="overlay">
         <div class="popup">
-            <h2 v-if="popup.type==='success'">Level Clear!</h2>
-            <h2 v-else>Failed!</h2>
-            <button class="info-box w-100 mt-3" @click="popup.type==='success' ? nextLevel() : retry()">
-                {{popup.type==='success' ? 'Next' : 'Retry'}}
-            </button>
+            <template v-if="popup.type==='success'">
+                <div style="font-size: 4rem;">🎉</div>
+                <h2>Level Up!</h2>
+                <p>Perfectly calculated!</p>
+                <button class="btn-action btn-next" @click="nextLevel">NEXT LEVEL</button>
+            </template>
+
+            <template v-else>
+                <div style="font-size: 4rem;">❌</div>
+                <h2>Try Again</h2>
+                <p>You missed the target.</p>
+                <button class="btn-action btn-retry" @click="retry">RETRY</button>
+            </template>
+            
+            <button class="btn-action btn-home" @click="popup=null;screen='home'">BACK TO MENU</button>
         </div>
     </div>
 </div>
@@ -215,7 +278,7 @@ createApp({
             screen: "home",
             current: null,
             popup: null,
-            progress: JSON.parse(localStorage.getItem("coin_prog") || "{}")
+            progress: JSON.parse(localStorage.getItem("coin_prog_qmath") || "{}")
         }
     },
     mounted() {
@@ -241,7 +304,7 @@ createApp({
             if (this.current.amount === this.current.target) {
                 sounds.success.play();
                 this.progress[this.current.id] = true;
-                localStorage.setItem("coin_prog", JSON.stringify(this.progress));
+                localStorage.setItem("coin_prog_qmath", JSON.stringify(this.progress));
                 this.popup = { type: "success" };
             } else if (this.current.movesLeft === 0 || this.current.amount > this.current.target) {
                 sounds.fail.play();
