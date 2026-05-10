@@ -1,1 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Math Quiz</title>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<style>
+#app{ max-width: 660px; margin:auto; padding:20px; position:relative; z-index:2; }
+
+.main-card{
+background:rgba(255,255,255);
+padding:10px; border: 0px solid #333 ; }
+
+.title{
+font-size:30px;
+font-weight:800;
+margin-bottom:18px;
+}
+
+.mode-grid{
+display:grid; grid-template-columns:repeat(2,1fr);
+gap: 10px; align-items:stretch;
+}
+
+.mode-btn{
+background: ;
+border:2px solid transparent;
+color:#000;
+padding: 10px;
+border-radius:22px;
+transition:0.25s;
+cursor:pointer;
+}
+
+.mode-btn.active{
+background:linear-gradient(135deg,#4f46e5,#7c3aed);
+border-color:#a5b4fc; transform:translateY(-2px);
+}
+
+.mode-btn h4{ font-size:20px; font-weight:800; margin-top:12px; }
+.mode-btn p{ font-size:14px; color:#cbd5e1; margin-top:6px; }
+.operator-grid{display:none; }
+
+.action-btn{
+width:100%;
+margin-top: 14px;
+border:none;
+padding:16px;
+border-radius:22px;
+font-size:17px;
+font-weight:800;
+background:linear-gradient(135deg,#4f46e5,#7c3aed);
+color:#fff;
+}
+
+.question-card{
+background:#fff;
+color:#111827;
+border-radius:26px;
+padding:20px;
+margin:18px 0px;
+position:relative;
+overflow:hidden;
+box-shadow:0 12px 30px rgba(0,0,0,0.18);
+}
+
+.question-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:16px;
+}
+
+.question-no{
+width:48px;
+height:48px;
+border-radius:16px;
+background:linear-gradient(135deg,#4f46e5,#7c3aed);
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:800;
+}
+
+.question-text{
+font-size:32px;
+font-weight:900;
+margin-bottom:18px;
+}
+
+.answer-input,
+.question-input{
+height:56px;
+border-radius:18px;
+font-size:18px;
+border:1px solid #d1d5db;
+box-shadow:none!important;
+}
+
+.small-btn{ border:none;padding:11px 16px; border-radius:16px; font-weight:700; }
+.delete-btn{ background:#fee2e2; color:#dc2626; }
+.recreate-btn{ background:#ede9fe; color:#6d28d9; }
+.correct{ border:2px solid #10b981!important; background:#ecfdf5!important; }
+.wrong{ border:2px solid #ef4444!important; background:#fef2f2!important; }
+
+.result-card{
+margin-top:20px;
+background:linear-gradient(135deg,#4f46e5,#7c3aed);
+padding:28px;
+border-radius:28px;
+text-align:center;
+}
+
+.fixed-submit .submit-btn{
+width:100%;
+height: 50px;
+border:none;
+border-radius:20px;
+font-size:18px;
+font-weight:800;
+background:linear-gradient(135deg,#059669,#10b981);
+color:#fff;
+}
+
+.fixed-submit .submit-btn:disabled{ opacity:0.5; cursor:not-allowed; }
+
+.popup-overlay{
+position:fixed; inset:0;
+background:rgba(0,0,0,0.6); display:flex;
+align-items:center; justify-content:center;
+padding:18px; z-index:2000; }
+
+.popup-card{
+width:100%;
+max-width:360px;
+background:#fff;
+color:#111827;
+border-radius:28px;
+padding:28px;
+text-align:center;
+animation:popupShow .25s ease;
+}
+
+.popup-score{
+font-size:56px; font-weight:900; margin:10px 0;
+background:linear-gradient(135deg,#4f46e5,#7c3aed);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.close-popup{
+width:100%; margin-top:18px; height:52px;
+border:none; border-radius:18px;
+background:linear-gradient(135deg,#4f46e5,#7c3aed);
+color:#fff; font-weight:800; }
+
+@keyframes popupShow{
+from{
+transform:scale(0.9);
+opacity:0;
+}
+
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.result-card h1{ font-size:52px; font-weight:900; }
+.empty-box{ padding:60px 20px; text-align:center; color:#cbd5e1; }
+.empty-box i{ font-size:70px; margin-bottom:18px; color:#818cf8; }
+
+</style>
+</head>
+<body>
+
+<div id="app">
+
+<div class="main-card">
+
+<div class="mode-grid">
+
+<button
+class="mode-btn"
+:class="{active:mode==='manual'}"
+@click="mode='manual'"
+>
+<i class="fa-solid fa-pen-to-square fa-2x"></i>
+<h4>Create Your Own</h4>
+</button>
+
+<button
+class="mode-btn"
+:class="{active:mode==='auto'}"
+@click="mode='auto'"
+>
+<i class="fa-solid fa-wand-magic-sparkles fa-2x"></i>
+<h4>Auto Generate</h4>
+</button>
+
+</div>
+
+<button class="action-btn" @click="generateQuiz">
+<i class="fa-solid fa-bolt"></i>
+{{ mode==='manual' ? 'Create Questions' : 'Generate 10 Questions' }}
+</button>
+
+</div>
+
+<div v-if="questions.length===0" class="empty-box">
+<i class="fa-solid fa-square-root-variable"></i>
+<h3>No Questions Created</h3>
+<p class="mt-2">Generate or create a quiz to start.</p>
+</div>
+
+<div
+v-for="(q,index) in questions"
+:key="index"
+class="question-card"
+>
+
+<div class="question-top">
+
+<div class="question-no">
+{{index+1}}
+</div>
+
+<div class="d-flex gap-2">
+
+<button class="small-btn recreate-btn" @click="recreateQuestion(index)">
+<i class="fa-solid fa-rotate"></i>
+</button>
+
+<button class="small-btn delete-btn" @click="deleteQuestion(index)">
+<i class="fa-solid fa-trash"></i>
+</button>
+
+</div>
+
+</div>
+
+<template v-if="q.modeType==='manual'">
+
+<input
+v-model="q.customQuestion"
+type="text"
+class="form-control question-input mb-3"
+placeholder="Example: 5 + 8"
+>
+
+</template>
+
+<template v-else-if="q.modeType==='auto'">
+
+<div class="question-text">
+{{q.question}} = ?
+</div>
+
+</template>
+
+<input
+v-model="q.userAnswer"
+type="number"
+class="form-control answer-input"
+placeholder="Enter answer"
+:class="q.status"
+>
+
+<div
+v-if="submitted && q.correctAnswer!==null"
+class="mt-3 fw-bold text-secondary"
+>
+Correct Answer: {{q.correctAnswer}}
+</div>
+
+</div>
+
+<div v-if="questions.length" class="fixed-submit">
+<button
+class="submit-btn"
+@click="submitQuiz"
+:disabled="!allAnswered"
+>
+<i class="fa-solid fa-check"></i>
+Submit Test
+</button>
+</div>
+
+<div v-if="showPopup" class="popup-overlay">
+
+<div class="popup-card">
+
+<i class="fa-solid fa-trophy fa-3x"></i>
+
+<div class="popup-score">
+{{score}}/{{questions.length}}
+</div>
+
+<h3 class="fw-bold">Quiz Completed</h3>
+<p class="text-secondary mb-0">
+Your answers have been submitted successfully.
+</p>
+
+<button class="close-popup" @click="showPopup=false">
+Close Result
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const { createApp } = Vue;
+
+createApp({
+
+data(){
+return{
+mode:'auto',
+selectedOperator:'+',
+operators:['+','−','×','÷'],
+questions:[],
+submitted:false,
+score:0,
+showPopup:false
+}
+},
+
+computed:{
+
+allAnswered(){
+
+if(!this.questions.length){
+return false;
+}
+
+return this.questions.every(q=>{
+
+if(q.modeType==='manual'){
+return q.customQuestion.trim()!=='' && q.userAnswer!=='';
+}
+
+return q.userAnswer!=='';
+
+});
+
+}
+
+},
+
+watch:{
+
+questions:{
+handler(){
+localStorage.setItem('mathQuizData',JSON.stringify(this.questions));
+},
+deep:true
+},
+
+mode(){
+localStorage.setItem('mathQuizMode',this.mode);
+}
+
+},
+
+mounted(){
+
+const savedQuestions = localStorage.getItem('mathQuizData');
+const savedMode = localStorage.getItem('mathQuizMode');
+
+if(savedQuestions){
+this.questions = JSON.parse(savedQuestions);
+}
+
+if(savedMode){
+this.mode = savedMode;
+}
+
+},
+
+methods:{
+
+random(max){
+return Math.floor(Math.random()*max)+1;
+},
+
+makeQuestion(){
+
+let a=this.random(50);
+let b=this.random(20);
+let answer=0;
+let symbol=this.mode==='auto'
+? this.operators[Math.floor(Math.random()*this.operators.length)]
+: this.selectedOperator;
+
+if(symbol==='+'){
+answer=a+b;
+}
+
+else if(symbol==='−'){
+if(b>a){
+[a,b]=[b,a];
+}
+answer=a-b;
+}
+
+else if(symbol==='×'){
+answer=a*b;
+}
+
+else if(symbol==='÷'){
+answer=this.random(10);
+b=this.random(10);
+a=answer*b;
+}
+
+return{
+question:`${a} ${symbol} ${b}`,
+correctAnswer:answer,
+userAnswer:'',
+status:'',
+customQuestion:'',
+modeType:'auto'
+}
+
+},
+
+
+generateQuiz(){
+
+this.submitted=false;
+this.showPopup=false;
+this.score=0;
+this.questions=[];
+
+if(this.mode==='auto'){
+
+for(let i=0;i<10;i++){
+this.questions.push(this.makeQuestion());
+}
+
+}
+
+else{
+
+for(let i=0;i<10;i++){
+
+this.questions.push({
+customQuestion:'',
+correctAnswer:null,
+userAnswer:'',
+status:'',
+question:'',
+modeType:'manual'
+});
+
+}
+
+}
+
+},
+
+submitQuiz(){
+
+this.score=0;
+this.submitted=true;
+this.showPopup=true;
+
+this.questions.forEach(q=>{
+
+if(this.mode==='manual'){
+
+try{
+const result = eval(
+q.customQuestion
+.replace(/×/g,'*')
+.replace(/÷/g,'/')
+);
+
+q.correctAnswer=result;
+
+if(Number(q.userAnswer)===result){
+q.status='correct';
+this.score++;
+}
+
+else{
+q.status='wrong';
+}
+
+}
+catch(e){
+q.correctAnswer='Invalid';
+q.status='wrong';
+}
+
+}
+
+else if(q.modeType==='auto'){
+
+if(Number(q.userAnswer)===q.correctAnswer){
+q.status='correct';
+this.score++;
+}
+
+else{
+q.status='wrong';
+}
+
+}
+
+});
+
+},
+
+recreateQuestion(index){
+
+if(this.mode==='auto'){
+this.questions[index]=this.makeQuestion();
+}
+
+else{
+
+this.questions[index]={
+customQuestion:'',
+correctAnswer:null,
+userAnswer:'',
+status:'',
+question:'',
+modeType:'manual'
+};
+
+}
+
+this.submitted=false;
+
+},
+
+
+deleteQuestion(index){
+this.questions.splice(index,1);
+}
+
+}
+
+}).mount('#app');
+
+</script>
+
+</body>
+  </html>
