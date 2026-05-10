@@ -72,23 +72,6 @@ a{text-decoration:none;color:inherit}
 .app{max-width:660px;margin:auto}
 
 /* ================= HEADER ================= */
-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.header-left{display:flex;gap:12px;align-items:center}
-.menu-btn{font-size:22px;opacity:.85}
-
-.notify-btn{
-  width:42px;height:42px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--card); margin: 10px ;
-  border-radius:50%;
-  border:1px solid var(--border);
-}
-/* ---------------- HEADER ---------------- */
 
 .brand{
 font-weight:650;
