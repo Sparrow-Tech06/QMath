@@ -278,67 +278,6 @@ section{padding:16px}
 
 
 /* ================= SIDEBAR ================= */
-.offcanvas{
-  width:85%!important;
-  background:var(--sideber);
-}
-
-.btn-clean { color: var(--btn-clean); }
-.btn-close { filter: var(--close-btn-filter); }
-.offcanvas-header h5 { color: var(--btn-clean); }
-
-ul{
-  list-style:none;
-  padding:0;
-  margin:0;
-  color: var(--li-color);
-}
-.menu-list li{
-  margin-bottom:8px;
-  color: var(--li-color);
-}
-ul li a{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:10px 12px;
-  border-radius:12px;
-  text-decoration:none;
-  color: var(--li-color);
-  font-weight:500;
-  transition:0.3s;
-  font-size: 14px ;
-}
-
-/* Hover effect */
-.menu-list li a:hover{
-  background: var(--side-hover);
-  transform:translateX(4px);
-}
-
-ul li a i{
-  width: 36px;
-  height: 36px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:14px;
-  font-size:18px;
-  color:#fff;
-}
-
-/* ===== Different icon background ===== */
-.menu-list li:nth-child(1) i{ background:#4CAF50;}
-.menu-list li:nth-child(2) i{ background:#2196F3;}
-.menu-list li:nth-child(3) i{ background:#FF9800;}
-.menu-list li:nth-child(4) i{ background:#E91E63;}
-.menu-list li:nth-child(5) i{ background:#9C27B0;}
-
-/* ===== SECOND LIST ===== */
-.menu-list2 li:nth-child(1) i{ background:#00BCD4;}
-.menu-list2 li:nth-child(2) i{ background:#795548;}
-.menu-list2 li:nth-child(3) i{ background:#607D8B;}
-.menu-list2 li:nth-child(4) i{ background:#F44336;}
 
 .game-settings{
   padding:10px 4px;
