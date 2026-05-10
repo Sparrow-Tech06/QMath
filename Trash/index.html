@@ -146,6 +146,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+  const coin = parseInt(localStorage.getItem("myCoins")) || 0;
+  document.getElementById("coinDisplay").innerText = coin + " Coins";
+  
 const statusSection=document.getElementById("statusSection");
 const challengeContainer=document.getElementById("challengeContainer");
 const topicContent=document.getElementById("topicContent");
