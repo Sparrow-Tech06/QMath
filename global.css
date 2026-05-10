@@ -10,6 +10,9 @@
   --border:#eee;
   --backbtnBg: #EEE9FF;
   --backbtnclr: #000 ;
+
+  --brand: ;
+  --icon-bg: #9b8cff ;
 }
 @media (prefers-color-scheme: dark) {
 :root{
