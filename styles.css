@@ -31,13 +31,6 @@
   --share-box: #c4b5fd;
   --share-border: none ;
 
-  --sideber : #ffffff ;
-  --sideber-icons: #fff ;
-  --side-hover: #f5f7fb ;
-  --li-color: #333 ;
-
-  --btn-clean-color: #000 ;
-  --close-btn-filter: invert(0); /* light theme → black */
 }
 @media (prefers-color-scheme: dark) {
 :root{
@@ -55,13 +48,7 @@
   --sk-mid:  #2a3140;
   --sk-speed: 1.3s ;
   --border: #2a2a2a ;
-
-  --sideber: #22252b ;
-  --side-hover: #1e1e1e ;
-  --li-color: #fff ;
-
-  --btn-clean-color: #fff ;
-  --close-btn-filter: invert(1); /* white */
+  
   }
 }
 
