@@ -82,7 +82,7 @@ border-radius:16px;
 overflow:hidden;
 width:90%;
 margin:0 auto;
-background:#fff;
+background: transparent;
 }
 
 .menu-item{
