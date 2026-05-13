@@ -1,5 +1,5 @@
 :root{
-  --card: /* #ECEBFF */ linear-gradient(135deg,#8a79ff 0%,#6246ea 55%,#4d37d8 100%);
+  --card: #ECEBFF ;
   --border:#e3e6ea;
   --primary:#f4f3ff;
   --accent:#6f63ff;
