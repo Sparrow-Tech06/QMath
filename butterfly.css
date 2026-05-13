@@ -6,8 +6,7 @@
   --text:#000 ;
   --submit:#ffd54f;
   --green-dark: #574CDB;
-  --green: /* #6F63FF */ linear-gradient(135deg,#8a79ff 0%,#6246ea 55%,#4d37d8 100%) ;
-
+  --green: /* #6F63FF */ linear-gradient(135deg,#836DFF 0%,#5A3FFF 55%,#4A2EEB 100%) ;
   --correct:#10b981;
   --wrong:#ef4444;
 
