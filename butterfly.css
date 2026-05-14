@@ -87,37 +87,14 @@
   animation:qFade .35s ease;
   background: var(--green);
   color: #fff ;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+  text-align:center;
   font-size: 30px;
   font-weight: 700;
   padding: 30px;
   border-radius: 16px;
   margin-bottom: 40px;
   box-shadow: 0 6px 0 var(--green-dark);
-  position:relative;
 }
-/* question icon */
-
-.question-icon{
-    position:absolute;
-    top:18px;
-    left:50%;
-    transform:translateX(-50%);
-    width:58px;
-    height:58px;
-    border-radius:50%;
-    background:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color: var(--card) ;
-    font-size:26px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-}
-
 
 @keyframes qFade{
   from{
