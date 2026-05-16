@@ -226,7 +226,7 @@ button:focus,
   flex:1 1 calc(100% - 12px);
   border:1px solid var(--accent);
   border-radius:14px;
-  padding:14px;
+  padding:16px;
   text-align:center;
   cursor:pointer;
   background: var(--opt-bg);
@@ -252,7 +252,7 @@ button:focus,
   background: var(--opt-bfr);
   border:2px solid var(--accent);
   border-radius: 50%;
-            
+ color: var(--opt-color) ;        
   /* Sizing */
   width: 26px;
   height: 26px;
@@ -260,7 +260,6 @@ button:focus,
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  color: #64748b;
     }
 
   .opt:hover {
@@ -282,9 +281,9 @@ button:focus,
 
 .answer-title{
     text-align:center;
-    margin:28px 0 20px;
+    margin: 8px 0 24px;
     font-size: 15px;
-    color:#777;
+    color: var(--text) ;
     font-weight:600;
     position:relative;
 }
@@ -301,11 +300,11 @@ button:focus,
 }
 
 .answer-title::before{
-    left:20%;
+    left: 17%;
 }
 
 .answer-title::after{
-    right:20%;
+    right: 17%;
 }
 
 
