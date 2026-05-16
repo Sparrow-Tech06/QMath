@@ -93,7 +93,7 @@
   font-weight: 700;
   padding: 30px;
   border-radius: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   box-shadow: 0 6px 0 var(--green-dark);
 }
 
@@ -281,7 +281,7 @@ button:focus,
 
 .answer-title{
     text-align:center;
-    margin: 8px 0 24px;
+    margin: 0px 0 24px;
     font-size: 15px;
     color: var(--text) ;
     font-weight:600;
@@ -300,11 +300,11 @@ button:focus,
 }
 
 .answer-title::before{
-    left: 17%;
+    left: 15%;
 }
 
 .answer-title::after{
-    right: 17%;
+    right: 15%;
 }
 
 
