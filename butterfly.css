@@ -66,7 +66,7 @@
 .top > span{
   background:var(--accent);
   padding: 8px 16px;
-  border-radius:8px;
+  border-radius: 12px;
   font-size:14px;
   color:#fff;
 }
@@ -234,7 +234,6 @@ button:focus,
     transform .08s ease,
     box-shadow .12s ease,
     background .2s ease;
-
   position: relative;
 }
 
@@ -278,6 +277,35 @@ button:focus,
   opacity:.65;
 }
 
+/************* title ***********/
+
+.answer-title{
+    text-align:center;
+    margin:28px 0 20px;
+    font-size: 15px;
+    color:#777;
+    font-weight:600;
+    position:relative;
+}
+
+.answer-title::before,
+.answer-title::after{
+    content:"";
+    width: 30px;
+    height: 2px;
+    border-radius:10px;
+    background:var(--primary);
+    position:absolute;
+    top:50%;
+}
+
+.answer-title::before{
+    left:20%;
+}
+
+.answer-title::after{
+    right:20%;
+}
 
 
 
