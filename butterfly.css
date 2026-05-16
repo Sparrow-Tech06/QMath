@@ -1,12 +1,12 @@
 :root{
-  --card: linear-gradient(135deg,#6657ff,#4d39f5) ;
+  --card: #EEE9FF ;
   --border:#e3e6ea;
   --primary:#f4f3ff;
   --accent:#6f63ff;
   --text:#000 ;
   --submit:#ffd54f;
   --green-dark: #574CDB;
-  --green: /* #6F63FF */ linear-gradient(135deg,#836DFF 0%,#5A3FFF 55%,#4A2EEB 100%) ;
+  --green: linear-gradient(135deg,#6657ff,#4d39f5) ;
   --correct:#10b981;
   --wrong:#ef4444;
 
