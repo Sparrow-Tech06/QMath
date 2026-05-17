@@ -91,11 +91,13 @@
   text-align:center;
   font-size: 30px;
   font-weight: 700;
-  padding: 35px;
+  padding: 45px 30px;
   border-radius: 16px;
   margin-bottom: 25px;
  /* box-shadow: 0 6px 0 var(--green-dark); */
   box-shadow: 0 15px 30px rgba(102,87,255,0.25);
+  position:relative;
+  overflow:hidden;
 }
 
 @keyframes qFade{
