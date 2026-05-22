@@ -1,1 +1,19 @@
+// ======================
+// WEB SIDE (JavaScript)
+// ======================
 
+// 1 = Coin Added
+Android.onCoinAdded(1);
+
+// 2 = Profile Updated
+Android.onCoinAdded(2);
+
+// 3 = Withdrawal Success
+Android.onCoinAdded(3);
+
+// 4 = Login Success
+Android.onCoinAdded(4);
+
+// 5 = Custom Reward
+Android.onCoinAdded(5);
+```
