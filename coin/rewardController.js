@@ -250,7 +250,7 @@ window.adCompleteCallback = function(success) {
 
         // get existing coins
         let coins = parseInt(
-            localStorage.getItem("coins")
+            localStorage.getItem("myCoins")
         ) || 0;
 
         // add 50 coins
@@ -258,7 +258,7 @@ window.adCompleteCallback = function(success) {
 
         // save coins
         localStorage.setItem(
-            "coins",
+            "myCoins",
             coins
         );
 
@@ -268,8 +268,8 @@ window.adCompleteCallback = function(success) {
         ) || [];
 
         history.push({
-            quiz: "Reward Bonus",
-            reward: 50,
+            source: "Reward Bonus",
+            amount: 50,
             date: new Date().toLocaleString()
         });
 
