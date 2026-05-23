@@ -244,7 +244,7 @@ footer{
         height:58px;
         border:none;
         border-radius:16px;
-        background:#111827;
+        background: var(--primary);
         color:white;
         display:flex;
         align-items:center;
