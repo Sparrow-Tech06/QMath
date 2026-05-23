@@ -237,6 +237,7 @@ footer{
 .reward-container{
         width:100%;
         max-width:420px;
+        margin-top: 16px;
     }
 
     .reward-btn{
