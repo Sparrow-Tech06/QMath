@@ -1,27 +1,297 @@
 [
   {
-    "q": "If 3 pens cost ₹15, what is the cost of 10 pens?",
-    "options": [40, 45, 50, 60],
-    "answer": 50
+    "question":"12 + 15 = ?",
+    "options":["25","27","29","30"],
+    "answer":1
   },
   {
-    "q": "What number comes next? 2, 6, 12, 20, ?",
-    "options": [28, 30, 32, 36],
-    "answer": 30
+    "question":"45 - 18 = ?",
+    "options":["25","27","29","31"],
+    "answer":1
   },
   {
-    "q": "A number is divisible by both 4 and 6. Which of these is possible?",
-    "options": [12, 18, 20, 22],
-    "answer": 12
+    "question":"8 × 7 = ?",
+    "options":["54","56","58","60"],
+    "answer":1
   },
   {
-    "q": "If today is Monday, what day will it be after 17 days?",
-    "options": ["Tuesday", "Wednesday", "Thursday", "Friday"],
-    "answer": "Thursday"
+    "question":"72 ÷ 8 = ?",
+    "options":["7","8","9","10"],
+    "answer":2
   },
   {
-    "q": "Which number is missing? 5, 10, 20, ?, 80",
-    "options": [30, 35, 40, 45],
-    "answer": 40
+    "question":"25% of 200 = ?",
+    "options":["25","40","50","75"],
+    "answer":2
+  },
+  {
+    "question":"10% of 350 = ?",
+    "options":["30","35","40","45"],
+    "answer":1
+  },
+  {
+    "question":"5, 10, 15, 20, ?",
+    "options":["22","24","25","30"],
+    "answer":2
+  },
+  {
+    "question":"2, 4, 8, 16, ?",
+    "options":["24","30","32","34"],
+    "answer":2
+  },
+  {
+    "question":"1, 4, 9, 16, ?",
+    "options":["20","24","25","36"],
+    "answer":2
+  },
+  {
+    "question":"3, 6, 12, 24, ?",
+    "options":["36","42","48","50"],
+    "answer":2
+  },
+  {
+    "question":"x + 5 = 12",
+    "options":["5","6","7","8"],
+    "answer":2
+  },
+  {
+    "question":"2x = 18",
+    "options":["7","8","9","10"],
+    "answer":2
+  },
+  {
+    "question":"3x + 2 = 11",
+    "options":["2","3","4","5"],
+    "answer":1
+  },
+  {
+    "question":"x² = 49",
+    "options":["5","6","7","8"],
+    "answer":2
+  },
+  {
+    "question":"Area of square (side=6)",
+    "options":["24","30","36","42"],
+    "answer":2
+  },
+  {
+    "question":"Perimeter of square (side=5)",
+    "options":["15","20","25","30"],
+    "answer":1
+  },
+  {
+    "question":"Area of rectangle 8×4",
+    "options":["24","28","32","36"],
+    "answer":2
+  },
+  {
+    "question":"Perimeter of rectangle 8×4",
+    "options":["20","22","24","26"],
+    "answer":2
+  },
+  {
+    "question":"Triangle angles sum = ?",
+    "options":["90","180","270","360"],
+    "answer":1
+  },
+  {
+    "question":"Area of triangle (b=10,h=6)",
+    "options":["20","25","30","35"],
+    "answer":2
+  },
+  {
+    "question":"Circumference formula of circle?",
+    "options":["πr²","2πr","r²","πd²"],
+    "answer":1
+  },
+  {
+    "question":"Area of circle radius 7",
+    "options":["154","144","164","174"],
+    "answer":0
+  },
+  {
+    "question":"Cube of 4",
+    "options":["16","32","64","128"],
+    "answer":2
+  },
+  {
+    "question":"Cube of 5",
+    "options":["75","100","125","150"],
+    "answer":2
+  },
+  {
+    "question":"Square of 11",
+    "options":["111","121","131","141"],
+    "answer":1
+  },
+  {
+    "question":"Square of 15",
+    "options":["215","225","235","245"],
+    "answer":1
+  },
+  {
+    "question":"0.5 + 0.5 = ?",
+    "options":["0.5","1","1.5","2"],
+    "answer":1
+  },
+  {
+    "question":"1.2 + 2.3 = ?",
+    "options":["3.3","3.4","3.5","3.6"],
+    "answer":2
+  },
+  {
+    "question":"3.5 - 1.2 = ?",
+    "options":["2.1","2.2","2.3","2.4"],
+    "answer":2
+  },
+  {
+    "question":"1/2 + 1/2 = ?",
+    "options":["1","2","1/2","3/2"],
+    "answer":0
+  },
+  {
+    "question":"1/4 of 100",
+    "options":["20","25","30","35"],
+    "answer":1
+  },
+  {
+    "question":"3/5 of 50",
+    "options":["25","30","35","40"],
+    "answer":1
+  },
+  {
+    "question":"50% of 80",
+    "options":["30","35","40","45"],
+    "answer":2
+  },
+  {
+    "question":"75% of 200",
+    "options":["100","125","150","175"],
+    "answer":2
+  },
+  {
+    "question":"20% of 500",
+    "options":["80","90","100","120"],
+    "answer":2
+  },
+  {
+    "question":"sin 90° = ?",
+    "options":["0","1","2","-1"],
+    "answer":1
+  },
+  {
+    "question":"cos 0° = ?",
+    "options":["0","1","2","-1"],
+    "answer":1
+  },
+  {
+    "question":"tan 45° = ?",
+    "options":["0","1","2","∞"],
+    "answer":1
+  },
+  {
+    "question":"sin 0° = ?",
+    "options":["0","1","-1","2"],
+    "answer":0
+  },
+  {
+    "question":"cos 90° = ?",
+    "options":["0","1","-1","2"],
+    "answer":0
+  },
+  {
+    "question":"Volume of cube side 3",
+    "options":["9","18","27","36"],
+    "answer":2
+  },
+  {
+    "question":"Volume of cube side 4",
+    "options":["32","48","64","80"],
+    "answer":2
+  },
+  {
+    "question":"How many sides in a hexagon?",
+    "options":["5","6","7","8"],
+    "answer":1
+  },
+  {
+    "question":"How many sides in an octagon?",
+    "options":["6","7","8","9"],
+    "answer":2
+  },
+  {
+    "question":"Prime number?",
+    "options":["9","15","17","21"],
+    "answer":2
+  },
+  {
+    "question":"LCM of 4 and 6",
+    "options":["10","12","14","16"],
+    "answer":1
+  },
+  {
+    "question":"HCF of 12 and 18",
+    "options":["3","6","9","12"],
+    "answer":1
+  },
+  {
+    "question":"100 ÷ 25 = ?",
+    "options":["2","3","4","5"],
+    "answer":2
+  },
+  {
+    "question":"9² = ?",
+    "options":["72","81","91","99"],
+    "answer":1
+  },
+  {
+    "question":"√64 = ?",
+    "options":["6","7","8","9"],
+    "answer":2
+  },
+  {
+    "question":"√81 = ?",
+    "options":["7","8","9","10"],
+    "answer":2
+  },
+  {
+    "question":"15% of 400",
+    "options":["50","55","60","65"],
+    "answer":2
+  },
+  {
+    "question":"7 + 8 × 2 = ?",
+    "options":["23","30","22","31"],
+    "answer":0
+  },
+  {
+    "question":"(10 + 5) ÷ 3 = ?",
+    "options":["3","4","5","6"],
+    "answer":2
+  },
+  {
+    "question":"2³ = ?",
+    "options":["4","6","8","10"],
+    "answer":2
+  },
+  {
+    "question":"3³ = ?",
+    "options":["9","18","27","36"],
+    "answer":2
+  },
+  {
+    "question":"A rectangle has length 12 and width 5. Area?",
+    "options":["50","55","60","65"],
+    "answer":2
+  },
+  {
+    "question":"A circle diameter is 10. Radius?",
+    "options":["2","4","5","10"],
+    "answer":2
+  },
+  {
+    "question":"What is 0.25 as a fraction?",
+    "options":["1/2","1/3","1/4","1/5"],
+    "answer":2
   }
 ]
