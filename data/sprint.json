@@ -82,7 +82,7 @@
         "label": "LOGIC",
         "title": "LOGIC SPRINT",
         "desc": "Logical reasoning test",
-        "image": "assets/logicSprint.png",
+        "image": "assets/quiz.png",
         "link": "logic/reward-quiz.html", 
         "bg": "bg-logic-division"
       },
