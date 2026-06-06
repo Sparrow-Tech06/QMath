@@ -1,0 +1,53 @@
+/************************************************/
+.quiz-card{
+    max-width:700px;margin: 0 auto;
+    padding: 20px 10px;
+    border: 0.80px solid #6C63FF ;
+    border-radius: 14px ;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+/**********************************/
+.option-btn{
+    cursor:pointer;
+    padding: 16px; border: 1.6px solid #eee ;
+    border-radius: 10px ;
+    transition-duration:0.3s;
+}
+.correct{
+    background: #ecfdf5!important;
+    color: #10B981 !important ;
+    border-color: #10B981 !important ;
+   }
+.wrong{
+    background: #fef2f2!important;
+    color: #EF4444 !important;
+    border-color: #EF4444 !important;
+ }
+.option-btn:active { transform:scale(0.98);}
+/**********************************/
+.reward-btn{min-width:110px; height:;}
+
+/******************************************************/
+.progress{
+    background-color: #F3F1FF ; 
+    border-radius: 20px;
+    height: 16px;
+  }
+.progress-bar{
+    background-color: #6C63FF ; border-radius: 20px;
+    width:0%; transition:none !important;
+}
+/**************************************************/
+ .card-body h4 {
+     padding: 40px 20px ; color: #6C63FF ;
+     border: 1.8px solid #6C63FF ;
+     border-radius: 10px ;
+     text-align: center ;
+     background: #F3F1FF ;
+}
+.small { font-size: 12px; color: #6C63FF ; }
+
+
+
+
+
