@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no,viewport-fit=cover">
-<title>Quiz Reward</title>
     
+<title>Quiz Reward</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-<link rel="stylesheet" href="../css/reward-quiz.css?v=662006">
+<link rel="stylesheet" href="../css/reward-quiz.css?v=<?php echo time(); ?>">
     
 </head>
+
 <body>
 <div id="app" class="container py-4">
 
@@ -43,10 +44,10 @@
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
           <div class="modal-header"><h5 class="modal-title">Reward Available</h5></div>
-          <div class="modal-body text-center">Watch an Ad to get <strong>10 Coins</strong></div>
+          <div class="modal-body text-center"> Watch an Ad to get <strong>10 Points </strong></div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button class="btn btn-success" @click="watchAd">Watch Ad</button>
+            <button class="btn btn-secondary" data-bs-dismiss="modal"> May Be Later </button>
+            <button class="btn btn-success" @click="watchAd"> Yes </button>
          </div>
      </div>
    </div>
@@ -61,7 +62,7 @@ createApp({
 data(){
 return{
 questionsRaw:[], idx:0, progress:+localStorage.getItem("quizProgress") || 0, answered:false, btnState:{}, cooldown:0, timer:null, modal:null,
-DAILY_LIMIT:20, REWARD:10, GAIN:10, DEDUCT:10, COOLDOWN_MS:180000, shuffledQuestions:[]
+DAILY_LIMIT:20, REWARD:10, GAIN:10, DEDUCT:10, COOLDOWN_MS:180000, shuffledQuestions:[], adPending:false
 };
 },
 computed:{
@@ -77,7 +78,7 @@ const opts = this.currentQuestion.options.map((text,idx)=>({text, originalIndex:
 for(let i=opts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [opts[i],opts[j]]=[opts[j],opts[i]]; }
 return opts;
 },
-rewardEnabled(){ return (this.progress >= 100 && this.cooldown <= 0 && !this.limitReached); },
+rewardEnabled(){ return (this.progress >= 100 && this.cooldown <= 0 && !this.limitReached && !this.adPending); },
 limitReached(){ return this.rewardCount >= this.DAILY_LIMIT; },
 rewardCount(){ this.initDaily(); return +localStorage.getItem("quizRewardCount") || 0; },
 rewardText(){
@@ -136,8 +137,22 @@ this.shuffleAllQuestions();
 openReward(){ if(!this.rewardEnabled) return; this.modal.show(); },
 watchAd(){
 this.modal.hide();
-if(window.Android && typeof Android.showRewardedInterstitialAd==="function"){ Android.showRewardedInterstitialAd(); }
-else{ setTimeout(()=>{ window.onRewardAdSuccess(); },1000); }
+this.adPending = true;
+if(window.Android && typeof Android.showRewardedInterstitialAd === "function"){
+Android.showRewardedInterstitialAd();
+}else{
+setTimeout(()=>{ this.adCompleteCallback(true); }, 1000);
+}
+},
+adCompleteCallback(success){
+this.adPending = false;
+if(success === true){
+this.getCoin(this.REWARD, "Quiz Reward");
+this.addRewardCount();
+this.progress = 0;
+localStorage.setItem("quizProgress", 0);
+this.startCooldown();
+}
 },
 getCoin(amount=0,source="Unknown"){
 let coins=(+localStorage.getItem("myCoins") || 0)+amount;
@@ -174,16 +189,11 @@ await this.loadQuiz();
 this.modal=new bootstrap.Modal(document.getElementById("rewardModal"));
 this.updateCooldown();
 if(this.cooldown>0) this.timer=setInterval(this.updateCooldown,1000);
-window.onRewardAdSuccess=()=>{
-this.getCoin(this.REWARD,"Quiz Reward");
-this.addRewardCount();
-this.progress=0;
-localStorage.setItem("quizProgress",0);
-this.startCooldown();
-};
-window.onRewardAdFailed=()=>{};
+window.adCompleteCallback = (success) => { this.adCompleteCallback(success); };
 }
 }).mount("#app");
 </script>
 </body>
 </html>
+
+    
