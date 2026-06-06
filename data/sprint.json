@@ -80,8 +80,8 @@
     "topics": [
       {
         "label": "LOGIC",
-        "title": "LOGIC SPRINT",
-        "desc": "Logical reasoning test",
+        "title": "REWARD QUIZ",
+        "desc": "Answer questions & get Points",
         "image": "assets/quiz.png",
         "link": "logic/reward-quiz.html", 
         "bg": "bg-logic-division"
