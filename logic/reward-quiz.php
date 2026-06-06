@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quiz Reward</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<link rel="stylesheet" href="../css/reward-quiz.css?v=<?php echo time(); ?>">
+    
+</head>
+<body>
+<div id="app" class="container py-4">
+
+  <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+    
+    <!-- Left Side -->
+    <div class="flex-grow-1">
+        <div class="progress">
+            <div class="progress-bar" :style="{ width: progress + '%' }"> </div>
+        </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="d-flex flex-column align-items-center">
+        <button class="btn btn-warning reward-btn" :disabled="!rewardEnabled" @click="openReward">{{ rewardText }}</button>
+        <span class="small"> Rewards: {{ rewardCount }}/{{ DAILY_LIMIT }} </span>
+    </div>
+
+</div>
+
+<div class="card quiz-card">
+    <div class="card-body">
+       <h4 class="question mb-5">{{ currentQuestion.question }}</h4>
+       <div class="d-grid gap-2">
+        <button v-for="(opt,i) in shuffledOptions" :key="i" class="btn option-btn" :class="btnState[opt.originalIndex]" :disabled="answered" @click="answer(opt.originalIndex)">{{ opt.text }}</button>
+     </div>
+  </div>
+</div>
+    
+<div class="modal fade" id="rewardModal">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header"><h5 class="modal-title">Reward Available</h5></div>
+          <div class="modal-body text-center">Watch an Ad to get <strong>10 Coins</strong></div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button class="btn btn-success" @click="watchAd">Watch Ad</button>
+         </div>
+     </div>
+   </div>
+</div>
+    
+</div>
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const { createApp } = Vue;
+createApp({
+data(){
+return{
+questionsRaw:[], idx:0, progress:+localStorage.getItem("quizProgress") || 0, answered:false, btnState:{}, cooldown:0, timer:null, modal:null,
+DAILY_LIMIT:20, REWARD:10, GAIN:10, DEDUCT:10, COOLDOWN_MS:180000, shuffledQuestions:[]
+};
+},
+computed:{
+totalQuestions(){ return this.shuffledQuestions.length; },
+currentQuestionNum(){ return this.totalQuestions ? Math.min(this.idx+1, this.totalQuestions) : 0; },
+currentQuestion(){ 
+if(this.shuffledQuestions.length === 0) return {question:"Loading...", options:[], answer:0};
+return this.shuffledQuestions[this.idx] || this.shuffledQuestions[0];
+},
+shuffledOptions(){
+if(!this.currentQuestion.options) return [];
+const opts = this.currentQuestion.options.map((text,idx)=>({text, originalIndex:idx}));
+for(let i=opts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [opts[i],opts[j]]=[opts[j],opts[i]]; }
+return opts;
+},
+rewardEnabled(){ return (this.progress >= 100 && this.cooldown <= 0 && !this.limitReached); },
+limitReached(){ return this.rewardCount >= this.DAILY_LIMIT; },
+rewardCount(){ this.initDaily(); return +localStorage.getItem("quizRewardCount") || 0; },
+rewardText(){
+if(this.limitReached) return "Daily Limit";
+if(this.cooldown > 0){
+const s=Math.floor(this.cooldown/1000);
+const m=String(Math.floor(s/60)).padStart(2,"0");
+const ss=String(s%60).padStart(2,"0");
+return `${m}:${ss}`;
+}
+return "Reward";
+}
+},
+methods:{
+async loadQuiz(){
+const r=await fetch("questions.json");
+this.questionsRaw=await r.json();
+this.shuffleAllQuestions();
+},
+shuffleAllQuestions(){
+if(!this.questionsRaw.length) return;
+this.shuffledQuestions = [...this.questionsRaw];
+for(let i=this.shuffledQuestions.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [this.shuffledQuestions[i],this.shuffledQuestions[j]]=[this.shuffledQuestions[j],this.shuffledQuestions[i]]; }
+this.shuffledQuestions = this.shuffledQuestions.map(q=>{
+const opts = [...q.options];
+const correctIndex = q.answer;
+for(let i=opts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [opts[i],opts[j]]=[opts[j],opts[i]]; }
+const newCorrectIndex = opts.indexOf(q.options[correctIndex]);
+return {...q, options:opts, answer:newCorrectIndex};
+});
+},
+answer(originalIndex){
+if(this.answered) return;
+this.answered=true;
+const ok=(originalIndex===this.currentQuestion.answer);
+if(ok){
+navigator.vibrate?.(60);
+this.btnState[originalIndex]="correct";
+this.progress=Math.min(100,this.progress+this.GAIN);
+}else{
+navigator.vibrate?.([120,50,120]);
+this.btnState[originalIndex]="wrong";
+this.progress=Math.max(0,this.progress-this.DEDUCT);
+}
+localStorage.setItem("quizProgress",this.progress);
+setTimeout(()=>{
+this.btnState={};
+this.answered=false;
+this.idx++;
+if(this.idx>=this.shuffledQuestions.length){
+this.idx=0;
+this.shuffleAllQuestions();
+}
+},700);
+},
+openReward(){ if(!this.rewardEnabled) return; this.modal.show(); },
+watchAd(){
+this.modal.hide();
+if(window.Android && typeof Android.showRewardedInterstitialAd==="function"){ Android.showRewardedInterstitialAd(); }
+else{ setTimeout(()=>{ window.onRewardAdSuccess(); },1000); }
+},
+getCoin(amount=0,source="Unknown"){
+let coins=(+localStorage.getItem("myCoins") || 0)+amount;
+localStorage.setItem("myCoins",coins);
+let history=JSON.parse(localStorage.getItem("coinHistory")||"[]")||[];
+history.unshift({amount,source,date:new Date().toLocaleString()});
+localStorage.setItem("coinHistory",JSON.stringify(history));
+if(window.Android && typeof Android.onCoinAdded==="function") Android.onCoinAdded(1);
+},
+getDay(){ return new Date().toISOString().split("T")[0]; },
+initDaily(){
+const today=this.getDay();
+const day=localStorage.getItem("quizRewardDay");
+if(day!==today){ localStorage.setItem("quizRewardDay",today); localStorage.setItem("quizRewardCount","0"); }
+},
+addRewardCount(){ localStorage.setItem("quizRewardCount",this.rewardCount+1); },
+startCooldown(){
+const end=Date.now()+this.COOLDOWN_MS;
+localStorage.setItem("quizRewardCooldownEnd",end);
+this.updateCooldown();
+clearInterval(this.timer);
+this.timer=setInterval(this.updateCooldown,1000);
+},
+updateCooldown(){
+const end=+localStorage.getItem("quizRewardCooldownEnd")||0;
+const left=end-Date.now();
+if(left<=0){ this.cooldown=0; localStorage.removeItem("quizRewardCooldownEnd"); clearInterval(this.timer); return; }
+this.cooldown=left;
+}
+},
+async mounted(){
+this.initDaily();
+await this.loadQuiz();
+this.modal=new bootstrap.Modal(document.getElementById("rewardModal"));
+this.updateCooldown();
+if(this.cooldown>0) this.timer=setInterval(this.updateCooldown,1000);
+window.onRewardAdSuccess=()=>{
+this.getCoin(this.REWARD,"Quiz Reward");
+this.addRewardCount();
+this.progress=0;
+localStorage.setItem("quizProgress",0);
+this.startCooldown();
+};
+window.onRewardAdFailed=()=>{};
+}
+}).mount("#app");
+</script>
+</body>
+</html>
