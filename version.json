@@ -3,8 +3,7 @@
   "url": "https://kyra.free.nf/Qmath/",
   "maintenance_version": "1.0"
   "custom_urls": [
-    { "title": "Notice 1", "url": "https://link1.com" },
-    { "title": "Notice 2", "url": "https://link2.com" },
-    { "title": "Notice 3", "url": "https://link3.com" }
+    "https://sparrow-tech06.github.io/QMath/quiz.html",
+    "https://sparrow-tech06.github.io/QMath/special.html"
   ]
 }
