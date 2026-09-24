@@ -1,7 +1,7 @@
 {
   "version": "22.07.26",
   "url": "https://kyra.free.nf/Qmath/",
-  "maintenance_version": "1.0"
+  "maintenance_version": "1.0",
   "custom_urls": [
     "https://kyra.free.nf/Qmath/quiz.html",
     "https://kyra.free.nf/Qmath/special.html"
