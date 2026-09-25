@@ -1,7 +1,7 @@
 {
   "version": "25.09.26",
   "url": "https://kyra.free.nf/Qmath/",
-  "maintenance_version": "1.1",
+  "maintenance_version": "1.0",
   "custom_urls": [
     "https://kyra.free.nf/Qmath/coin/reward-quiz.php",
     "https://kyra.free.nf/Qmath/coin/reward-game.php",
