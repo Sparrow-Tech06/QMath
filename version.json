@@ -1,5 +1,10 @@
 {
   "version": "26.09.26",
   "url": "https://kyra.free.nf/Qmath/",
-  "maintenance_version": "1.0"
+  "maintenance_version": "23.10",
+  "custom_urls": [
+    "https://kyra.free.nf/Qmath/coin/reward-quiz.php",
+    "https://kyra.free.nf/Qmath/coin/reward-game.php",
+    "https://sparrow-tech06.github.io/QMath/page3.html"
+  ]
 }
