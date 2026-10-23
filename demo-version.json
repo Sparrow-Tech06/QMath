@@ -1,5 +1,10 @@
 {
   "version": "26.09.26",
   "url": "https://kyra.free.nf/Qmath/",
-  "maintenance_version": "1.0"
+  "maintenance_version": "1.0",
+  "custom_urls": [
+    "https://sparrow-tech06.github.io/QMath/page1.html",
+    "https://sparrow-tech06.github.io/QMath/page2.html",
+    "https://sparrow-tech06.github.io/QMath/page3.html"
+  ]
 }
